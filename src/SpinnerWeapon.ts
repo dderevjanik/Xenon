@@ -5,6 +5,7 @@ import { Enums } from "./Enums";
 import { Controls } from "./Controls";
 import { GameTime } from "./Timer";
 import { CSpinner } from "./Spinner";
+import { ActorInfo } from "./ActorInfo";
 
 export class CSpinnerWeapon extends CWeapon {
     private m_directionS: gsCVector;
@@ -19,14 +20,14 @@ export class CSpinnerWeapon extends CWeapon {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SPINNER_WEAPON);
     }
 
     //-------------------------------------------------------------
 
-    public update(controls: Controls, gameTime: GameTime) {
+    public update(controls: Controls, gameTime: GameTime): boolean {
         super.update(controls, gameTime);
         if (this.do_fire) {
             this.fire();

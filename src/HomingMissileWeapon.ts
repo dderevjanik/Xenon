@@ -7,6 +7,7 @@ import { GameTime } from "./Timer";
 import { CHomingMissile } from "./HomingMissile";
 import { CAlien } from "./Alien";
 import { gsCVector } from "./Vector";
+import { ActorInfo } from "./ActorInfo";
 
 export class CHomingMissileWeapon extends CWeapon {
 
@@ -18,14 +19,14 @@ export class CHomingMissileWeapon extends CWeapon {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_HOMING_MISSILE_WEAPON);
     }
 
     //-------------------------------------------------------------
 
-    public update(controls: Controls, gameTime: GameTime) {
+    public update(controls: Controls, gameTime: GameTime): boolean {
         super.update(controls, gameTime);
 
         if (this.do_fire) {
@@ -37,7 +38,7 @@ export class CHomingMissileWeapon extends CWeapon {
 
     //-------------------------------------------------------------
 
-    public fire() {
+    public fire(): boolean {
         if (!this.isValidFiringPosition())
             return false;
 

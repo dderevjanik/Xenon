@@ -36,7 +36,7 @@ export class DemoRecorder {
 
     //-------------------------------------------------------------
 
-    public playback() {
+    public playback(): void {
         this.m_event_index = 0;
     }
 
@@ -56,7 +56,7 @@ export class DemoRecorder {
 
     //-------------------------------------------------------------
 
-    public setLevel(filename) {
+    public setLevel(filename): void {
         //if (filename) {
         //	strcpy(m_level,filename);
         //	m_has_level = true;
@@ -67,7 +67,7 @@ export class DemoRecorder {
 
     //-------------------------------------------------------------
 
-    public getLevel() {
+    public getLevel(): string | null {
         if (this.m_has_level)
             return this.m_level;
         else

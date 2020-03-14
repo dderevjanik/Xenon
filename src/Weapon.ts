@@ -36,7 +36,7 @@ export class CWeapon extends CActor {
 
     //-------------------------------------------------------------
 
-    public activate() {
+    public activate(): boolean {
         if (!this.isActive()) {
             this.m_delay_fire = false;
             this.m_autofire = false;
@@ -46,7 +46,7 @@ export class CWeapon extends CActor {
 
     //-------------------------------------------------------------
 
-    public update(controls: Controls, gameTime: GameTime) {
+    public update(controls: Controls, gameTime: GameTime): boolean {
         //if (controls || !getOwner())
         //    return false;
 
@@ -132,13 +132,13 @@ export class CWeapon extends CActor {
 
     //-------------------------------------------------------------
 
-    public setGrade(grade: Enums.WeaponGrade) {
+    public setGrade(grade: Enums.WeaponGrade): void {
         this.m_grade = grade;
     }
 
     //-------------------------------------------------------------
 
-    public upgrade() {
+    public upgrade(): boolean {
         switch (this.m_grade) {
             case Enums.WeaponGrade.WEAPON_STANDARD:
                 this.setGrade(Enums.WeaponGrade.WEAPON_MEDIUM);
@@ -152,19 +152,19 @@ export class CWeapon extends CActor {
 
     //-------------------------------------------------------------
 
-    public setOffset(offset: gsCVector) {
+    public setOffset(offset: gsCVector): void {
         this.m_offset = offset;
     }
 
     //-------------------------------------------------------------
 
-    public setFiringMode(mode: Enums.WeaponFiringMode) {
+    public setFiringMode(mode: Enums.WeaponFiringMode): void {
         this.m_mode = mode;
     }
 
     //-------------------------------------------------------------
 
-    public isValidFiringPosition() {
+    public isValidFiringPosition(): boolean {
         //gsCScreen *screen = gsCApplication::getScreen();
 
         //if (!screen)
@@ -185,19 +185,19 @@ export class CWeapon extends CActor {
 
     //-------------------------------------------------------------
 
-    public setDirection(direction: Enums.WeaponDirection) {
+    public setDirection(direction: Enums.WeaponDirection): void {
         this.m_direction = direction;
     }
 
     //-------------------------------------------------------------
 
-    public getDirection() {
+    public getDirection(): Enums.WeaponDirection {
         return this.m_direction;
     }
 
     //-------------------------------------------------------------
 
-    public fire() {
+    public fire(): boolean {
         return false;
     }
 

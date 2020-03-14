@@ -130,7 +130,7 @@ export class CPlayGameState extends CGameState {
 
     //-------------------------------------------------------------
 
-    public setLayerPositions(ship_y: number) {
+    public setLayerPositions(ship_y: number): void {
         var mh: number = this.m_level.getMapBackLayer().getSizeInPixels().Y;
         var by: number = -(mh - (mh - ship_y) / 2 + this.PLAYER_START_OFFSET / 2 - 480);//m_screen.getSize().getY());
 
@@ -143,7 +143,7 @@ export class CPlayGameState extends CGameState {
 
     //-------------------------------------------------------------
 
-    public createPlayer() {
+    public createPlayer(): void {
 
         this.m_scene.killAllActors();
         this.m_ship = new CShip(this.m_scene, this);
@@ -701,7 +701,7 @@ export class CPlayGameState extends CGameState {
 
     //-------------------------------------------------------------
 
-    public getPlayer() { //: CPlayer { // * CPlayGameState::*/ {
+    public getPlayer(): CPlayer { //: CPlayer { // * CPlayGameState::*/ {
         return this.m_player_list[this.m_active_player];
     }
 

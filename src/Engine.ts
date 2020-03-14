@@ -60,13 +60,13 @@ export class CEngine extends CActor {
 
     //-------------------------------------------------------------
 
-    public setOffset(offset: gsCVector) {
+    public setOffset(offset: gsCVector): void {
         this.m_offset = offset;
     }
 
     //-------------------------------------------------------------
 
-    public update(controls: Controls, gameTime: GameTime) {
+    public update(controls: Controls, gameTime: GameTime): boolean {
         this.m_thrust_timer.update(false);
 
         var p: number = this.m_thrust / this.ENGINE_MAX_THRUST;
@@ -78,7 +78,7 @@ export class CEngine extends CActor {
 
     //-------------------------------------------------------------
 
-    public setParams(min_extent: gsCVector, max_extent: gsCVector, thrust_rate: number) {
+    public setParams(min_extent: gsCVector, max_extent: gsCVector, thrust_rate: number): void {
         this.m_min_extent = min_extent;
         this.m_max_extent = max_extent;
         this.m_thrust_rate = thrust_rate;

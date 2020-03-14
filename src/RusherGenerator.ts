@@ -4,6 +4,7 @@ import { CPlayGameState } from "./PlayGameState";
 import { Enums } from "./Enums";
 import { Controls } from "./Controls";
 import { CRusher } from "./Rusher";
+import { ActorInfo } from "./ActorInfo";
 
 export class CRusherGenerator extends CActor {
 
@@ -26,7 +27,7 @@ export class CRusherGenerator extends CActor {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_RUSHER_GENERATOR);
     }
@@ -43,7 +44,7 @@ export class CRusherGenerator extends CActor {
 
     //-------------------------------------------------------------
 
-    public update(controls: Controls, gameTime: GameTime) {
+    public update(controls: Controls, gameTime: GameTime): boolean {
         //this.gameTime = gameTime;
         this.m_delay_timer.update(false);
         if (this.m_delay_timer.getTime() < this.RUSHER_DELAY) {

@@ -4,6 +4,7 @@ import { CPlayGameState } from "./PlayGameState";
 import { Enums } from "./Enums";
 import { Controls } from "./Controls";
 import { GameTime } from "./Timer";
+import { ActorInfo } from "./ActorInfo";
 
 export class CHomingMissile extends CBullet {
 
@@ -27,7 +28,7 @@ export class CHomingMissile extends CBullet {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_HOMING_MISSILE);
     }

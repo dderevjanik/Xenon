@@ -12,7 +12,7 @@ export class CDustEffect extends CParticleEffect {
 
     //-------------------------------------------------------------
 
-    public createParticle() {
+    public createParticle(): Particle {
         if (this.m_timer.getTime() > 0.05) {
             this.m_timer.start();
 

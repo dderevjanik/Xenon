@@ -11,8 +11,7 @@ export class gsCMapTile {
     private m_collision_flags: number;
     private m_size: Point;
 
-    constructor(tile?: number, empty?: boolean, hidden?: boolean)
-    {
+    constructor(tile?: number, empty?: boolean, hidden?: boolean) {
         this.m_tile = tile;
         this.m_empty = empty ? 1 : 0;
         this.m_hidden = hidden ? 1 : 0;

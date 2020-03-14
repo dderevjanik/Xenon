@@ -5,6 +5,7 @@ import { Enums } from "./Enums";
 import { gsCVector } from "./Vector";
 import { Controls } from "./Controls";
 import { CExploder } from "./Exploder";
+import { ActorInfo } from "./ActorInfo";
 
 enum OrganicGunState {
     ORGANICGUN_STILL,
@@ -41,7 +42,7 @@ export class COrganicGun extends CActor {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_ORGANIC_GUN);
     }

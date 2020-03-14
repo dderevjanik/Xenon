@@ -7,6 +7,7 @@ import { CSporeGenerator } from "./SporeGenerator";
 import { CShip } from "./Ship";
 import { gsCVector } from "./Vector";
 import { CExploder } from "./Exploder";
+import { ActorInfo } from "./ActorInfo";
 
 export class CPod extends CAlien {
 
@@ -25,7 +26,7 @@ export class CPod extends CAlien {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_POD);
     }

@@ -5,6 +5,7 @@ import { GameTime } from "./Timer";
 import { CSpore } from "./Spore";
 import { gsCVector } from "./Vector";
 import { Enums } from "./Enums";
+import { ActorInfo } from "./ActorInfo";
 
 export class CSporeGenerator extends CActor {
 
@@ -63,7 +64,7 @@ export class CSporeGenerator extends CActor {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SPORE_GENERATOR);
     }

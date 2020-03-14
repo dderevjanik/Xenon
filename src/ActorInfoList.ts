@@ -81,25 +81,25 @@ export class CActorInfoList {
 
     //-------------------------------------------------------------
 
-    public GetActorInfoListItem(index: number) {
+    public GetActorInfoListItem(index: number): ActorInfo {
         return this.m_info_list[index];
     }
 
     //-------------------------------------------------------------
 
-    public GetActorSpeed(index: number) {
+    public GetActorSpeed(index: number): gsCVector {
         return this.m_info_list[index].m_speed;
     }
 
     //-------------------------------------------------------------
 
-    public GetTileWidth(index: number) {
+    public GetTileWidth(index: number): number {
         return this.m_info_list[index].m_tile_width;
     }
 
     //-------------------------------------------------------------
 
-    public GetTileHeight(index: number) {
+    public GetTileHeight(index: number): number {
         return this.m_info_list[index].m_tile_height;
     }
 
@@ -120,7 +120,7 @@ export class CActorInfoList {
     //-------------------------------------------------------------
 
     // Instantiate a new Actor's information and push into an array
-    AddValues(name: string, actorType: Enums.ActorType, info: string, one: number, two: number, three: number, four: number, five: number, shield: number, six: number, vector: gsCVector) {
+    AddValues(name: string, actorType: Enums.ActorType, info: string, one: number, two: number, three: number, four: number, five: number, shield: number, six: number, vector: gsCVector): any[] {
         var temp = [];
         temp.push(name, actorType, info, one, two, three, four, five, shield, six, vector);
         return temp;

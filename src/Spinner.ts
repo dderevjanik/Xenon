@@ -3,6 +3,7 @@ import { CPlayGameState } from "./PlayGameState";
 import { Enums } from "./Enums";
 import { Controls } from "./Controls";
 import { GameTime } from "./Timer";
+import { ActorInfo } from "./ActorInfo";
 
 export class CSpinner extends CBullet {
     private SPINNER_FRAMES: number = 8;
@@ -14,7 +15,7 @@ export class CSpinner extends CBullet {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SPINNER);
     }
@@ -29,7 +30,7 @@ export class CSpinner extends CBullet {
 
     //-------------------------------------------------------------
 
-    public update(controls: Controls, gameTime: GameTime) {
+    public update(controls: Controls, gameTime: GameTime): boolean {
         //super.update(controls, gameTime);
         if (this.m_shield == 0) {
             this.kill();

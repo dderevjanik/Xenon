@@ -88,19 +88,19 @@ export class gsCVector extends Point {
 
     //-------------------------------------------------------------
 
-    public direction() {
+    public direction(): number {
         return this.gsArcTan(this.m_x, -this.m_y);
     }
 
     //-------------------------------------------------------------
 
-    private gsArcTan(y: number, x: number) {
+    private gsArcTan(y: number, x: number): number {
         return this.gsRad2Deg(Math.atan2(y, x));
     }
 
     //-------------------------------------------------------------
 
-    private gsRad2Deg(angle: number) {
+    private gsRad2Deg(angle: number): number {
         return angle * (180.0 / this.gsPI);
     }
 
@@ -117,31 +117,31 @@ export class gsCVector extends Point {
 
     //-------------------------------------------------------------
 
-    public polar(distance: number, angle: number) {
+    public polar(distance: number, angle: number): gsCVector {
         return new gsCVector(distance * this.gsSin(angle), distance * -this.gsCos(angle));
     }
 
     //-------------------------------------------------------------
 
-    private gsSin(angle: number) {
+    private gsSin(angle: number): number {
         return Math.sin(this.gsDeg2Rad(angle));
     }
 
     //-------------------------------------------------------------
 
-    private gsCos(angle: number) {
+    private gsCos(angle: number): number {
         return Math.cos(this.gsDeg2Rad(angle));
     }
 
     //-------------------------------------------------------------
     // Degree to radian conversion
-    private gsDeg2Rad(angle: number) {
+    private gsDeg2Rad(angle: number): number {
         return angle * (this.gsPI / 180.0);
     }
 
     //-------------------------------------------------------------
 
-    public clamp(minx: number, maxx: number, miny: number, maxy: number) {
+    public clamp(minx: number, maxx: number, miny: number, maxy: number): void {
         if (this.m_x < minx)
             this.m_x = minx;
         if (this.m_x > maxx)

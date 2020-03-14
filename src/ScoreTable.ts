@@ -159,7 +159,7 @@ export class gsCScoreTable {
 
     //-------------------------------------------------------------
 
-    public setCurrentLetter(letter: number) {
+    public setCurrentLetter(letter: number): void {
         this.m_current_letter = letter;
     }
 
@@ -212,7 +212,7 @@ export class gsCScoreTable {
 
     //-------------------------------------------------------------
 
-    public getName(index: number) {
+    public getName(index: number): string[] {
         var item: gsScoreItem = this.m_score_list[index];
         if (item)
             return item.m_name;

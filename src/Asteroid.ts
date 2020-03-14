@@ -8,6 +8,7 @@ import { CDustEffect } from "./DustEffect";
 import { gsCVector } from "./Vector";
 import { CStandardDustEffect } from "./StandardDustEffect";
 import { CExploder } from "./Exploder";
+import { ActorInfo } from "./ActorInfo";
 
 export module Asteroid {
 
@@ -54,7 +55,7 @@ export module Asteroid {
 
         m_name = "SmallStandardAsteroid";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SMALL_STANDARD_ASTEROID);
         }
@@ -74,7 +75,7 @@ export module Asteroid {
 
         m_name = "SmallHighDensityAsteroid";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SMALL_HIGHDENSITY_ASTEROID);
         }
@@ -94,7 +95,7 @@ export module Asteroid {
 
         m_name = "CSmallIndestructibleAsteroid";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SMALL_INDESTRUCTIBLE_ASTEROID);
         }
@@ -109,7 +110,7 @@ export module Asteroid {
 
         m_name = "MediumStandardAsteroid";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_MEDIUM_STANDARD_ASTEROID);
         }
@@ -152,7 +153,7 @@ export module Asteroid {
 
         m_name = "MediumHighDensityAsteroid";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_MEDIUM_HIGHDENSITY_ASTEROID);
         }
@@ -195,7 +196,7 @@ export module Asteroid {
 
         m_name = "MediumIndestructibleAsteroid";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_MEDIUM_INDESTRUCTIBLE_ASTEROID);
         }
@@ -210,7 +211,7 @@ export module Asteroid {
 
     export class CBigStandardAsteroid extends CAsteroid {
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_BIG_STANDARD_ASTEROID);
         }
@@ -260,7 +261,7 @@ export module Asteroid {
 
         m_name = "BigHighDensityAsteroid";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_BIG_HIGHDENSITY_ASTEROID);
         }
@@ -310,7 +311,7 @@ export module Asteroid {
 
         m_name = "BigIndestructibleAsteroid";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_BIG_INDESTRUCTIBLE_ASTEROID);
         }

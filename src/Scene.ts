@@ -59,7 +59,7 @@ export class CScene {
 
     //-------------------------------------------------------------
 
-    public getImage(filename: string) {
+    public getImage(filename: string): gsCTiledImage {
         if (filename == "") {
             return null;
         }
@@ -171,7 +171,7 @@ export class CScene {
 
     //-------------------------------------------------------------
 
-    public updateAllActors(controls: Controls, gameTime: GameTime) {
+    public updateAllActors(controls: Controls, gameTime: GameTime): void {
         this.updateActorsOfType(Enums.ActorType.ACTOR_TYPE_SHIP, controls, gameTime);
         this.updateActorsOfType(Enums.ActorType.ACTOR_TYPE_UPGRADE, controls, gameTime);
         this.updateActorsOfType(Enums.ActorType.ACTOR_TYPE_ALIEN, controls, gameTime);
@@ -188,7 +188,7 @@ export class CScene {
 
     //-------------------------------------------------------------
     // Draw all active game actors - prioritized
-    public drawAllActors(ctx: CanvasRenderingContext2D, map: gsCMap) {
+    public drawAllActors(ctx: CanvasRenderingContext2D, map: gsCMap): void {
 
         this.m_map = map;
         this.m_frame_count++;
@@ -230,7 +230,7 @@ export class CScene {
     //-------------------------------------------------------------
 
     // Main draw method for all Actors
-    drawActorsOfType(type: Enums.ActorType, total: number, ctx: CanvasRenderingContext2D) {
+    drawActorsOfType(type: Enums.ActorType, total: number, ctx: CanvasRenderingContext2D): void {
         for (var j = 0; j < this.m_actor_list.length; j++) {
             var act = this.m_actor_list[j];
             if (act.isActive() && act.getActorInfo().m_type == type) {
@@ -248,7 +248,7 @@ export class CScene {
 
     //-------------------------------------------------------------
 
-    public actorCollisionCallback(object1: Object, object2: Object) {
+    public actorCollisionCallback(object1: Object, object2: Object): void {
 
         var actor1: CActor = <CActor>object1;
         var actor2: CActor = <CActor>object2;
@@ -364,7 +364,7 @@ export class CScene {
 
     //-------------------------------------------------------------
 
-    public findShip() {
+    public findShip(): CShip | null {
         for (var i = 0; i < this.m_actor_list.length; i++) {
             if (this.m_actor_list[i].getActorInfo().m_type == Enums.ActorType.ACTOR_TYPE_SHIP) {
                 return <CShip>this.m_actor_list[i];
@@ -389,7 +389,7 @@ export class CScene {
 
     //-------------------------------------------------------------
 
-    public createMapExplosion(map: gsCMap, position: Point) {
+    public createMapExplosion(map: gsCMap, position: Point): void {
         var exp: CSmallExplosion = new CSmallExplosion();
         this.addActor(exp);
 
@@ -439,38 +439,38 @@ export class CScene {
 
     //-------------------------------------------------------------
 
-    public clearCheckpoint() {
+    public clearCheckpoint(): void {
         this.m_checkpoint_active = false;
     }
 
     //-------------------------------------------------------------
 
-    public setNextCheckpoint(position: gsCVector) {
+    public setNextCheckpoint(position: gsCVector): void {
         this.m_checkpoint = position;
         this.m_checkpoint_active = true;
     }
 
     //-------------------------------------------------------------
 
-    public hasCheckpoint() {
+    public hasCheckpoint(): boolean {
         return this.m_checkpoint_active;
     }
 
     //-------------------------------------------------------------
 
-    public getCheckpoint() {
+    public getCheckpoint(): gsCVector {
         return this.m_checkpoint;
     }
 
     //-------------------------------------------------------------
 
-    public getNumberOfActors() {
+    public getNumberOfActors(): number {
         return this.m_actor_list.length;
     }
 
     //-------------------------------------------------------------
 
-    public addActor(actor: CActor) {
+    public addActor(actor: CActor): void {
         actor.setScene(this);
         this.m_actor_list.push(actor);
         console.log("Actor List Size : " + this.m_actor_list.length);
@@ -478,50 +478,50 @@ export class CScene {
 
     //-------------------------------------------------------------
 
-    public removeActor(actor: CActor) {
+    public removeActor(actor: CActor): void {
         actor.setScene(null);
         //this.m_actor_list.removeItem(actor);
     }
 
     //-------------------------------------------------------------
 
-    public getNumberOfImages() {
+    public getNumberOfImages(): number {
         return 0;//this.m_image_list.length;
     }
 
     //-------------------------------------------------------------
 
-    public setCollisionListSize(pixel_size: Point, zones: Point) {
+    public setCollisionListSize(pixel_size: Point, zones: Point): void {
         this.m_collision_list.setSize(pixel_size, zones);
     }
 
     //-------------------------------------------------------------
 
-    public setMap(map: gsCMap) {
+    public setMap(map: gsCMap): void {
         this.m_map = map;
     }
 
     //-------------------------------------------------------------
 
-    public getMap() {
+    public getMap(): gsCMap {
         return this.m_map;
     }
 
     //-------------------------------------------------------------
 
-    public getMapFrontLayer() {
+    public getMapFrontLayer(): gsCMap {
         return this.lev.getMapFrontLayer();
     }
 
     //-------------------------------------------------------------
 
-    public getMapBackLayer() {
+    public getMapBackLayer(): gsCMap {
         return this.lev.getMapBackLayer();
     }
 
     //-------------------------------------------------------------
 
-    public setWarp(state: boolean) {
+    public setWarp(state: boolean): void {
         this.m_is_warping = state;
     }
 
@@ -533,19 +533,19 @@ export class CScene {
 
     //-------------------------------------------------------------
 
-    public GetLevel() {
+    public GetLevel(): CLevel {
         return this.lev;
     }
 
     //-------------------------------------------------------------
 
-    public GetlistOfActors() {
+    public GetlistOfActors(): CActorInfoList {
         return this.m_listOfActors;
     }
 
     //-------------------------------------------------------------
 
-    public LevelLoaded() {
+    public LevelLoaded(): boolean {
         return this.lev.LoadingComplete;
     }
 

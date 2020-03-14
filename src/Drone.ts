@@ -6,6 +6,7 @@ import { Controls } from "./Controls";
 import { GameTime } from "./Timer";
 import { Pickups } from "./Pickup";
 import { CExploder } from "./Exploder";
+import { ActorInfo } from "./ActorInfo";
 
 export class CDrone extends CAlien {
 
@@ -22,7 +23,7 @@ export class CDrone extends CAlien {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_DRONE);
     }

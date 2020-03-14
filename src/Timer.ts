@@ -32,7 +32,7 @@ export class GameTime {
     // Update internal copy of system time
     //
     // Call once per game loop
-    public update(frame_done: boolean) {
+    public update(frame_done: boolean): void {
         if (!frame_done) {
             this.m_previous_time = this.m_system_time;
         }
@@ -41,20 +41,20 @@ export class GameTime {
 
     //-------------------------------------------------------------
     // Reset timer
-    public reset() {
+    public reset(): void {
         this.m_state = Enums.gsTimerState.gsTIMER_RESET;
     }
 
     //-------------------------------------------------------------
     // Start timer
-    public start() {
+    public start(): void {
         this.m_base_time = this.m_system_time;
         this.m_state = Enums.gsTimerState.gsTIMER_ACTIVE;
     }
 
     //-------------------------------------------------------------
     // Pause timer
-    public pause() {
+    public pause(): void {
         this.m_base_time = this.m_system_time;
         this.m_state = Enums.gsTimerState.gsTIMER_PAUSED;
     }
@@ -64,7 +64,7 @@ export class GameTime {
     //
     // Notes:	Reported time continues from the time value when
     //			the timer was paused
-    public unpause() {
+    public unpause(): void {
         this.m_base_time = this.m_system_time - this.m_base_time;
         this.m_state = Enums.gsTimerState.gsTIMER_ACTIVE;
     }
@@ -76,7 +76,7 @@ export class GameTime {
     //				gsTIMER_RESET
     //				gsTIMER_ACTIVE
     //				gsTIMER_PAUSED
-    public getState() {
+    public getState(): Enums.gsTimerState {
         return this.m_state;
     }
 

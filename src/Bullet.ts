@@ -75,7 +75,7 @@ export class CBullet extends CActor {
 
     //-------------------------------------------------------------
 
-    public setGrade(grade: Enums.BulletGrade) {
+    public setGrade(grade: Enums.BulletGrade): void {
         this.m_grade = grade;
     }
 }

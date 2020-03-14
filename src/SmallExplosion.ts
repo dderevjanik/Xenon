@@ -1,6 +1,7 @@
 ﻿import { CPlayGameState } from "./PlayGameState";
 import { Enums } from "./Enums";
 import { CExplosion } from "./Explosion";
+import { ActorInfo } from "./ActorInfo";
 
 export class CSmallExplosion extends CExplosion {
 
@@ -12,14 +13,14 @@ export class CSmallExplosion extends CExplosion {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SMALL_EXPLOSION);
     }
 
     //-------------------------------------------------------------
 
-    public activate() {
+    public activate(): boolean {
         if (this.m_playGameState) {
             this.m_playGameState.playSample(Enums.GameSampleType.SAMPLE_SMALL_EXPLOSION);//getPosition().getX());
         }

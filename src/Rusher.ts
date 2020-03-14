@@ -7,6 +7,7 @@ import { Controls } from "./Controls";
 import { GameTime } from "./Timer";
 import { CShip } from "./Ship";
 import { CExploder } from "./Exploder";
+import { ActorInfo } from "./ActorInfo";
 
 export class CRusher extends CAlien {
     private m_weapon: CSpinnerWeapon;
@@ -20,7 +21,7 @@ export class CRusher extends CAlien {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_RUSHER);
     }

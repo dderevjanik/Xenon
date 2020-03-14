@@ -6,6 +6,7 @@ import { gsCVector } from "./Vector";
 import { Enums } from "./Enums";
 import { Controls } from "./Controls";
 import { CExploder } from "./Exploder";
+import { ActorInfo } from "./ActorInfo";
 
 enum WallHuggerGrade {
     WALLHUGGER_STATIC,
@@ -74,7 +75,7 @@ export class CWallHugger extends CAlien {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_WALL_HUGGER);
     }

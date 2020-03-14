@@ -17,6 +17,7 @@ import { CHomingMissileWeapon } from "./HomingMissileWeapon";
 import { CLaserWeapon } from "./LaserWeapon";
 import { CExploder } from "./Exploder";
 import { Pickups } from "./Pickup";
+import { ActorInfo } from "./ActorInfo";
 
 export class CShip extends CActor {
 
@@ -97,7 +98,7 @@ export class CShip extends CActor {
         this.m_name = "Ship";
     }
 
-    public activateShip() {
+    public activateShip(): boolean {
         if (!this.isActive()) {
             this.setHandling(Enums.ShipHandling.HANDLING_NORMAL);
 
@@ -210,7 +211,7 @@ export class CShip extends CActor {
 
     //-------------------------------------------------------------
 
-    public update(controls: Controls, gameTime: GameTime) {
+    public update(controls: Controls, gameTime: GameTime): boolean {
         this.m_timer.update(false);
 
         if (this.m_shield == 0) {
@@ -456,7 +457,7 @@ export class CShip extends CActor {
 
     //-------------------------------------------------------------
 
-    public registerHit(energy: number, hitter: CActor) {
+    public registerHit(energy: number, hitter: CActor): void {
         if (this.m_dive_mode != Enums.DiveMode.DIVE_OFF) {
             return;
         }
@@ -492,7 +493,7 @@ export class CShip extends CActor {
 
     //-------------------------------------------------------------
 
-    public setWeapon(type: Enums.WeaponType, grade: Enums.WeaponGrade) {
+    public setWeapon(type: Enums.WeaponType, grade: Enums.WeaponGrade): void {
 
         if (this.m_weapon) {
             this.m_weapon.kill();
@@ -532,7 +533,7 @@ export class CShip extends CActor {
 
     //-------------------------------------------------------------
 
-    public addWeapon(type: Enums.WeaponType, grade: Enums.WeaponGrade) {
+    public addWeapon(type: Enums.WeaponType, grade: Enums.WeaponGrade): void {
         switch (type) {
             case Enums.WeaponType.MISSILE_WEAPON:
                 this.setWeapon(type, grade);
@@ -725,7 +726,7 @@ export class CShip extends CActor {
 
     //-------------------------------------------------------------
 
-    public getHandling() {
+    public getHandling(): Enums.ShipHandling {
         return this.m_handling;
     }
 
@@ -803,7 +804,7 @@ export class CShip extends CActor {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SHIP);
     }

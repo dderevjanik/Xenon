@@ -4,6 +4,7 @@ import { GameTime } from "./Timer";
 import { Enums } from "./Enums";
 import { CShip } from "./Ship";
 import { Controls } from "./Controls";
+import { ActorInfo } from "./ActorInfo";
 
 export module Pickups {
 
@@ -19,7 +20,7 @@ export module Pickups {
 
         //-------------------------------------------------------------
 
-        public activate() {
+        public activate(): boolean {
             if (!this.isActive())
                 this.m_timer.start();
 
@@ -28,14 +29,14 @@ export module Pickups {
 
         //-------------------------------------------------------------
 
-        public update(controls: Controls, gametime: GameTime) {
+        public update(controls: Controls, gametime: GameTime): boolean {
             this.animate(Enums.AnimationMode.ANIMATE_LOOP);
             return true;
         }
 
         //-------------------------------------------------------------
 
-        public onLeavingScreen() {
+        public onLeavingScreen(): void {
             this.kill();
         }
 
@@ -90,14 +91,14 @@ export module Pickups {
 
         m_name = "PICKUP_DIVE";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_DIVE_PICKUP);
         }
 
         //-------------------------------------------------------------
 
-        public collect() {
+        public collect(): void {
             var ship: CShip = this.m_scene.findShip();
 
             if (!ship) {
@@ -116,14 +117,14 @@ export module Pickups {
 
         m_name = "PICKUP_HOMINGMISSILE";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_HOMING_MISSILE_PICKUP);
         }
 
         //-------------------------------------------------------------
 
-        public collect() {
+        public collect(): void {
             var ship: CShip = this.m_scene.findShip();
 
             if (!ship) {
@@ -142,7 +143,7 @@ export module Pickups {
 
         m_name = "PICKUP_CLOAK";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_CLOAK_PICKUP);
         }
@@ -166,7 +167,7 @@ export module Pickups {
 
         m_name = "PICKUP_LASER";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_LASER_PICKUP);
         }
@@ -191,7 +192,7 @@ export module Pickups {
 
         m_name = "PICKUP_SCOREBONUS";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SCORE_PICKUP);
         }
@@ -217,7 +218,7 @@ export module Pickups {
 
         m_name = "PICKUP_SHIELD";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SHIELD_PICKUP);
         }
@@ -248,7 +249,7 @@ export module Pickups {
 
         m_name = "PICKUP_SPEEDUP";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SPEED_PICKUP);
         }
@@ -281,7 +282,7 @@ export module Pickups {
 
         m_name = "PICKUP_WEAPON";
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_WEAPON_PICKUP);
         }
@@ -310,7 +311,7 @@ export module Pickups {
         m_name = "PICKUP_WINGTIP";
         WINGTIP_FRAMES: number = 8;
 
-        public getActorInfo() {
+        public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
             return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_WINGTIP_PICKUP);
         }
@@ -334,7 +335,7 @@ export module Pickups {
 
         //-------------------------------------------------------------
 
-        public update(controls: Controls, gametime: GameTime) {
+        public update(controls: Controls, gametime: GameTime): boolean {
             this.animations(Enums.AnimationMode.ANIMATE_LOOP, 0, this.WINGTIP_FRAMES);
             return true;
         }

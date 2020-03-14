@@ -6,7 +6,7 @@ export class gsCScreen {
     m_screenRect: gsCRectangle = new gsCRectangle(0, 0, 640, 480);
     m_clipRect: gsCRectangle = new gsCRectangle(-64, -40, 704, 580);
 
-    public contains(actorRect: gsCRectangle) {
+    public contains(actorRect: gsCRectangle): boolean {
 
         if (actorRect.Left >= this.m_clipRect.Left &&
             actorRect.Right <= this.m_clipRect.Right &&
@@ -22,7 +22,7 @@ export class gsCScreen {
 
     //-------------------------------------------------------------
 
-    public overlaps(rect: gsCRectangle) {
+    public overlaps(rect: gsCRectangle): boolean {
         return (this.m_screenRect.Left < rect.Right &&
             this.m_screenRect.Right > rect.Left &&
             this.m_screenRect.Top < rect.Bottom &&
@@ -38,7 +38,7 @@ export class gsCScreen {
 
     //-------------------------------------------------------------
 
-    public getSize() {
+    public getSize(): Point {
         return this.m_screenRect.getSize();
     }
 

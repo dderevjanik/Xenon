@@ -32,7 +32,7 @@ export class CUpgrade extends CActor {
 
     //-------------------------------------------------------------
 
-    public activate() {
+    public activate(): boolean {
         if (!this.isActive()) {
             this.setWeapon(Enums.WeaponType.MISSILE_WEAPON, 0);
         }
@@ -41,7 +41,7 @@ export class CUpgrade extends CActor {
 
     //-------------------------------------------------------------
 
-    public kill() {
+    public kill(): void {
         if (this.m_weapon) {
             this.m_weapon.kill();
             this.m_weapon = null;
@@ -51,13 +51,13 @@ export class CUpgrade extends CActor {
 
     //-------------------------------------------------------------
 
-    public setOffset(offset: gsCVector) {
+    public setOffset(offset: gsCVector): void {
         this.m_offset = offset;
     }
 
     //-------------------------------------------------------------
 
-    public registerHit(energy: number, hitter: CActor) {
+    public registerHit(energy: number, hitter: CActor): void {
         if (this.getOwner() && (<CShip>this.getOwner()).getDiveLevel() > 0) {
             return;
         }
@@ -66,7 +66,7 @@ export class CUpgrade extends CActor {
 
     //-------------------------------------------------------------
 
-    public onCollisionWithActor(actor: CActor) {
+    public onCollisionWithActor(actor: CActor): void {
         if (this.getOwner() &&
             (<CShip>this.getOwner()).getDiveLevel() > 0) {
             return;
@@ -87,7 +87,7 @@ export class CUpgrade extends CActor {
 
     //-------------------------------------------------------------
 
-    public onCollisionWithMap(map: gsCMap, hits: number) {
+    public onCollisionWithMap(map: gsCMap, hits: number): void {
         if (this.getOwner() &&
             (<CShip>this.getOwner()).getDiveLevel() > 0) {
             return;
@@ -97,7 +97,7 @@ export class CUpgrade extends CActor {
 
     //-------------------------------------------------------------
 
-    public setWeapon(type: Enums.WeaponType, grade: Enums.WeaponGrade) {
+    public setWeapon(type: Enums.WeaponType, grade: Enums.WeaponGrade): void {
         if (this.m_weapon) {
             this.m_weapon.kill();
             this.m_weapon = null;
@@ -130,7 +130,7 @@ export class CUpgrade extends CActor {
 
     //-------------------------------------------------------------
 
-    public upgradeWeapon() {
+    public upgradeWeapon(): boolean {
         if (this.m_weapon && this.m_weapon.upgrade()) {
             return true;
         }
@@ -139,13 +139,13 @@ export class CUpgrade extends CActor {
 
     //-------------------------------------------------------------
 
-    public getWeapon() {
+    public getWeapon(): CWeapon {
         return this.m_weapon;
     }
 
     //-------------------------------------------------------------
 
-    public getWeaponType() {
+    public getWeaponType(): Enums.WeaponType {
         return this.m_weapon_type;
     }
 }

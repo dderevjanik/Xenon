@@ -338,7 +338,7 @@ class CLevel {
 
     //-------------------------------------------------------------
 
-    private GetTwoBytes() {
+    private GetTwoBytes(): string[] {
         var bytes = new Array<string>(2);
         bytes[0] = this.LevelBytes[this.LevelCounter++];
         bytes[1] = this.LevelBytes[this.LevelCounter++];
@@ -347,7 +347,7 @@ class CLevel {
 
     //-------------------------------------------------------------
 
-    private GetFourBytes() {
+    private GetFourBytes(): string[] {
         var bytes = new Array<string>(4);
         bytes[0] = this.LevelBytes[this.LevelCounter++];
         bytes[1] = this.LevelBytes[this.LevelCounter++];
@@ -358,7 +358,7 @@ class CLevel {
 
     //-------------------------------------------------------------
 
-    private FileRead(m_header: MPHD, size: number) {
+    private FileRead(m_header: MPHD, size: number): void {
         m_header.mapverhigh = parseInt(this.LevelBytes[this.LevelCounter++]);
         m_header.mapverlow = parseInt(this.LevelBytes[this.LevelCounter++]);
         m_header.lsb = parseInt(this.LevelBytes[this.LevelCounter++]);
@@ -476,7 +476,7 @@ class CLevel {
 
     //-------------------------------------------------------------
 
-    private ByteConverterToUInt16(bytes) {
+    private ByteConverterToUInt16(bytes): number {
 
         var t1 = parseInt(bytes[0]);
         var t2 = parseInt(bytes[1]);
@@ -490,7 +490,7 @@ class CLevel {
 
     //-------------------------------------------------------------
 
-    private ByteConverterToUInt32(bytes) {
+    private ByteConverterToUInt32(bytes): number {
 
         var t1 = parseInt(bytes[0]);
         var t2 = parseInt(bytes[1]);

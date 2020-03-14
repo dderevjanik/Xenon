@@ -7,6 +7,7 @@ import { CHomerProjectileWeapon } from "./HomerProjectileWeapon";
 import { gsCVector } from "./Vector";
 import { CShip } from "./Ship";
 import { CExploder } from "./Exploder";
+import { ActorInfo } from "./ActorInfo";
 
 export class CHomer extends CAlien {
     HOMER_MAX_XSPEED: number = 3.0;
@@ -20,7 +21,7 @@ export class CHomer extends CAlien {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_HOMER);
     }

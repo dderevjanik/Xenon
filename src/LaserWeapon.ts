@@ -6,6 +6,7 @@ import { Controls } from "./Controls";
 import { GameTime } from "./Timer";
 import { CLaser } from "./Laser";
 import { gsCVector } from "./Vector";
+import { ActorInfo } from "./ActorInfo";
 
 export class CLaserWeapon extends CWeapon {
 
@@ -17,14 +18,14 @@ export class CLaserWeapon extends CWeapon {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_LASER_WEAPON);
     }
 
     //-------------------------------------------------------------
 
-    public update(controls: Controls, gameTime: GameTime) {
+    public update(controls: Controls, gameTime: GameTime): boolean {
         super.update(controls, gameTime);
         if (this.do_fire) {
             this.fire();

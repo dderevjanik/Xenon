@@ -106,7 +106,7 @@ export class Xenon {
 
     //-------------------------------------------------------------
 
-    AddHitListener(element: HTMLElement) {
+    AddHitListener(element: HTMLElement): void {
         window.addEventListener("keydown", (event) => {
             this.onKeyPress(event);
             return null;
@@ -125,14 +125,14 @@ export class Xenon {
 
     //-------------------------------------------------------------
 
-    onKeyPress(event: KeyboardEvent) {
+    onKeyPress(event: KeyboardEvent): void {
         event.preventDefault();
         this.onKeyboardPress(event, false);
     }
 
     //-------------------------------------------------------------
 
-    onKeyUp(event: KeyboardEvent) {
+    onKeyUp(event: KeyboardEvent): void {
         event.preventDefault();
         this.onKeyboardRelease(event, false);
     }
@@ -145,7 +145,7 @@ export class Xenon {
     //}
 
 
-    onKeyboardPress(event: Event, touchDevice: boolean) {
+    onKeyboardPress(event: Event, touchDevice: boolean): void {
         switch (((<number>(<KeyboardEvent>event).keyCode | 0))) {
             case 17:
                 this.m_ctrl.fire = true;
@@ -186,7 +186,7 @@ export class Xenon {
 
     //-------------------------------------------------------------
 
-    onKeyboardRelease(event: Event, touchDevice: boolean) {
+    onKeyboardRelease(event: Event, touchDevice: boolean): void {
         switch (((<number>(<KeyboardEvent>event).keyCode | 0))) {
             case 17:
                 this.m_ctrl.fire = false;

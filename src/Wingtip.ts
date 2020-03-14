@@ -4,6 +4,7 @@ import { Controls } from "./Controls";
 import { GameTime } from "./Timer";
 import { CShip } from "./Ship";
 import { CExploder } from "./Exploder";
+import { ActorInfo } from "./ActorInfo";
 
 export class CWingtip extends CUpgrade {
 
@@ -27,14 +28,14 @@ export class CWingtip extends CUpgrade {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_WINGTIP);
     }
 
     //-------------------------------------------------------------
 
-    public activate() {
+    public activate(): boolean {
         if (!this.isActive()) {
             this.m_timer.start();
         }
@@ -43,7 +44,7 @@ export class CWingtip extends CUpgrade {
 
     //-------------------------------------------------------------
 
-    public update(controls: Controls, gametime: GameTime) {
+    public update(controls: Controls, gametime: GameTime): boolean {
         var ship: CShip = <CShip>this.getOwner();
 
         if (!ship) {

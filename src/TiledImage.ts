@@ -20,7 +20,7 @@ export class gsCTiledImage extends gsCImage {
 
     //-------------------------------------------------------------
 
-    public calculateSourceRects() {
+    public calculateSourceRects(): boolean {
         this.m_num_tiles = 0;
 
         if (this.m_tile_size.X == 0 ||
@@ -49,20 +49,20 @@ export class gsCTiledImage extends gsCImage {
 
     //-------------------------------------------------------------
 
-    public setTileSize(tile_size: Point) {
+    public setTileSize(tile_size: Point): boolean {
         this.m_tile_size = tile_size;
         return this.calculateSourceRects();
     }
 
     //-------------------------------------------------------------
 
-    public getTileSize() {
+    public getTileSize(): Point {
         return this.m_tile_size;
     }
 
     //-------------------------------------------------------------
 
-    public getNumTiles() {
+    public getNumTiles(): number {
         return this.m_num_tiles;
     }
 

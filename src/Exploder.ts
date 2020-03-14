@@ -12,7 +12,7 @@ export class CExploder {
 
     //-------------------------------------------------------------
 
-    private explode(parent) {
+    private explode(parent): void {
 
         var x: CExplosion = null;
 

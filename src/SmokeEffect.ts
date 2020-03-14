@@ -2,6 +2,7 @@
 import { Enums } from "./Enums";
 import { Particle } from "./Particle";
 import { gsCVector } from "./Vector";
+import { ActorInfo } from "./ActorInfo";
 
 export class CSmokeEffect extends CParticleEffect {
 
@@ -14,14 +15,14 @@ export class CSmokeEffect extends CParticleEffect {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SMOKE_EFFECT);
     }
 
     //-------------------------------------------------------------
 
-    public createParticle() {
+    public createParticle(): Particle | null {
         if (this.m_timer.getTime() > -0.1) {
             this.m_timer.start();
 

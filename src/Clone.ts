@@ -8,6 +8,7 @@ import { Controls } from "./Controls";
 import { GameTime } from "./Timer";
 import { CShip } from "./Ship";
 import { CExploder } from "./Exploder";
+import { ActorInfo } from "./ActorInfo";
 
 export class CClone extends CUpgrade {
 
@@ -40,14 +41,14 @@ export class CClone extends CUpgrade {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_CLONE);
     }
 
     //-------------------------------------------------------------
 
-    public activate() {
+    public activate(): boolean {
         if (!this.isActive()) {
             this.m_engine = new CCloneEngine(this.scene);
             this.m_scene.addActor(this.m_engine);
@@ -62,7 +63,7 @@ export class CClone extends CUpgrade {
 
     //-------------------------------------------------------------
 
-    public kill() {
+    public kill(): void {
         if (this.m_engine) {
             this.m_engine.kill();
             this.m_engine = null;
@@ -72,7 +73,7 @@ export class CClone extends CUpgrade {
 
     //-------------------------------------------------------------
 
-    public update(controls: Controls, gametime: GameTime) {
+    public update(controls: Controls, gametime: GameTime): boolean {
 
         var ship: CShip = <CShip>this.getOwner();
 
@@ -154,7 +155,7 @@ export class CClone extends CUpgrade {
 
     //-------------------------------------------------------------
 
-    public setAngleRange(min: number, max: number):void {
+    public setAngleRange(min: number, max: number): void {
         this.m_min_angle = min;
         this.m_max_angle = max;
         this.setAngle(this.m_min_angle, true);
@@ -162,7 +163,7 @@ export class CClone extends CUpgrade {
 
     //-------------------------------------------------------------
 
-    public setAngle(angle: number, set: boolean):void {
+    public setAngle(angle: number, set: boolean): void {
         if (set) {
             this.m_current_angle = angle;
         }
@@ -171,7 +172,7 @@ export class CClone extends CUpgrade {
 
     //-------------------------------------------------------------
 
-    private gsAbs(v:number) :number{
+    private gsAbs(v:number): number{
         return v >= 0.0 ? v : -v;
     }
 

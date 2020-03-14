@@ -43,13 +43,13 @@ export class CStarfield {
 
     //-------------------------------------------------------------
 
-    public Update(offset: number) {
+    public Update(offset: number): void {
         this.m_position += offset;
     }
 
     //-------------------------------------------------------------
 
-    public Draw(ctx: CanvasRenderingContext2D) {
+    public Draw(ctx: CanvasRenderingContext2D): void {
         var range = 1 << this.m_layers;
         for (var i = 0; i < this.m_point.length; i++) {
             this.m_point[i].y = (((this.m_offset[i] + this.m_position) >> this.m_layer[i]) % this.m_height);

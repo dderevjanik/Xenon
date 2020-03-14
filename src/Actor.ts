@@ -10,6 +10,7 @@ import { gsCMap } from "./Map";
 import { ActorInfo } from "./ActorInfo";
 import { Controls } from "./Controls";
 import { Enums } from "./Enums";
+import { gsCRectangle } from "./Rectangle";
 
 export class CActor {
 
@@ -58,7 +59,7 @@ export class CActor {
 
     //-------------------------------------------------------------
 
-    public isActive() {
+    public isActive(): boolean {
         return this.m_is_active;
     }
 
@@ -70,31 +71,31 @@ export class CActor {
 
     //-------------------------------------------------------------
 
-    public getVelocity() {
+    public getVelocity(): gsCVector {
         return this.m_velocity;
     }
 
     //-------------------------------------------------------------
 
-    public setPosition(position: gsCVector) {
+    public setPosition(position: gsCVector): void {
         this.m_position = new gsCVector(position.x, position.y);
     }
 
     //-------------------------------------------------------------
 
-    public setVelocity(velocity: gsCVector) {
+    public setVelocity(velocity: gsCVector): void {
         this.m_velocity = velocity;
     }
 
     //-------------------------------------------------------------
 
-    public isOnScreen() {
+    public isOnScreen(): boolean {
         return this.m_is_on_screen;
     }
 
     //-------------------------------------------------------------
 
-    public isHit() {
+    public isHit(): boolean {
         return this.m_is_hit;
     }
 
@@ -106,58 +107,58 @@ export class CActor {
 
     //-------------------------------------------------------------
     // Overridable
-    public onLeavingScreen() {
+    public onLeavingScreen(): void {
         this.kill();
     }
 
     //-------------------------------------------------------------
     // Overridable
-    public onCollisionWithActor(actor: CActor) {
+    public onCollisionWithActor(actor: CActor): void {
     }
 
     //-------------------------------------------------------------
 
-    public onCollisionWithMap(map: gsCMap, hits: number) {
+    public onCollisionWithMap(map: gsCMap, hits: number): void {
     }
 
     //-------------------------------------------------------------
     // Overridable
-    public postProcessCollision() {
+    public postProcessCollision(): void {
     }
 
     //-------------------------------------------------------------
 
-    public setOwner(owner: CActor) {
+    public setOwner(owner: CActor): void {
         this.m_owner = owner;
     }
 
     //-------------------------------------------------------------
 
-    public setScene(scene: CScene) {
+    public setScene(scene: CScene): void {
         this.m_scene = scene;
     }
 
     //-------------------------------------------------------------
 
-    public getOwner() {
+    public getOwner(): CActor {
         return this.m_owner;
     }
 
     //-------------------------------------------------------------
 
-    public setShield(shield: number) {
+    public setShield(shield: number): void {
         this.m_shield = shield;
     }
 
     //-------------------------------------------------------------
 
-    public getShield() {
+    public getShield(): number {
         return this.m_shield;
     }
 
     //-------------------------------------------------------------
 
-    public increaseScoreMultiplier(amount: number) {
+    public increaseScoreMultiplier(amount: number): void {
         this.m_score_multiplier += amount;
     }
 
@@ -269,7 +270,7 @@ export class CActor {
 
     //-------------------------------------------------------------
     // animate over range of frames
-    public animations(mode: Enums.AnimationMode, first_frame: number, num_frames: number) {
+    public animations(mode: Enums.AnimationMode, first_frame: number, num_frames: number): boolean {
         var finished = false;
 
         if (num_frames <= 1) {
@@ -298,13 +299,13 @@ export class CActor {
 
     //-------------------------------------------------------------
     // animate over entire range
-    public animate(mode: Enums.AnimationMode) {
+    public animate(mode: Enums.AnimationMode): boolean {
         return this.animations(mode, 0, this.m_image.getNumTiles());
     }
 
     //-------------------------------------------------------------
     // Convert velocity into a direction (0..num_dir-1)
-    public getDirection(num_dir: number) {
+    public getDirection(num_dir: number): number {
         if (this.m_velocity.length == 0) {
             return 0;
         }
@@ -322,7 +323,7 @@ export class CActor {
 
     //-------------------------------------------------------------
 
-    public getCollisionRect() {
+    public getCollisionRect(): gsCRectangle {
         return this.m_sprite.getRect();
     }
 

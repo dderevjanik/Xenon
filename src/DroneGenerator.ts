@@ -5,6 +5,7 @@ import { Controls } from "./Controls";
 import { GameTime } from "./Timer";
 import { CDrone } from "./Drone";
 import { gsCVector } from "./Vector";
+import { ActorInfo } from "./ActorInfo";
 
 export class CDroneGenerator extends CActor {
     //-------------------------------------------------------------
@@ -31,7 +32,7 @@ export class CDroneGenerator extends CActor {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_DRONE_GENERATOR);
     }

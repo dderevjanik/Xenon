@@ -27,7 +27,7 @@ export class gsCSprite {
 
     //-------------------------------------------------------------
 
-    public getRect() {
+    public getRect(): gsCRectangle {
         if (!this.m_rect_valid) {
             if (this.m_image == null) {
                 this.m_rect = new gsCRectangle(0, 0, 0, 0);
@@ -43,58 +43,58 @@ export class gsCSprite {
 
     //-------------------------------------------------------------
 
-    public setActive(state: boolean) {
+    public setActive(state: boolean): void {
         this.m_active = state;
     }
 
     //-------------------------------------------------------------
 
-    public isActive() {
+    public isActive(): boolean {
         return this.m_active;
     }
 
     //-------------------------------------------------------------
 
-    public setPosition(position: gsCVector) {
+    public setPosition(position: gsCVector): void {
         this.m_position = position;
         this.m_rect_valid = false;
     }
 
     //-------------------------------------------------------------
 
-    public setHotspot(hotspot: gsCVector) {
+    public setHotspot(hotspot: gsCVector): void {
         this.m_hotspot = hotspot;
         this.m_rect_valid = false;
     }
 
     //-------------------------------------------------------------
 
-    public setImage(image: gsCTiledImage) {
+    public setImage(image: gsCTiledImage): void {
         this.m_image = image;
         this.m_rect_valid = false;
     }
 
     //-------------------------------------------------------------
 
-    public getPosition() {
+    public getPosition(): gsCVector {
         return this.m_position;
     }
 
     //-------------------------------------------------------------
 
-    public getHotspot() {
+    public getHotspot(): gsCVector {
         return this.m_hotspot;
     }
 
     //-------------------------------------------------------------
 
-    public getImage() {
+    public getImage(): HTMLImageElement {
         return this.m_texture;
     }
 
     //-------------------------------------------------------------
 
-    public move(offset: gsCVector) {
+    public move(offset: gsCVector): void {
         this.m_position.plusEquals(offset);
         this.m_rect_valid = false;
     }
@@ -102,7 +102,7 @@ export class gsCSprite {
     //-------------------------------------------------------------
 
     // From Actor
-    public draw(ctx: CanvasRenderingContext2D) {
+    public draw(ctx: CanvasRenderingContext2D): boolean {
         if (this.m_image == null || !this.m_active) {
             return false;
         }
@@ -116,13 +116,13 @@ export class gsCSprite {
 
     //-------------------------------------------------------------
 
-    public setFrame(frame: number) {
+    public setFrame(frame: number): void {
         this.m_frame = frame;
     }
 
     //-------------------------------------------------------------
 
-    public getFrame() {
+    public getFrame(): number {
         return this.m_frame;
     }
 
@@ -135,7 +135,7 @@ export class gsCSprite {
 
     //-------------------------------------------------------------
 
-    public disableFillColour() {
+    public disableFillColour(): void {
         this.m_use_fill_colour = false;
     }
 

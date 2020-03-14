@@ -93,8 +93,7 @@ export class gsCCollisionList {
 
     //-------------------------------------------------------------
 
-    public addObject(object: Object, rect: gsCRectangle, object_mask, target_mask)
-    {
+    public addObject(object: Object, rect: gsCRectangle, object_mask, target_mask): void {
         // get range of zones which object overlaps
         var left_zone: number = Math.floor(rect.Left / this.m_zone_size.X);
         var right_zone: number = Math.floor((rect.Right - 1) / this.m_zone_size.X);

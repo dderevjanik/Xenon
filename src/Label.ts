@@ -4,6 +4,7 @@ import { Enums } from "./Enums";
 import { Controls } from "./Controls";
 import { GameTime } from "./Timer";
 import { Point } from "./Point";
+import { ActorInfo } from "./ActorInfo";
 
 export class CLabel extends CActor {
 
@@ -27,7 +28,7 @@ export class CLabel extends CActor {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_LABEL);
     }
@@ -67,7 +68,7 @@ export class CLabel extends CActor {
 
     //-------------------------------------------------------------
 
-    public setFont(font: gsCFont) {
+    public setFont(font: gsCFont): void {
         this.m_font = font;
     }
 

@@ -8,6 +8,7 @@ import { gsCVector } from "./Vector";
 import { CSporeGenerator } from "./SporeGenerator";
 import { CExploder } from "./Exploder";
 import { Pickups } from "./Pickup";
+import { ActorInfo } from "./ActorInfo";
 
 export class CSpore extends CBullet {
 
@@ -33,7 +34,7 @@ export class CSpore extends CBullet {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SPORE);
     }

@@ -9,6 +9,7 @@ import { Enums } from "./Enums";
 import { gsCMapTile } from "./MapTile";
 import { CBigExplosion } from "./BigExplosion";
 import { Point } from "./Point";
+import { ActorInfo } from "./ActorInfo";
 
 export enum BossState {
     BOSS_MOVE_DOWN,
@@ -287,7 +288,7 @@ export class CBossControl extends CBoss {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
         return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_BOSSCONTROL);
     }
