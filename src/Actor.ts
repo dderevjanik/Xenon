@@ -19,15 +19,16 @@ export class CActor {
 
     //-------------------------------------------------------------
 
+    // TODO: Fix protected types, make getters
     protected m_owner: CActor;			        // owner
     protected m_is_active: boolean;
     protected m_hit_timer: GameTime;		    // for animation of hit
-    protected m_scene: CScene;			        // scene containing this actor
+    m_scene: CScene;			        // scene containing this actor
     protected m_position: gsCVector;		    // relative to map
     protected m_velocity: gsCVector;
     protected m_shield: number;				    // shield strength
     protected m_sprite: gsCSprite;
-    protected m_image: gsCTiledImage;
+    m_image: gsCTiledImage;
     protected m_timer: GameTime;			    // for animation
     protected m_is_on_screen: boolean;
     protected m_is_hit: boolean;
@@ -38,7 +39,7 @@ export class CActor {
 
     protected m_name: string = "";
     protected m_app: CApplication;
-    protected m_playGameState: CPlayGameState;
+    m_playGameState: CPlayGameState;
 
     private frame: number = 0;
 
@@ -317,7 +318,7 @@ export class CActor {
 
     //-------------------------------------------------------------
 
-    public getActorInfo() {
+    public getActorInfo(): ActorInfo | null {
         return null;
     }
 

@@ -29,7 +29,7 @@ export enum BossState {
 export class CBossControl extends CBoss {
 
     private m_is_started: boolean;
-    private m_yscroll: number = 0; boolean;
+    private m_yscroll: number = 0;
     private m_state: BossState;
     private m_counter: number;
     private m_script: Array<BossScriptItem>;

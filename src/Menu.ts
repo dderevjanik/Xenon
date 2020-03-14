@@ -17,7 +17,7 @@ class gsCMenuSlider extends MenuItem {
     m_min: number;
     m_max: number;
 
-    constructor(name, size, min, max) {
+    constructor(name: string, size: number, min: number, max: number) {
         super(name);
         this.m_size = size;
         this.m_min = min;

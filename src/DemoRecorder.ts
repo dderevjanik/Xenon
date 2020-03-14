@@ -42,7 +42,7 @@ export class DemoRecorder {
 
     //-------------------------------------------------------------
 
-    public getEvent(controls/*Controls& */): boolean {
+    public getEvent(controls: Controls): boolean {
         if (this.m_event_index < this.m_event_list.length) {
             this.m_event_list.push(controls);
             this.m_event_index++;
@@ -56,7 +56,7 @@ export class DemoRecorder {
 
     //-------------------------------------------------------------
 
-    public setLevel(filename): void {
+    public setLevel(filename: string): void {
         //if (filename) {
         //	strcpy(m_level,filename);
         //	m_has_level = true;

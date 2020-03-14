@@ -24,42 +24,42 @@ import { CBossControl } from "./BossControl";
 import { Pickups } from "./Pickup";
 
 class MPHD {						/* Map header structure */
-    public mapverhigh;  //char 		/* map version number to left of . (ie X.0). */
-    public mapverlow;   //char 		/* map version number to right of . (ie 0.X). */
-    public lsb;         //char 		/* if 1, data stored LSB first, otherwise MSB first. */
-    public reserved;    //char
-    public mapwidth;    //ushort 	/* width in blocks. */
-    public mapheight;   //ushort 	/* height in blocks. */
-    public reserved1;   //ushort
-    public reserved2;   //ushort
-    public blockwidth;  //ushort 	/* width of a block (tile) in pixels. */
-    public blockheight; //ushort 	/* height of a block (tile) in pixels. */
-    public blockdepth;  //ushort 	/* depth of a block (tile) in planes (ie. 256 colours is 8) */
-    public blockstrsize;//ushort 	/* size of a block data structure */
-    public numblockstr; //ushort 	/* Number of block structures in BKDT */
-    public numblockgfx; //ushort 	/* Number of 'blocks' in graphics (BGFX) */
+    public mapverhigh: number;  //char 		/* map version number to left of . (ie X.0). */
+    public mapverlow: number;   //char 		/* map version number to right of . (ie 0.X). */
+    public lsb: number;         //char 		/* if 1, data stored LSB first, otherwise MSB first. */
+    public reserved: number;    //char
+    public mapwidth: number;    //ushort 	/* width in blocks. */
+    public mapheight: number;   //ushort 	/* height in blocks. */
+    public reserved1: number;   //ushort
+    public reserved2: number;   //ushort
+    public blockwidth: number;  //ushort 	/* width of a block (tile) in pixels. */
+    public blockheight: number; //ushort 	/* height of a block (tile) in pixels. */
+    public blockdepth: number;  //ushort 	/* depth of a block (tile) in planes (ie. 256 colours is 8) */
+    public blockstrsize: number;//ushort 	/* size of a block data structure */
+    public numblockstr: number; //ushort 	/* Number of block structures in BKDT */
+    public numblockgfx: number; //ushort 	/* Number of 'blocks' in graphics (BGFX) */
 };
 
 class BLKSTR {						/* Structure for data blocks */
-    public bgoff;
-    public fgoff;			        /* offsets from start of graphic blocks */
-    public fgoff2;
-    public fgoff3; 		            /* more overlay blocks */
-    public user1;
-    public user2;		            /* user long data */
-    public user3;
-    public user4;	                /* user short data */
-    public user5;
-    public user6;
-    public user7;	                /* user byte data */
-    public tl;// : 1;				/* bits for collision detection */
-    public tr;// : 1;
-    public bl;// : 1;
-    public br;// : 1;
-    public trigger;// : 1;			/* bit to trigger an event */
-    public unused1;// : 1;
-    public unused2;// : 1;
-    public unused3;// : 1;
+    public bgoff: number;
+    public fgoff: number;			        /* offsets from start of graphic blocks */
+    public fgoff2: number;
+    public fgoff3: number; 		            /* more overlay blocks */
+    public user1: number;
+    public user2: number;		            /* user long data */
+    public user3: number;
+    public user4: number;	                /* user short data */
+    public user5: number;
+    public user6: number;
+    public user7: number;	                /* user byte data */
+    public tl: number;// : 1;				/* bits for collision detection */
+    public tr: number;// : 1;
+    public bl: number;// : 1;
+    public br: number;// : 1;
+    public trigger: number;// : 1;			/* bit to trigger an event */
+    public unused1: number;// : 1;
+    public unused2: number;// : 1;
+    public unused3: number;// : 1;
 };
 
 enum AlienType {
@@ -140,20 +140,22 @@ class CLevel {
         this.m_back_layer = new gsCMap();
         this.m_front_layer = new gsCMap();
 
-        var done = false;
-        var levelBytes;
-        var _this = this;
+        let done = false;
+        let levelBytes: Uint8Array;
+        let _this = this;
 
-        var xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
         xhr.open('GET', 'xenon2000.png', true);
         xhr.responseType = 'arraybuffer';
 
         xhr.onload = function (e) {
-            var uInt8Array = new Uint8Array(this.response);
+            let uInt8Array = new Uint8Array(this.response);
             levelBytes = new Uint8Array(this.response);
             done = true;
         };
         xhr.onloadend = function () {
+            // TODO: Fix types
+            // @ts-ignore
             _this.LevelBytes = levelBytes;
             _this.parseLevel();
             _this.loaded = true;
@@ -476,7 +478,7 @@ class CLevel {
 
     //-------------------------------------------------------------
 
-    private ByteConverterToUInt16(bytes): number {
+    private ByteConverterToUInt16(bytes: string[]): number {
 
         var t1 = parseInt(bytes[0]);
         var t2 = parseInt(bytes[1]);
@@ -490,7 +492,7 @@ class CLevel {
 
     //-------------------------------------------------------------
 
-    private ByteConverterToUInt32(bytes): number {
+    private ByteConverterToUInt32(bytes: string[]): number {
 
         var t1 = parseInt(bytes[0]);
         var t2 = parseInt(bytes[1]);
@@ -552,7 +554,7 @@ class CLevel {
 
     //-------------------------------------------------------------
 
-    public scanForNewActors(scene: CScene, playGameState): void {
+    public scanForNewActors(scene: CScene, playGameState: CPlayGameState): void {
         this.m_playGameState = playGameState;
 
         //gsCScreen *screen = gsCApplication::getScreen();

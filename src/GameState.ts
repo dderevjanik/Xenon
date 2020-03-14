@@ -68,7 +68,7 @@ export class CGameState {
 
     //-------------------------------------------------------------
 
-    public initialize(xenon /*CXenon **/): boolean {
+    public initialize(xenon: any /*CXenon **/): boolean {
         //    m_xenon = xenon;
 
         //    gsCFile::setDirectory(DIRECTORY_ROOT);
@@ -146,7 +146,8 @@ export class CGameState {
 
     //-------------------------------------------------------------
 
-    public changeState(new_game_state/*CGameState * */): boolean {
+    // TODO: Check this type
+    public changeState(new_game_state: any): boolean {
         return this.m_state = new_game_state;
     }
 
@@ -260,7 +261,7 @@ export class CGameState {
     //-------------------------------------------------------------
 
     // play sample with stereo position based on screen x coordinate
-    public playSample(sample /*GameSampleType*/, x?: number): void {
+    public playSample(sample: Enums.GameSampleType, x?: number): void {
         if (this.m_options.getOption(Enums.OptionType.OPTION_SOUNDFX)) {
             //        int w2 = gsCApplication::getScreen() ->getSize().getX() / 2;
             //        m_sound_system.playSample((int) sample, 100 * ((int) x - w2) / w2);
@@ -270,7 +271,7 @@ export class CGameState {
 
     //-------------------------------------------------------------
 
-    public playMusic(music/*: GameMusicType*/): void {
+    public playMusic(music: Enums.GameMusicType): void {
         if (this.m_options.getOption(Enums.OptionType.OPTION_MUSIC)) {
             this.m_sound_system.playMusic(music);
         }
@@ -312,7 +313,7 @@ export class CGameState {
 
     //-------------------------------------------------------------
 
-    public getControl(controls /*:Controls*/, player: number): void {
+    public getControl(controls: Controls, player: number): void {
         //   ControllerType type;
 
         //   if (player == 0)
@@ -382,7 +383,7 @@ export class CGameState {
 
     //-------------------------------------------------------------
 
-    public setDemoMode(mode /*:DemoMode */): void {
+    public setDemoMode(mode: Enums.DemoMode /*:DemoMode */): void {
         this.m_demo_mode = mode;
 
         switch (mode) {

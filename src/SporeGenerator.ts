@@ -49,6 +49,8 @@ export class CSporeGenerator extends CActor {
                     s.setPosition(new gsCVector(0, 0).plus(this.getPosition(), offset));
                     var d: gsCVector = offset;
                     d.normalize();
+                    // TODO: Check this type
+                    // @ts-ignore
                     s.setVelocity(new gsCVector(0, 0).times(d, s.getActorInfo().m_speed[0]));
                     s.setOwner(this);
                     this.m_spores_created++;

@@ -6,13 +6,14 @@ import { Enums } from "./Enums";
 import { Controls } from "./Controls";
 import { gsCScreen } from "./Screen";
 import { Point } from "./Point";
+import { CMainMenuState } from "./MainMenuState";
 
 export class CScoreEntryState extends CGameState {
 
     m_congratulation_messages: Array<string>;
     m_instance: CScoreEntryState = null;
 
-    constructor(scene?: CScene, starfield?: CStarfield, font8x8?: HTMLImageElement, font16x16?: HTMLImageElement, app?: CApplication, ctx?: CanvasRenderingContext2D, menuState?) {
+    constructor(scene?: CScene, starfield?: CStarfield, font8x8?: HTMLImageElement, font16x16?: HTMLImageElement, app?: CApplication, ctx?: CanvasRenderingContext2D, menuState?: CMainMenuState) {
         super(font8x8, font16x16, app, ctx);
         this.m_starfield = starfield;
         this.m_mainMenuState = menuState;

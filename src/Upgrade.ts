@@ -20,7 +20,7 @@ export class CUpgrade extends CActor {
     m_offset: gsCVector;
     m_weapon: CWeapon;
     m_weapon_type: Enums.WeaponType;
-    protected m_playGameState: CPlayGameState;
+    m_playGameState: CPlayGameState; // TODO: Should be protected
 
     constructor(scene?: CScene) {
         super(scene);
@@ -74,7 +74,7 @@ export class CUpgrade extends CActor {
 
         switch (actor.getActorInfo().m_type) {
             case Enums.ActorType.ACTOR_TYPE_PICKUP:
-                var act = <Pickups.CPickup>actor;
+                const act = actor as Pickups.CPickup;
                 act.collect();
                 actor.kill();
                 break;

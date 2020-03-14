@@ -95,7 +95,7 @@ export class Options {
 
     //-------------------------------------------------------------
 
-    public setOption(type /*OptionType */, value: number): void {
+    public setOption(type: OptionType, value: number): void {
         if (value != this.m_options[type]) {
 
             this.m_options[type] = value;
@@ -121,13 +121,13 @@ export class Options {
 
     //-------------------------------------------------------------
 
-    public getOption(type/*OptionType */): number {
+    public getOption(type: OptionType): number {
         return this.m_options[type];
     }
 
     //-------------------------------------------------------------
 
-    public toggleOption(type/*OptionType */): void {
+    public toggleOption(type: OptionType): void {
         this.setOption(type, 1 - this.getOption(type) & 1);
     }
 

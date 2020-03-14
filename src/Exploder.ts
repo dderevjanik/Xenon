@@ -3,16 +3,17 @@ import { CMediumExplosion } from "./MediumExplosion";
 import { CBigExplosion } from "./BigExplosion";
 import { Point } from "./Point";
 import { CExplosion } from "./Explosion";
+import { CActor } from "./Actor";
 
 export class CExploder {
 
-    constructor(parent) {
+    constructor(parent: CActor) {
         this.explode(parent);
     }
 
     //-------------------------------------------------------------
 
-    private explode(parent): void {
+    private explode(parent: CActor): void {
 
         var x: CExplosion = null;
 

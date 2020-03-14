@@ -1,7 +1,7 @@
 ﻿import { Xenon } from "./Xenon";
 
 var xenon = new Xenon();
-window["xenon"] = xenon;
+(window as any).xenon = xenon; // for debug
 
 xenon.Run();
 

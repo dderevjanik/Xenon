@@ -25,7 +25,7 @@ export class gsCImage {
 
 
     // Main tile Drawing method !! <gsCImage>
-    public drawImage(position: Point, ctx: CanvasRenderingContext2D, img): void {
+    public drawImage(position: Point, ctx: CanvasRenderingContext2D, img: HTMLImageElement): void {
         //var dest: gsCRectangle = new gsCRectangle(position.X, position.Y, position.X + this.m_rect.Right, position.Y + this.m_rect.Bottom);
 
         //ctx.drawImage(this.m_image, position.X, position.Y);

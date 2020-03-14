@@ -6,12 +6,14 @@ import { CApplication } from "./Application";
 import { Enums } from "./Enums";
 import { Controls } from "./Controls";
 import { Point } from "./Point";
+import { CMainMenuState } from "./MainMenuState";
+import { gsCMenu } from "./Menu";
 
 export class CVideoMenuState extends CGameState {
 
     m_optionState: COptionsMenuState;
 
-    constructor(scene?: CScene, starfield?: CStarfield, font8x8?: HTMLImageElement, font16x16?: HTMLImageElement, app?: CApplication, ctx?: CanvasRenderingContext2D, menuState?, menu?, optionState?: COptionsMenuState) {
+    constructor(scene?: CScene, starfield?: CStarfield, font8x8?: HTMLImageElement, font16x16?: HTMLImageElement, app?: CApplication, ctx?: CanvasRenderingContext2D, menuState?: CMainMenuState, menu?: gsCMenu, optionState?: COptionsMenuState) {
         super(font8x8, font16x16, app, ctx);
 
         this.m_starfield = starfield;

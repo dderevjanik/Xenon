@@ -53,7 +53,7 @@ export class MenuItem {
 
     //-------------------------------------------------------------
 
-    public getType() {
+    public getType(): any {
         return null;
     }
 

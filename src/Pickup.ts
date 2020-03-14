@@ -10,7 +10,7 @@ export module Pickups {
 
     export class CPickup extends CActor {
 
-        protected m_playGameState: CPlayGameState;
+        m_playGameState: CPlayGameState; // TODO: should be protected
         CLOAK_TIME: number = 5.0;			// total length of cloaking
 
         constructor(playGameState: CPlayGameState) {

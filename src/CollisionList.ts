@@ -10,7 +10,7 @@ export class gsCCollider {
     public m_target_mask: number;	// bitmask of type of objects it can hit
     private count = 0;
 
-    constructor(object?, rect?, object_mask?, target_mask?, uid?) {
+    constructor(object?: Object, rect?: gsCRectangle, object_mask?: number, target_mask?: number, uid?: number) {
         this.m_object = object;
         this.m_rect = rect;
         this.m_object_mask = object_mask;
@@ -18,7 +18,7 @@ export class gsCCollider {
         this.m_uid = uid;
     }
 
-    public addItem(object): void {
+    public addItem(object: Object): void {
         this.blobject[this.count++] = object;
     }
 
@@ -36,7 +36,7 @@ export class gsCCollisionList {
 
     m_collider_list: Array<gsCCollider> = new Array<gsCCollider>();
     gsColliderList: gsCCollider;
-    m_zone = [];
+    m_zone: Array<gsCCollider> | null = [];
 
     constructor() {
         this.m_pixel_size = new Point(0, 0);
@@ -93,7 +93,7 @@ export class gsCCollisionList {
 
     //-------------------------------------------------------------
 
-    public addObject(object: Object, rect: gsCRectangle, object_mask, target_mask): void {
+    public addObject(object: Object, rect: gsCRectangle, object_mask: number, target_mask: number): void {
         // get range of zones which object overlaps
         var left_zone: number = Math.floor(rect.Left / this.m_zone_size.X);
         var right_zone: number = Math.floor((rect.Right - 1) / this.m_zone_size.X);
@@ -141,7 +141,7 @@ export class gsCCollisionList {
 
     //-------------------------------------------------------------
 
-    public scan( /*gsCollisionCallback*/callback): void {
+    public scan(callback: (obj1: Object, obj2: Object) => void): void {
 
         var num_objects: number = this.m_collider_list.length;
 

@@ -5,6 +5,7 @@ import { CApplication } from "./Application";
 import { Controls } from "./Controls";
 import { Enums } from "./Enums";
 import { Point } from "./Point";
+import { CMainMenuState } from "./MainMenuState";
 
 export class CCreditsState extends CGameState {
 
@@ -12,7 +13,7 @@ export class CCreditsState extends CGameState {
 
     //-------------------------------------------------------------
 
-    constructor(scene?: CScene, starfield?: CStarfield, font8x8?: HTMLImageElement, font16x16?: HTMLImageElement, app?: CApplication, ctx?: CanvasRenderingContext2D, menu?) {
+    constructor(scene?: CScene, starfield?: CStarfield, font8x8?: HTMLImageElement, font16x16?: HTMLImageElement, app?: CApplication, ctx?: CanvasRenderingContext2D, menu?: CMainMenuState) {
         super(font8x8, font16x16, app, ctx);
         this.m_starfield = starfield;
         this.m_mainMenuState = menu;

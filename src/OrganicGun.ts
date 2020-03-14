@@ -28,7 +28,7 @@ export class COrganicGun extends CActor {
     private m_direction: number;
     private m_fired: boolean;
     private m_state: OrganicGunState;
-    private m_random;//static gsCRandom
+    private m_random: any;//static gsCRandom
 
     //-------------------------------------------------------------
 

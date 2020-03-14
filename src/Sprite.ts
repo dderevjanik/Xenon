@@ -128,7 +128,7 @@ export class gsCSprite {
 
     //-------------------------------------------------------------
 
-    public enableFillColour(fill_colour) /*): Color)*/ {
+    public enableFillColour(fill_colour: any) /*): Color)*/ {
         //this.m_fill_colour = fill_colour;
         this.m_use_fill_colour = true;
     }

@@ -18,7 +18,7 @@ export class CWeapon extends CActor {
     m_direction: Enums.WeaponDirection;
     WEAPON_ONSCREEN_RADIUS: number;
 
-    protected m_playGameState: CPlayGameState;
+    m_playGameState: CPlayGameState; // TODO: Should be protected
     protected do_fire: boolean = false;
 
     constructor(scene?: CScene) {

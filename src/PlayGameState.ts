@@ -18,6 +18,7 @@ import { gsCImage } from "./Image";
 import { gsCRectangle } from "./Rectangle";
 import { Point } from "./Point";
 import { DemoRecorder } from "./DemoRecorder";
+import { CMainMenuState } from "./MainMenuState";
 
 enum m_gameMode {
     CREATEPLAYER,
@@ -60,7 +61,7 @@ export class CPlayGameState extends CGameState {
     private m_scoreEntryState: CScoreEntryState;
     private m_viewScoresState: CViewScoresState;
 
-    constructor(scene?: CScene, starfield?: CStarfield, font8x8?: HTMLImageElement, font16x16?: HTMLImageElement, app?: CApplication, ctx?: CanvasRenderingContext2D, menu?) {
+    constructor(scene?: CScene, starfield?: CStarfield, font8x8?: HTMLImageElement, font16x16?: HTMLImageElement, app?: CApplication, ctx?: CanvasRenderingContext2D, menuState?: CMainMenuState) {
         super(font8x8, font16x16, app, ctx);
 
         this.m_scene = scene;
@@ -69,7 +70,7 @@ export class CPlayGameState extends CGameState {
         //this.m_options = options;
 
         this.m_stateName = "PlayGameState";
-        this.m_mainMenuState = menu;
+        this.m_mainMenuState = menuState;
         this.m_level = this.m_scene.GetLevel();
 
         // temp!
@@ -81,8 +82,8 @@ export class CPlayGameState extends CGameState {
         this.m_boss = null;
         this.m_bossControl = null;
 
-        this.m_scoreEntryState = new CScoreEntryState(scene, starfield, font8x8, font16x16, app, ctx, menu);
-        this.m_viewScoresState = new CViewScoresState(scene, starfield, font8x8, font16x16, app, ctx, menu);
+        this.m_scoreEntryState = new CScoreEntryState(scene, starfield, font8x8, font16x16, app, ctx, menuState);
+        this.m_viewScoresState = new CViewScoresState(scene, starfield, font8x8, font16x16, app, ctx, menuState);
 
         this.create();
         //this.createPlayer();
@@ -613,7 +614,7 @@ export class CPlayGameState extends CGameState {
 
     //-------------------------------------------------------------
 
-    public testDebugKeys(key /*:gsKeyCode*/): void {
+    public testDebugKeys(key: any /*:gsKeyCode*/): void {
         //if (!Options.getOption(OPTION_CHEATS) ||
         //    !m_ship)
         //    return;

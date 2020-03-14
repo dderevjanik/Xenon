@@ -21,7 +21,7 @@ export class ActorInfo {
     // for bullets only
     //public m_speed = [];// movement speed
     public m_speed: gsCVector;
-    public m_energy = []; // bullet energy
+    public m_energy: number[] = []; // bullet energy
 
     constructor(name: string, actorType: Enums.ActorType, filename: string, tile_width: number, tile_height: number, hotspot_x: number, hotspot_y: number, anirate: number, initial_shield: number, kill_bonus: number, speed: gsCVector) {
         this.m_name = name;

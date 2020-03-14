@@ -5,6 +5,8 @@ import { CStarfield } from "./Starfield";
 import { CApplication } from "./Application";
 import { Enums } from "./Enums";
 import { Controls } from "./Controls";
+import { gsCMenu } from "./Menu";
+import { CMainMenuState } from "./MainMenuState";
 
 export class CIntroState extends CGameState {
 
@@ -12,10 +14,10 @@ export class CIntroState extends CGameState {
     m_originalState: CIntroState;
     //m_mainMenuState: CMainMenuState;
 
-    constructor(scene?: CScene, starfield?: CStarfield, font8x8?: HTMLImageElement, font16x16?: HTMLImageElement, app?: CApplication, ctx?: CanvasRenderingContext2D, menu?) {
+    constructor(scene?: CScene, starfield?: CStarfield, font8x8?: HTMLImageElement, font16x16?: HTMLImageElement, app?: CApplication, ctx?: CanvasRenderingContext2D, menuState?: CMainMenuState) {
         super(font8x8, font16x16, app, ctx);
 
-        this.m_playGameState = new CPlayGameState(scene, starfield, font8x8, font16x16, app, ctx, menu);
+        this.m_playGameState = new CPlayGameState(scene, starfield, font8x8, font16x16, app, ctx, menuState);
 
         this.m_stateName = "IntroState";
 

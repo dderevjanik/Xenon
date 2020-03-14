@@ -34,7 +34,7 @@ export class Xenon {
 
     //-------------------------------------------------------------
 
-    private rect(x, y, w, h): void {
+    private rect(x: number, y: number, w: number, h: number): void {
         this.m_ctx.beginPath();
         this.m_ctx.rect(x, y, w, h);
         this.m_ctx.closePath();

@@ -137,7 +137,7 @@ export class gsCRectangle {
 
     //-------------------------------------------------------------
 
-    public clip(source, dest) {
+    public clip(source: gsCRectangle, dest: gsCRectangle) {
         if (dest.m_rect.left < this.m_rect.left) {
             source.m_rect.left += (this.m_rect.left - dest.m_rect.left);
             dest.m_rect.left = this.m_rect.left;
