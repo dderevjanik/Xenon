@@ -1,10 +1,10 @@
-﻿import CExplosion = require("Explosion");
-import CSmallExplosion = require("SmallExplosion");
-import CMediumExplosion = require("MediumExplosion");
-import CBigExplosion = require("BigExplosion");
-import gsCPoint = require("Point");
+﻿import { CSmallExplosion } from "./SmallExplosion";
+import { CMediumExplosion } from "./MediumExplosion";
+import { CBigExplosion } from "./BigExplosion";
+import { Point } from "./Point";
+import { CExplosion } from "./Explosion";
 
-class CExploder {
+export class CExploder {
 
     constructor(parent) {
         this.explode(parent);
@@ -17,7 +17,7 @@ class CExploder {
         var x: CExplosion = null;
 
         if (parent.m_image != null) {
-            var size: gsCPoint = parent.m_image.getTileSize();
+            var size: Point = parent.m_image.getTileSize();
             var area = size.X * size.Y;
 
             if (area <= 32 * 32) {
@@ -39,4 +39,3 @@ class CExploder {
     //-------------------------------------------------------------
 
 }
-export = CExploder; 

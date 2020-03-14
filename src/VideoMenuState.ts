@@ -1,15 +1,13 @@
-﻿import CGameState = require("GameState");
-import CApplication = require("Application");
-import CScene = require("Scene");
-import CStarfield = require("Starfield");
-import gsCControls = require("Controls");
-import enums = require("Enums");
-import Options = require("Options");
-import gsCPoint = require("Point");
-import gsCMenu = require("Menu");
-import COptionsMenuState = require("OptionsMenuState");
+﻿import { CGameState } from "./GameState";
+import { COptionsMenuState } from "./OptionsMenuState";
+import { CScene } from "./Scene";
+import { CStarfield } from "./Starfield";
+import { CApplication } from "./Application";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { Point } from "./Point";
 
-class CVideoMenuState extends CGameState {
+export class CVideoMenuState extends CGameState {
 
     m_optionState: COptionsMenuState;
 
@@ -34,35 +32,35 @@ class CVideoMenuState extends CGameState {
 
     public copyOptionsToMenu(): void {
 
-        this.m_menu.setValue(enums.VideoMenuItem.OM_HIRES, this.m_options.getOption(enums.OptionType.OPTION_HIRES));
-        this.m_menu.setValue(enums.VideoMenuItem.OM_WINDOWED, this.m_options.getOption(enums.OptionType.OPTION_WINDOWED));
+        this.m_menu.setValue(Enums.VideoMenuItem.OM_HIRES, this.m_options.getOption(Enums.OptionType.OPTION_HIRES));
+        this.m_menu.setValue(Enums.VideoMenuItem.OM_WINDOWED, this.m_options.getOption(Enums.OptionType.OPTION_WINDOWED));
 
-        switch (this.m_options.getOption(enums.OptionType.OPTION_COLOURDEPTH)) {
-            case 8: this.m_menu.setValue(enums.VideoMenuItem.OM_COLOURDEPTH, 0); break;
-            case 24: this.m_menu.setValue(enums.VideoMenuItem.OM_COLOURDEPTH, 2); break;
-            case 32: this.m_menu.setValue(enums.VideoMenuItem.OM_COLOURDEPTH, 3); break;
-            default: this.m_menu.setValue(enums.VideoMenuItem.OM_COLOURDEPTH, 1); break;
+        switch (this.m_options.getOption(Enums.OptionType.OPTION_COLOURDEPTH)) {
+            case 8: this.m_menu.setValue(Enums.VideoMenuItem.OM_COLOURDEPTH, 0); break;
+            case 24: this.m_menu.setValue(Enums.VideoMenuItem.OM_COLOURDEPTH, 2); break;
+            case 32: this.m_menu.setValue(Enums.VideoMenuItem.OM_COLOURDEPTH, 3); break;
+            default: this.m_menu.setValue(Enums.VideoMenuItem.OM_COLOURDEPTH, 1); break;
         }
 
-        this.m_menu.setValue(enums.VideoMenuItem.OM_PARTICLEFX, this.m_options.getOption(enums.OptionType.OPTION_PARTICLEFX));
-        this.m_menu.setValue(enums.VideoMenuItem.OM_BACKDROP, this.m_options.getOption(enums.OptionType.OPTION_BACKDROP));
+        this.m_menu.setValue(Enums.VideoMenuItem.OM_PARTICLEFX, this.m_options.getOption(Enums.OptionType.OPTION_PARTICLEFX));
+        this.m_menu.setValue(Enums.VideoMenuItem.OM_BACKDROP, this.m_options.getOption(Enums.OptionType.OPTION_BACKDROP));
     }
 
     //-------------------------------------------------------------
 
     public copyMenuToOptions(): void {
-        this.m_options.setOption(enums.OptionType.OPTION_HIRES, this.m_menu.getValue(enums.VideoMenuItem.OM_HIRES));
-        this.m_options.setOption(enums.OptionType.OPTION_WINDOWED, this.m_menu.getValue(enums.VideoMenuItem.OM_WINDOWED));
+        this.m_options.setOption(Enums.OptionType.OPTION_HIRES, this.m_menu.getValue(Enums.VideoMenuItem.OM_HIRES));
+        this.m_options.setOption(Enums.OptionType.OPTION_WINDOWED, this.m_menu.getValue(Enums.VideoMenuItem.OM_WINDOWED));
 
-        switch (this.m_menu.getValue(enums.VideoMenuItem.OM_COLOURDEPTH)) {
-            case 0: this.m_options.setOption(enums.OptionType.OPTION_COLOURDEPTH, 8); break;
-            case 1: this.m_options.setOption(enums.OptionType.OPTION_COLOURDEPTH, 16); break;
-            case 2: this.m_options.setOption(enums.OptionType.OPTION_COLOURDEPTH, 24); break;
-            case 3: this.m_options.setOption(enums.OptionType.OPTION_COLOURDEPTH, 32); break;
+        switch (this.m_menu.getValue(Enums.VideoMenuItem.OM_COLOURDEPTH)) {
+            case 0: this.m_options.setOption(Enums.OptionType.OPTION_COLOURDEPTH, 8); break;
+            case 1: this.m_options.setOption(Enums.OptionType.OPTION_COLOURDEPTH, 16); break;
+            case 2: this.m_options.setOption(Enums.OptionType.OPTION_COLOURDEPTH, 24); break;
+            case 3: this.m_options.setOption(Enums.OptionType.OPTION_COLOURDEPTH, 32); break;
         }
 
-        this.m_options.setOption(enums.OptionType.OPTION_PARTICLEFX, this.m_menu.getValue(enums.VideoMenuItem.OM_PARTICLEFX));
-        this.m_options.setOption(enums.OptionType.OPTION_BACKDROP, this.m_menu.getValue(enums.VideoMenuItem.OM_BACKDROP));
+        this.m_options.setOption(Enums.OptionType.OPTION_PARTICLEFX, this.m_menu.getValue(Enums.VideoMenuItem.OM_PARTICLEFX));
+        this.m_options.setOption(Enums.OptionType.OPTION_BACKDROP, this.m_menu.getValue(Enums.VideoMenuItem.OM_BACKDROP));
     }
 
     //-------------------------------------------------------------
@@ -85,9 +83,9 @@ class CVideoMenuState extends CGameState {
         this.m_menu.addSelection("Cancel");
 
         this.m_menu.setWrap(true);
-        this.m_menu.setPosition(new gsCPoint(0, 150));
-        this.m_menu.setSpacing(new gsCPoint(0, 30));
-        this.m_menu.setCurrentItem(0);//enums.VideoMenuItem.OM_CANCEL);
+        this.m_menu.setPosition(new Point(0, 150));
+        this.m_menu.setSpacing(new Point(0, 30));
+        this.m_menu.setCurrentItem(0);//Enums.VideoMenuItem.OM_CANCEL);
         this.m_menu.setFont(this.m_medium_font);
 
         return true;
@@ -95,28 +93,28 @@ class CVideoMenuState extends CGameState {
 
     //-------------------------------------------------------------
 
-    public update(ctx: CanvasRenderingContext2D, controls: gsCControls): boolean {
+    public update(ctx: CanvasRenderingContext2D, controls: Controls): boolean {
 
-        if (this.m_options.getOption(enums.OptionType.OPTION_BACKDROP)) {
+        if (this.m_options.getOption(Enums.OptionType.OPTION_BACKDROP)) {
             ctx.drawImage(this.backgroundTexture, 0, 0);
         }
 
         this.m_starfield.Update(4);
         this.m_starfield.Draw(ctx);
 
-        this.m_medium_font.setTextCursor(new gsCPoint(0, 50));
+        this.m_medium_font.setTextCursor(new Point(0, 50));
         this.m_medium_font.justifyString("Video Options");
 
         this.m_menu.draw(ctx);
 
-        var item: enums.VideoMenuItem = <enums.VideoMenuItem>this.m_menu.getCurrentItem();
+        var item: Enums.VideoMenuItem = <Enums.VideoMenuItem>this.m_menu.getCurrentItem();
 
         if (controls.returnPressed || controls.enterPressed || controls.lcontrolPressed) {
             controls.returnPressed = false;
             controls.enterPressed = false;
             controls.lcontrolPressed = false;
-            if (item == enums.VideoMenuItem.OM_APPLY) {
-                super.playSample(enums.GameSampleType.SAMPLE_MENU_SELECTION);
+            if (item == Enums.VideoMenuItem.OM_APPLY) {
+                super.playSample(Enums.GameSampleType.SAMPLE_MENU_SELECTION);
                 this.copyMenuToOptions();
                 if (this.m_options.areChanged()) {
                     //gsCFile::setDirectory(DIRECTORY_ROOT);
@@ -139,34 +137,34 @@ class CVideoMenuState extends CGameState {
                     return this.changeState(this.m_app.instance = this.m_optionState);
                 }
             }
-            else if (item == enums.VideoMenuItem.OM_CANCEL) {
-                super.playSample(enums.GameSampleType.SAMPLE_MENU_BACK);
+            else if (item == Enums.VideoMenuItem.OM_CANCEL) {
+                super.playSample(Enums.GameSampleType.SAMPLE_MENU_BACK);
                 this.m_optionState.create();
                 return this.changeState(this.m_app.instance = this.m_optionState);
             }
         }
         if (controls.up) {
             controls.up = false;
-            super.playSample(enums.GameSampleType.SAMPLE_MENU_SELECTION);
+            super.playSample(Enums.GameSampleType.SAMPLE_MENU_SELECTION);
             this.m_menu.scroll(-1);
         }
 
         if (controls.down) {
             controls.down = false;
-            super.playSample(enums.GameSampleType.SAMPLE_MENU_SELECTION);
+            super.playSample(Enums.GameSampleType.SAMPLE_MENU_SELECTION);
             this.m_menu.scroll(1);
         }
 
         if (controls.left) {
             controls.left = false;
             if (this.m_menu.setValue(item, this.m_menu.getValue(item) - 1)) {
-                super.playSample(enums.GameSampleType.SAMPLE_MENU_OPTION);
+                super.playSample(Enums.GameSampleType.SAMPLE_MENU_OPTION);
             }
         }
         if (controls.right) {
             controls.right = false;
             if (this.m_menu.setValue(item, this.m_menu.getValue(item) + 1)) {
-                super.playSample(enums.GameSampleType.SAMPLE_MENU_OPTION);
+                super.playSample(Enums.GameSampleType.SAMPLE_MENU_OPTION);
             }
         }
         return true;
@@ -175,4 +173,3 @@ class CVideoMenuState extends CGameState {
     //-------------------------------------------------------------
 
 }
-export = CVideoMenuState;

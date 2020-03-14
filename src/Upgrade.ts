@@ -1,17 +1,17 @@
-﻿import gsCVector = require("Vector");
-import gsCMap = require("Map");
-import CActor = require("Actor");
-import CScene = require("Scene");
-import CWeapon = require("Weapon");
-import CMissileWeapon = require("MissileWeapon");
-import CHomingMissileWeapon = require("HomingMissileWeapon");
-import CLaserWeapon = require("LaserWeapon");
-import enums = require("Enums");
-import CShip = require("Ship");
-import Pickup = require("Pickup");
-import CPlayGameState = require("PlayGameState");
+﻿import { CActor } from "./Actor";
+import { gsCVector } from "./Vector";
+import { CWeapon } from "./Weapon";
+import { Enums } from "./Enums";
+import { CPlayGameState } from "./PlayGameState";
+import { CScene } from "./Scene";
+import { CShip } from "./Ship";
+import { gsCMap } from "./Map";
+import { CMissileWeapon } from "./MissileWeapon";
+import { CHomingMissileWeapon } from "./HomingMissileWeapon";
+import { CLaserWeapon } from "./LaserWeapon";
+import { Pickups } from "./Pickup";
 
-class CUpgrade extends CActor {
+export class CUpgrade extends CActor {
 
     //-------------------------------------------------------------
     UPGRADE_MAP_HIT: number = 10;			// energy lost if upgrade hits map
@@ -19,14 +19,14 @@ class CUpgrade extends CActor {
 
     m_offset: gsCVector;
     m_weapon: CWeapon;
-    m_weapon_type: enums.WeaponType;
+    m_weapon_type: Enums.WeaponType;
     protected m_playGameState: CPlayGameState;
 
     constructor(scene?: CScene) {
         super(scene);
         this.m_offset = new gsCVector(0.0, 0.0);
         this.m_weapon = null;
-        this.m_weapon_type = enums.WeaponType.NO_WEAPON;
+        this.m_weapon_type = Enums.WeaponType.NO_WEAPON;
         this.m_name = "Upgrade";
     }
 
@@ -34,7 +34,7 @@ class CUpgrade extends CActor {
 
     public activate() {
         if (!this.isActive()) {
-            this.setWeapon(enums.WeaponType.MISSILE_WEAPON, 0);
+            this.setWeapon(Enums.WeaponType.MISSILE_WEAPON, 0);
         }
         return super.activate();
     }
@@ -73,12 +73,12 @@ class CUpgrade extends CActor {
         }
 
         switch (actor.getActorInfo().m_type) {
-            case enums.ActorType.ACTOR_TYPE_PICKUP:
-                var act = <Pickup.CPickup>actor;
+            case Enums.ActorType.ACTOR_TYPE_PICKUP:
+                var act = <Pickups.CPickup>actor;
                 act.collect();
                 actor.kill();
                 break;
-            case enums.ActorType.ACTOR_TYPE_ALIEN:
+            case Enums.ActorType.ACTOR_TYPE_ALIEN:
                 this.registerHit(1, this);
                 actor.registerHit(1, this);
                 break;
@@ -97,7 +97,7 @@ class CUpgrade extends CActor {
 
     //-------------------------------------------------------------
 
-    public setWeapon(type: enums.WeaponType, grade: enums.WeaponGrade) {
+    public setWeapon(type: Enums.WeaponType, grade: Enums.WeaponGrade) {
         if (this.m_weapon) {
             this.m_weapon.kill();
             this.m_weapon = null;
@@ -106,16 +106,16 @@ class CUpgrade extends CActor {
         this.m_weapon_type = type;
 
         switch (this.m_weapon_type) {
-            case enums.WeaponType.NO_WEAPON:
+            case Enums.WeaponType.NO_WEAPON:
                 this.m_weapon = null;
                 break;
-            case enums.WeaponType.MISSILE_WEAPON:
+            case Enums.WeaponType.MISSILE_WEAPON:
                 this.m_weapon = new CMissileWeapon(this.m_scene, this.m_playGameState);
                 break;
-            case enums.WeaponType.HOMING_MISSILE_WEAPON:
+            case Enums.WeaponType.HOMING_MISSILE_WEAPON:
                 this.m_weapon = new CHomingMissileWeapon(this.m_scene, this.m_playGameState);
                 break;
-            case enums.WeaponType.LASER_WEAPON:
+            case Enums.WeaponType.LASER_WEAPON:
                 this.m_weapon = new CLaserWeapon(this.m_scene, this.m_playGameState);
                 break;
         }
@@ -149,4 +149,3 @@ class CUpgrade extends CActor {
         return this.m_weapon_type;
     }
 }
-export = CUpgrade;

@@ -1,15 +1,14 @@
-﻿import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import CScene = require("Scene");
-import CStarfield = require("Starfield");
-import CActorInfoList = require("ActorInfoList");
-import CGameState = require("GameState");
-import CPlayGameState = require("PlayGameState");
-import CMainMenuState = require("MainMenuState");
-import COptions = require("Options");
-import CApplication = require("Application");
+﻿import { CMainMenuState } from "./MainMenuState";
+import { CScene } from "./Scene";
+import { CStarfield } from "./Starfield";
+import { CActorInfoList } from "./ActorInfoList";
+import { CGameState } from "./GameState";
+import { CApplication } from "./Application";
+import { Options } from "./Options";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
 
-class Xenon {
+export class Xenon {
     private m_canvas: HTMLCanvasElement;
     private m_ctx: CanvasRenderingContext2D;
     private m_interval: number = 0;
@@ -25,12 +24,12 @@ class Xenon {
     private m_listOfActors: CActorInfoList;
     private m_state: CGameState;
     private m_app: CApplication;
-    private m_options: COptions;
-    private m_ctrl: gsCControls = new gsCControls();
-    private m_timer: gsCTimer = new gsCTimer();
+    private m_options: Options;
+    private m_ctrl: Controls = new Controls();
+    private m_timer: GameTime = new GameTime();
 
     constructor() {
-        this.m_timer = new gsCTimer();
+        this.m_timer = new GameTime();
     }
 
     //-------------------------------------------------------------
@@ -137,7 +136,7 @@ class Xenon {
         event.preventDefault();
         this.onKeyboardRelease(event, false);
     }
-    
+
     //-------------------------------------------------------------
 
     //onPressDown(event: TouchEvent) {
@@ -244,5 +243,3 @@ class Xenon {
 }
 
 //-------------------------------------------------------------
-
-export = Xenon;

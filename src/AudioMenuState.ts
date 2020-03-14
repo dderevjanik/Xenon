@@ -1,15 +1,13 @@
-﻿import CGameState = require("GameState");
-import CApplication = require("Application");
-import CScene = require("Scene");
-import CStarfield = require("Starfield");
-import gsCControls = require("Controls");
-import enums = require("Enums");
-import Options = require("Options");
-import gsCPoint = require("Point");
-import gsCMenu = require("Menu");
-import COptionsMenuState = require("OptionsMenuState");
+﻿import { CGameState } from "./GameState";
+import { COptionsMenuState } from "./OptionsMenuState";
+import { CScene } from "./Scene";
+import { CStarfield } from "./Starfield";
+import { CApplication } from "./Application";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { Point } from "./Point";
 
-class CAudioMenuState extends CGameState {
+export class CAudioMenuState extends CGameState {
 
     m_optionState: COptionsMenuState;
 
@@ -33,15 +31,15 @@ class CAudioMenuState extends CGameState {
     //-------------------------------------------------------------
 
     public copyOptionsToMenu(): void {
-        this.m_menu.setValue(enums.AudioMenuItem.OM_MUSIC, this.m_options.getOption(enums.OptionType.OPTION_MUSIC));
-        this.m_menu.setValue(enums.AudioMenuItem.OM_SOUNDFX, this.m_options.getOption(enums.OptionType.OPTION_SOUNDFX));
+        this.m_menu.setValue(Enums.AudioMenuItem.OM_MUSIC, this.m_options.getOption(Enums.OptionType.OPTION_MUSIC));
+        this.m_menu.setValue(Enums.AudioMenuItem.OM_SOUNDFX, this.m_options.getOption(Enums.OptionType.OPTION_SOUNDFX));
     }
 
     //-------------------------------------------------------------
 
     public copyMenuToOptions(): void {
-        this.m_options.setOption(enums.OptionType.OPTION_MUSIC, this.m_menu.getValue(enums.AudioMenuItem.OM_MUSIC));
-        this.m_options.setOption(enums.OptionType.OPTION_SOUNDFX, this.m_menu.getValue(enums.AudioMenuItem.OM_SOUNDFX));
+        this.m_options.setOption(Enums.OptionType.OPTION_MUSIC, this.m_menu.getValue(Enums.AudioMenuItem.OM_MUSIC));
+        this.m_options.setOption(Enums.OptionType.OPTION_SOUNDFX, this.m_menu.getValue(Enums.AudioMenuItem.OM_SOUNDFX));
     }
 
     //-------------------------------------------------------------
@@ -55,9 +53,9 @@ class CAudioMenuState extends CGameState {
         this.m_menu.addSelection("Apply");
         this.m_menu.addSelection("Cancel");
         this.m_menu.setWrap(true);
-        this.m_menu.setPosition(new gsCPoint(0, 150));
-        this.m_menu.setSpacing(new gsCPoint(0, 30));
-        this.m_menu.setCurrentItem(enums.AudioMenuItem.OM_CANCEL);
+        this.m_menu.setPosition(new Point(0, 150));
+        this.m_menu.setSpacing(new Point(0, 30));
+        this.m_menu.setCurrentItem(Enums.AudioMenuItem.OM_CANCEL);
         this.m_menu.setFont(this.m_medium_font);
 
         return true;
@@ -65,30 +63,30 @@ class CAudioMenuState extends CGameState {
 
     //-------------------------------------------------------------
 
-    public update(ctx: CanvasRenderingContext2D, controls: gsCControls): boolean {
+    public update(ctx: CanvasRenderingContext2D, controls: Controls): boolean {
 
         //	if (!CGameState::update())
         //		return false;
 
-        if (this.m_options.getOption(enums.OptionType.OPTION_BACKDROP)) {
+        if (this.m_options.getOption(Enums.OptionType.OPTION_BACKDROP)) {
             ctx.drawImage(this.backgroundTexture, 0, 0);
         }
 
         this.m_starfield.Update(4);
         this.m_starfield.Draw(ctx);
-        this.m_medium_font.setTextCursor(new gsCPoint(0, 50));
+        this.m_medium_font.setTextCursor(new Point(0, 50));
         this.m_medium_font.justifyString("Audio Options");
         this.m_menu.draw(ctx);
 
-        var item: enums.AudioMenuItem = <enums.AudioMenuItem>this.m_menu.getCurrentItem();
+        var item: Enums.AudioMenuItem = <Enums.AudioMenuItem>this.m_menu.getCurrentItem();
 
         if (controls.returnPressed || controls.enterPressed || controls.lcontrolPressed) {
             controls.returnPressed = false;
             controls.enterPressed = false;
             controls.lcontrolPressed = false;
 
-            if (item == enums.AudioMenuItem.OM_APPLY) {
-                super.playSample(enums.GameSampleType.SAMPLE_MENU_SELECTION);
+            if (item == Enums.AudioMenuItem.OM_APPLY) {
+                super.playSample(Enums.GameSampleType.SAMPLE_MENU_SELECTION);
                 this.copyMenuToOptions();
                 if (this.m_options.areChanged()) {
                     //gsCFile::setDirectory(DIRECTORY_ROOT);
@@ -110,28 +108,28 @@ class CAudioMenuState extends CGameState {
                 //    return this.changeState(this.m_app.instance = this.m_optionState);
                 //}
             }
-            else if (item == enums.AudioMenuItem.OM_CANCEL) {
-                super.playSample(enums.GameSampleType.SAMPLE_MENU_BACK);
+            else if (item == Enums.AudioMenuItem.OM_CANCEL) {
+                super.playSample(Enums.GameSampleType.SAMPLE_MENU_BACK);
                 return this.changeState(this.m_app.instance = this.m_optionState);
             }
         }
 
         if (controls.up) {
-            super.playSample(enums.GameSampleType.SAMPLE_MENU_SELECTION);
+            super.playSample(Enums.GameSampleType.SAMPLE_MENU_SELECTION);
             this.m_menu.scroll(-1);
         }
         if (controls.down) {
-            super.playSample(enums.GameSampleType.SAMPLE_MENU_SELECTION);
+            super.playSample(Enums.GameSampleType.SAMPLE_MENU_SELECTION);
             this.m_menu.scroll(1);
         }
         if (controls.left) {
             if (this.m_menu.setValue(item, this.m_menu.getValue(item) - 1)) {
-                super.playSample(enums.GameSampleType.SAMPLE_MENU_OPTION);
+                super.playSample(Enums.GameSampleType.SAMPLE_MENU_OPTION);
             }
         }
         if (controls.right) {
             if (this.m_menu.setValue(item, this.m_menu.getValue(item) + 1)) {
-                super.playSample(enums.GameSampleType.SAMPLE_MENU_OPTION);
+                super.playSample(Enums.GameSampleType.SAMPLE_MENU_OPTION);
             }
         }
         return true;
@@ -139,5 +137,3 @@ class CAudioMenuState extends CGameState {
 
     //-------------------------------------------------------------
 }
-
-export = CAudioMenuState;

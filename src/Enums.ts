@@ -1,5 +1,4 @@
-﻿export = enu;
-module enu {
+﻿export module Enums {
     export enum gsTimerState {
         gsTIMER_RESET,
         gsTIMER_ACTIVE,
@@ -374,5 +373,5 @@ module enu {
         //CM_SEPERATOR,
         CM_APPLY,
         CM_CANCEL
-    } 
-} 
+    }
+}

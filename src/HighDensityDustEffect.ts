@@ -1,7 +1,7 @@
-﻿import CDustEffect = require("DustEffect");
-import enums = require("Enums");
+﻿import { CDustEffect } from "./DustEffect";
+import { Enums } from "./Enums";
 
-class CHighDensityDustEffect extends CDustEffect {
+export class CHighDensityDustEffect extends CDustEffect {
 
     constructor() {
         super();
@@ -12,7 +12,6 @@ class CHighDensityDustEffect extends CDustEffect {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_HIGHDENSITY_DUST_EFFECT);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_HIGHDENSITY_DUST_EFFECT);
     }
 }
-export = CHighDensityDustEffect;

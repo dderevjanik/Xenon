@@ -1,16 +1,16 @@
-﻿import CGameState = require("GameState");
-import CPlayGameState = require("PlayGameState");
-import gsCFont = require("Font");
-import gsCPoint = require("Point");
+﻿import { CGameState } from "./GameState";
+import { gsCFont } from "./Font";
+import { CPlayGameState } from "./PlayGameState";
+import { Point } from "./Point";
 
-class CApplication {
+export class CApplication {
 
     private m_instance: CGameState;
     private m_small_font: gsCFont;
 
     constructor(font8x8: HTMLImageElement, ctx: CanvasRenderingContext2D) {
         this.m_small_font = new gsCFont(font8x8, ctx);
-        this.m_small_font.setTileSize(new gsCPoint(8, 8));
+        this.m_small_font.setTileSize(new Point(8, 8));
     }
 
     //-------------------------------------------------------------
@@ -37,4 +37,3 @@ class CApplication {
         return this.m_small_font;
     }
 }
-export = CApplication;

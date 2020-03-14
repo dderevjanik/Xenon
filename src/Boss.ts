@@ -1,7 +1,7 @@
-﻿import CActor = require("Actor")
-import CBossMouth = require("BossMouth")
+﻿import { CActor } from "./Actor";
+import { CBossMouth } from "./BossMouth";
 
-class CBoss extends CActor {
+export class CBoss extends CActor {
 
     //-------------------------------------------------------------
 
@@ -23,4 +23,3 @@ class CBoss extends CActor {
         return 100 * this.m_active_eyes / this.BOSS_EYES_TOTAL;
     }
 }
-export = CBoss;

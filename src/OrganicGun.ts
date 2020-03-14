@@ -1,12 +1,10 @@
-﻿import CActor = require("Actor")
-import gsCControls = require("Controls")
-import enums = require("Enums");
-import CSpinnerWeapon = require("SpinnerWeapon");
-import gsCVector = require("Vector");
-import CPlayGameState = require("PlayGameState");
-import CExplode = require("Exploder");
-
-//-------------------------------------------------------------
+﻿import { CActor } from "./Actor";
+import { CSpinnerWeapon } from "./SpinnerWeapon";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { gsCVector } from "./Vector";
+import { Controls } from "./Controls";
+import { CExploder } from "./Exploder";
 
 enum OrganicGunState {
     ORGANICGUN_STILL,
@@ -15,7 +13,7 @@ enum OrganicGunState {
 
 //-------------------------------------------------------------
 
-class COrganicGun extends CActor {
+export class COrganicGun extends CActor {
 
     ORGANICGUN_SHOT_START: number = 0;
     ORGANICGUN_SHOT_FRAMES: number = 8;
@@ -29,7 +27,7 @@ class COrganicGun extends CActor {
     private m_direction: number;
     private m_fired: boolean;
     private m_state: OrganicGunState;
-    private m_random;//static gsCRandom 
+    private m_random;//static gsCRandom
 
     //-------------------------------------------------------------
 
@@ -45,7 +43,7 @@ class COrganicGun extends CActor {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_ORGANIC_GUN);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_ORGANIC_GUN);
     }
 
     //-------------------------------------------------------------
@@ -57,8 +55,8 @@ class COrganicGun extends CActor {
             this.m_weapon.activate();
             this.m_weapon.setOwner(this);
             this.m_weapon.setOffset(new gsCVector(16.0, 16.0));
-            this.m_weapon.setFiringMode(enums.WeaponFiringMode.WEAPON_MANUAL);
-            this.m_weapon.setGrade(enums.WeaponGrade.WEAPON_BEST);
+            this.m_weapon.setFiringMode(Enums.WeaponFiringMode.WEAPON_MANUAL);
+            this.m_weapon.setGrade(Enums.WeaponGrade.WEAPON_BEST);
 
             this.m_state = OrganicGunState.ORGANICGUN_STILL;
             this.m_timer.start();
@@ -92,9 +90,9 @@ class COrganicGun extends CActor {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls): boolean {
+    public update(controls: Controls): boolean {
         if (this.m_shield == 0) {
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             this.kill();
             return true;
         }
@@ -140,4 +138,3 @@ class COrganicGun extends CActor {
     //-------------------------------------------------------------
 
 }
-export = COrganicGun;

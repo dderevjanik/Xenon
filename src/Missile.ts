@@ -1,11 +1,10 @@
-﻿import gsCControls = require("Controls");
-import CScene = require("Scene");
-import CBullet = require("Bullet");
-import CActor = require("Actor");
-import enums = require("Enums");
-import CPlayGameState = require("PlayGameState");
+﻿import { CBullet } from "./Bullet";
+import { CScene } from "./Scene";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
 
-class CMissile extends CBullet {
+export class CMissile extends CBullet {
 
     MISSILE_FRAMES: number = 2;
 
@@ -18,7 +17,7 @@ class CMissile extends CBullet {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_MISSILE);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_MISSILE);
     }
 
     //-------------------------------------------------------------
@@ -26,12 +25,12 @@ class CMissile extends CBullet {
     // Get the Speed Vector
     public getSpeed() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_MISSILE).m_speed.y;
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_MISSILE).m_speed.y;
     }
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls)
+    public update(controls: Controls)
     {
         this.m_position.x = this.m_position.x + this.m_velocity.x;
         this.m_position.y = this.m_position.y + this.m_velocity.y;
@@ -39,4 +38,3 @@ class CMissile extends CBullet {
         return true;
     }
 }
-export = CMissile;

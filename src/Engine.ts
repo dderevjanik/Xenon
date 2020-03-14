@@ -1,27 +1,17 @@
-﻿import gsCControls = require("Controls");
-import gsCRectangle = require("Rectangle");
-import gsCTiledImage = require("TiledImage");
-import gsCVector = require("Vector");
-import gsCMap = require("Map");
-import gsCScreen = require("Screen");
-import gsCSprite = require("Sprite");
-import gsCTimer = require("Timer");
-import CActor = require("Actor");
-import CScene = require("Scene");
-import CStarfield = require("Starfield");
-import CClone = require("Clone");
-import CWingtip = require("Wingtip");
-import CShipEngine = require("ShipEngine");
-import CRetroEngine = require("RetroEngine");
+﻿import { CActor } from "./Actor";
+import { gsCVector } from "./Vector";
+import { GameTime } from "./Timer";
+import { CScene } from "./Scene";
+import { Controls } from "./Controls";
 
-class CEngine extends CActor {
+export class CEngine extends CActor {
 
     ENGINE_MAX_THRUST: number = 10;
     private m_offset: gsCVector;
     m_min_extent: gsCVector;
     m_max_extent: gsCVector;
     m_thrust_rate: number;
-    m_thrust_timer: gsCTimer;
+    m_thrust_timer: GameTime;
     m_thrust: number;
 
     constructor(theScene: CScene) {
@@ -31,7 +21,7 @@ class CEngine extends CActor {
         this.m_min_extent = new gsCVector(0.0, 0.0);
         this.m_max_extent = new gsCVector(0.0, 0.0);
         this.m_thrust_rate = 0;
-        this.m_thrust_timer = new gsCTimer();
+        this.m_thrust_timer = new GameTime();
         this.m_name = "engine";
     }
 
@@ -76,7 +66,7 @@ class CEngine extends CActor {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer) {
+    public update(controls: Controls, gameTime: GameTime) {
         this.m_thrust_timer.update(false);
 
         var p: number = this.m_thrust / this.ENGINE_MAX_THRUST;
@@ -96,5 +86,3 @@ class CEngine extends CActor {
 
     //-------------------------------------------------------------
 }
-
-export = CEngine;

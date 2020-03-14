@@ -1,17 +1,17 @@
-﻿import CActor = require("Actor");
-import enums = require("Enums");
-import gsCMap = require("Map");
-import gsCPoint = require("Point");
-import gsCMapTile = require("MapTile");
-import CPlayGameState = require("PlayGameState");
+﻿import { CActor } from "./Actor";
+import { Enums } from "./Enums";
+import { CPlayGameState } from "./PlayGameState";
+import { gsCMap } from "./Map";
+import { gsCMapTile } from "./MapTile";
+import { Point } from "./Point";
 
-class CBullet extends CActor {
+export class CBullet extends CActor {
 
-    protected m_grade: enums.BulletGrade;
+    protected m_grade: Enums.BulletGrade;
 
     constructor(playGameState: CPlayGameState) {
         super();
-        this.m_grade = enums.BulletGrade.BULLET_STANDARD;
+        this.m_grade = Enums.BulletGrade.BULLET_STANDARD;
         this.m_playGameState = playGameState;
         this.m_name = "bullet";
     }
@@ -46,9 +46,9 @@ class CBullet extends CActor {
 
     public onCollisionWithMap(map: gsCMap, hits: number): void {
         for (var i = 0; i < hits; i++) {
-            var pos: gsCPoint = map.getHitPosition(i);
+            var pos: Point = map.getHitPosition(i);
             var mt: gsCMapTile = map.getMapTile(pos);
-            if (mt && mt.getUserData(0) == enums.TileId.ID_DESTROYABLE_TILE) {
+            if (mt && mt.getUserData(0) == Enums.TileId.ID_DESTROYABLE_TILE) {
 
                 var hits_required: number = mt.getUserData(1);
                 var hits_taken: number = mt.getUserData(3);
@@ -63,7 +63,7 @@ class CBullet extends CActor {
                     this.m_scene.createMapExplosion(map, pos);
 
                     // NOTE: don't let alien bullets score points :)
-                    if (this.getActorInfo().m_type == enums.ActorType.ACTOR_TYPE_BULLET) {
+                    if (this.getActorInfo().m_type == Enums.ActorType.ACTOR_TYPE_BULLET) {
                         this.m_playGameState.getPlayer().scoreBonus(5);
                     }
                 }
@@ -75,9 +75,7 @@ class CBullet extends CActor {
 
     //-------------------------------------------------------------
 
-    public setGrade(grade: enums.BulletGrade) {
+    public setGrade(grade: Enums.BulletGrade) {
         this.m_grade = grade;
     }
 }
-
-export = CBullet;

@@ -1,4 +1,4 @@
-﻿class Point {
+﻿export class Point {
 
     m_x: number;
     m_y: number;
@@ -48,5 +48,3 @@
         return this;
     }
 }
-
-export = Point;

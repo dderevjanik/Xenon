@@ -1,12 +1,12 @@
-﻿import CWeapon = require("Weapon");
-import CSpinner = require("Spinner");
-import enums = require("Enums");
-import gsCVector = require("Vector");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import CPlayGameState = require("PlayGameState");
+﻿import { CWeapon } from "./Weapon";
+import { gsCVector } from "./Vector";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { CSpinner } from "./Spinner";
 
-class CSpinnerWeapon extends CWeapon {
+export class CSpinnerWeapon extends CWeapon {
     private m_directionS: gsCVector;
 
     constructor(playGameState: CPlayGameState) {
@@ -21,12 +21,12 @@ class CSpinnerWeapon extends CWeapon {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_SPINNER_WEAPON);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SPINNER_WEAPON);
     }
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer) {
+    public update(controls: Controls, gameTime: GameTime) {
         super.update(controls, gameTime);
         if (this.do_fire) {
             this.fire();
@@ -64,5 +64,3 @@ class CSpinnerWeapon extends CWeapon {
         this.m_directionS = direction;
     }
 }
-
-export = CSpinnerWeapon;

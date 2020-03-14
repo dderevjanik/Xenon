@@ -1,11 +1,9 @@
-﻿import gsCImage = require("Image");
-import gsCPoint = require("Point");
-import gsCScreen = require("Screen");
-import gsCRectangle = require("Rectangle");
-import gsCVector = require("Vector");
-import Point = require("Point");
+﻿import { gsCImage } from "./Image";
+import { Point } from "./Point";
+import { gsCRectangle } from "./Rectangle";
+import { gsCScreen } from "./Screen";
 
-class gsCTiledImage extends gsCImage {
+export class gsCTiledImage extends gsCImage {
 
     protected m_tile_size: Point;
     protected m_num_tiles: number;
@@ -141,5 +139,3 @@ class gsCTiledImage extends gsCImage {
 
     //-------------------------------------------------------------
 }
-
-export = gsCTiledImage;

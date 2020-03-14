@@ -1,9 +1,9 @@
-﻿import CActor = require("Actor");
-import Controls = require("Controls");
-import GameTime = require("Timer");
-import enums = require("Enums");
+﻿import { CActor } from "./Actor";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
 
-class CExplosion extends CActor {
+export class CExplosion extends CActor {
 
     constructor() {
         super();
@@ -24,7 +24,7 @@ class CExplosion extends CActor {
     public update(controls: Controls, gametime: GameTime): boolean {
         this.m_position.plusEquals(this.m_velocity);
 
-        if (super.animate(enums.AnimationMode.ANIMATE_ONESHOT)) {
+        if (super.animate(Enums.AnimationMode.ANIMATE_ONESHOT)) {
             super.kill();
         }
         return true;
@@ -37,4 +37,3 @@ class CExplosion extends CActor {
     }
 
 }
-export = CExplosion;

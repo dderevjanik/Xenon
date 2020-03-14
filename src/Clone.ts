@@ -1,15 +1,15 @@
-﻿import gsCControls = require("Controls");
-import CUpgrade = require("Upgrade");
-import gsCVector = require("Vector");
-import CCloneEngine = require("CloneEngine");
-import CScene = require("Scene");
-import gsCTimer = require("Timer");
-import CShip = require("Ship");
-import enums = require("Enums");
-import CPlayGameState = require("PlayGameState");
-import CExplode = require("Exploder");
+﻿import { CUpgrade } from "./Upgrade";
+import { CCloneEngine } from "./CloneEngine";
+import { CScene } from "./Scene";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { gsCVector } from "./Vector";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { CShip } from "./Ship";
+import { CExploder } from "./Exploder";
 
-class CClone extends CUpgrade {
+export class CClone extends CUpgrade {
 
     CLONE_FRAMES: number = 16;
     CLONE_DIVE_OFFSET: number = 16;
@@ -42,7 +42,7 @@ class CClone extends CUpgrade {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_CLONE);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_CLONE);
     }
 
     //-------------------------------------------------------------
@@ -72,12 +72,12 @@ class CClone extends CUpgrade {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gametime: gsCTimer) {
+    public update(controls: Controls, gametime: GameTime) {
 
         var ship: CShip = <CShip>this.getOwner();
 
         if (!ship){
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             this.kill();
             return true;
         }
@@ -85,7 +85,7 @@ class CClone extends CUpgrade {
         if (this.getShield() == 0) {
             ship.detachClone(this);
             this.setOwner(null);
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             this.kill();
             return true;
         }
@@ -141,7 +141,7 @@ class CClone extends CUpgrade {
                 }
             }
             else {
-                this.animations(enums.AnimationMode.ANIMATE_LOOP, 0, this.CLONE_FRAMES);
+                this.animations(Enums.AnimationMode.ANIMATE_LOOP, 0, this.CLONE_FRAMES);
             }
         }
         else {
@@ -178,4 +178,3 @@ class CClone extends CUpgrade {
     //-------------------------------------------------------------
 
 }
-export = CClone;

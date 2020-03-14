@@ -1,23 +1,22 @@
-﻿import Controls = require("Controls");
-import GameTime = require("Timer");
-import enums = require("Enums");
-import CBullet = require("Bullet");
-import gsCVector = require("Vector");
-import CExplode = require("Exploder");
+﻿import { CBullet } from "./Bullet";
+import { Enums } from "./Enums";
+import { CExploder } from "./Exploder";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
 
-class CHomerProjectile extends CBullet {
+export class CHomerProjectile extends CBullet {
 
     m_name = "HomerProjectile";
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_HOMER_PROJECTILE);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_HOMER_PROJECTILE);
     }
 
     //-------------------------------------------------------------
     public update(controls: Controls, gametime: GameTime): boolean {
         if (this.m_shield == 0) {
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             this.kill();
             return true;
         }
@@ -36,5 +35,3 @@ class CHomerProjectile extends CBullet {
     }
 
 }
-
-export = CHomerProjectile;

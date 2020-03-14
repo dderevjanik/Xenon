@@ -1,14 +1,13 @@
-﻿import CGameState = require("GameState");
-import gsCControls = require("Controls");
-import gsCScreen = require("Screen");
-import CApplication = require("Application");
-import CScene = require("Scene");
-import CStarfield = require("Starfield");
-import enums = require("Enums");
-import Options = require("Options");
-import gsCPoint = require("Point");
+﻿import { CGameState } from "./GameState";
+import { CScene } from "./Scene";
+import { CStarfield } from "./Starfield";
+import { CApplication } from "./Application";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { gsCScreen } from "./Screen";
+import { Point } from "./Point";
 
-class CScoreEntryState extends CGameState {
+export class CScoreEntryState extends CGameState {
 
     m_congratulation_messages: Array<string>;
     m_instance: CScoreEntryState = null;
@@ -41,17 +40,17 @@ class CScoreEntryState extends CGameState {
 
     public create(): boolean {
         this.stopSamples();
-        this.playMusic(enums.GameMusicType.MUSIC_HISCORE);
+        this.playMusic(Enums.GameMusicType.MUSIC_HISCORE);
         return true;
     }
 
     //-------------------------------------------------------------
 
-    public update(ctx: CanvasRenderingContext2D, controls: gsCControls): boolean {
+    public update(ctx: CanvasRenderingContext2D, controls: Controls): boolean {
 
         var screen: gsCScreen = new gsCScreen();
 
-        if (this.m_options.getOption(enums.OptionType.OPTION_BACKDROP)) {
+        if (this.m_options.getOption(Enums.OptionType.OPTION_BACKDROP)) {
             ctx.drawImage(this.backgroundTexture, 0, 0);
         }
 
@@ -60,49 +59,49 @@ class CScoreEntryState extends CGameState {
 
         var m = this.m_congratulation_messages[this.m_score_table.getCurrentItem()];
 
-        this.m_medium_font.setTextCursor(new gsCPoint(0, 50));
+        this.m_medium_font.setTextCursor(new Point(0, 50));
         this.m_medium_font.justifyString(m);
         this.m_score_table.draw(this.m_medium_font, ctx);
 
-        this.m_medium_font.setTextCursor(new gsCPoint(0, 400));
+        this.m_medium_font.setTextCursor(new Point(0, 400));
         this.m_medium_font.justifyString("Use Movement Keys To Enter Your Name");
-        this.m_medium_font.setTextCursor(new gsCPoint(0, 430));
+        this.m_medium_font.setTextCursor(new Point(0, 430));
         this.m_medium_font.justifyString("Press Fire To Exit To Main Menu");
 
         if (controls.returnPressed || controls.enterPressed || controls.lcontrolPressed) {
             controls.returnPressed = false;
             controls.enterPressed = false;
             controls.lcontrolPressed = false;
-            super.playSample(enums.GameSampleType.SAMPLE_MENU_BACK);
+            super.playSample(Enums.GameSampleType.SAMPLE_MENU_BACK);
             return this.changeState(this.m_app.instance = this.m_mainMenuState);
         }
 
         if (controls.up) {
             controls.up = false;
-            super.playSample(enums.GameSampleType.SAMPLE_MENU_OPTION);
+            super.playSample(Enums.GameSampleType.SAMPLE_MENU_OPTION);
             this.m_score_table.cycleLetter(1);
         }
 
         if (controls.down) {
             controls.down = false;
-            super.playSample(enums.GameSampleType.SAMPLE_MENU_OPTION);
+            super.playSample(Enums.GameSampleType.SAMPLE_MENU_OPTION);
             this.m_score_table.cycleLetter(-1);
         }
 
         if (controls.left) {
             controls.left = false;
-            super.playSample(enums.GameSampleType.SAMPLE_MENU_SELECTION);
+            super.playSample(Enums.GameSampleType.SAMPLE_MENU_SELECTION);
             this.m_score_table.scrollLetter(-1);
         }
 
         if (controls.right) {
             controls.right = false;
-            super.playSample(enums.GameSampleType.SAMPLE_MENU_SELECTION);
+            super.playSample(Enums.GameSampleType.SAMPLE_MENU_SELECTION);
             this.m_score_table.scrollLetter(1);
         }
 
         if (this.m_sound_system.isMusicFinished()) {
-            this.playMusic(enums.GameMusicType.MUSIC_HISCORE);
+            this.playMusic(Enums.GameMusicType.MUSIC_HISCORE);
         }
         return true;
     }
@@ -110,5 +109,3 @@ class CScoreEntryState extends CGameState {
     //-------------------------------------------------------------
 
 }
-
-export = CScoreEntryState;

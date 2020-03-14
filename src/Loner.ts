@@ -1,16 +1,15 @@
-﻿import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import CAlien = require("Alien");
-import enums = require("Enums");
-import ActorInfo = require("ActorInfo")
-import CShip = require("Ship");
-import gsCVector = require("Vector");
-import CSpinnerWeapon = require("SpinnerWeapon");
-import CPlayGameState = require("PlayGameState");
-import CExplode = require("Exploder");
+﻿import { CAlien } from "./Alien";
+import { CSpinnerWeapon } from "./SpinnerWeapon";
+import { CPlayGameState } from "./PlayGameState";
+import { gsCVector } from "./Vector";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { CShip } from "./Ship";
+import { Enums } from "./Enums";
+import { ActorInfo } from "./ActorInfo";
+import { CExploder } from "./Exploder";
 
-export = Loner;
-module Loner {
+export module Loner {
 
     export class CLoner extends CAlien {
 
@@ -49,9 +48,9 @@ module Loner {
 
         //-------------------------------------------------------------
 
-        public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+        public update(controls: Controls, gameTime: GameTime): boolean {
             if (this.m_shield == 0) {
-                var explode = new CExplode(this);
+                var explode = new CExploder(this);
                 super.kill();
                 return true;
             }
@@ -66,7 +65,7 @@ module Loner {
             }
 
             this.m_position.plusEquals(this.m_velocity);
-            this.animate(enums.AnimationMode.ANIMATE_LOOP);
+            this.animate(Enums.AnimationMode.ANIMATE_LOOP);
 
             return true;
         }
@@ -80,7 +79,7 @@ module Loner {
 
         public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
-            return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_STANDARD_LONER);
+            return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_STANDARD_LONER);
         }
     }
 
@@ -90,7 +89,7 @@ module Loner {
 
         public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
-            return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_MEDIUM_LONER);
+            return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_MEDIUM_LONER);
         }
     }
 
@@ -100,7 +99,7 @@ module Loner {
 
         public getActorInfo(): ActorInfo {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
-            return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_ARMOURED_LONER);
+            return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_ARMOURED_LONER);
         }
     }
 

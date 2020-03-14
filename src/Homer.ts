@@ -1,14 +1,14 @@
-﻿import CAlien = require("Alien");
-import CHomerProjectileWeapon = require("HomerProjectileWeapon");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import enums = require("Enums");
-import CShip = require("Ship");
-import gsCVector = require("Vector");
-import CPlayGameState = require("PlayGameState");
-import CExplode = require("Exploder");
+﻿import { CAlien } from "./Alien";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { CHomerProjectileWeapon } from "./HomerProjectileWeapon";
+import { gsCVector } from "./Vector";
+import { CShip } from "./Ship";
+import { CExploder } from "./Exploder";
 
-class CHomer extends CAlien {
+export class CHomer extends CAlien {
     HOMER_MAX_XSPEED: number = 3.0;
     HOMER_XSPEED_SCALE: number = 0.025;
 
@@ -22,7 +22,7 @@ class CHomer extends CAlien {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_HOMER);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_HOMER);
     }
 
     //-------------------------------------------------------------
@@ -33,7 +33,7 @@ class CHomer extends CAlien {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+    public update(controls: Controls, gameTime: GameTime): boolean {
 
         if (this.m_shield == 0) {
             var weapon: CHomerProjectileWeapon = new CHomerProjectileWeapon(this.m_playGameState);
@@ -42,7 +42,7 @@ class CHomer extends CAlien {
             weapon.setOwner(this);
             weapon.setOffset(new gsCVector(0.0, 0.0));
             weapon.detonate();
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             super.kill();
             return true;
         }
@@ -64,12 +64,10 @@ class CHomer extends CAlien {
 
         //this.m_position += new gsCVector(dx, this.m_velocity.Y);
         this.m_position.plusEquals(new gsCVector(dx, this.m_velocity.Y));
-        super.animate(enums.AnimationMode.ANIMATE_LOOP);
+        super.animate(Enums.AnimationMode.ANIMATE_LOOP);
 
         return true;
     }
 
     //-------------------------------------------------------------
 }
-
-export = CHomer;

@@ -1,21 +1,21 @@
-﻿import gsCControls = require("Controls");
-import gsCVector = require("Vector");
-import gsCTimer = require("Timer");
-import CActor = require("Actor");
-import CScene = require("Scene");
-import enums = require("Enums");
-import CPlayGameState = require("PlayGameState");
+﻿import { CActor } from "./Actor";
+import { Enums } from "./Enums";
+import { gsCVector } from "./Vector";
+import { GameTime } from "./Timer";
+import { CPlayGameState } from "./PlayGameState";
+import { CScene } from "./Scene";
+import { Controls } from "./Controls";
 
-class CWeapon extends CActor {
-    m_grade: enums.WeaponGrade;
+export class CWeapon extends CActor {
+    m_grade: Enums.WeaponGrade;
     m_offset: gsCVector;
     m_actor: CActor;
-    m_fire_timer: gsCTimer;
+    m_fire_timer: GameTime;
     m_delay_fire: boolean;
-    m_autofire_timer: gsCTimer;
+    m_autofire_timer: GameTime;
     m_autofire: boolean;
-    m_mode: enums.WeaponFiringMode;
-    m_direction: enums.WeaponDirection;
+    m_mode: Enums.WeaponFiringMode;
+    m_direction: Enums.WeaponDirection;
     WEAPON_ONSCREEN_RADIUS: number;
 
     protected m_playGameState: CPlayGameState;
@@ -23,14 +23,14 @@ class CWeapon extends CActor {
 
     constructor(scene?: CScene) {
         super(scene);
-        this.m_grade = enums.WeaponGrade.WEAPON_STANDARD;
+        this.m_grade = Enums.WeaponGrade.WEAPON_STANDARD;
         this.m_offset = new gsCVector(0, 0);
-        this.m_mode = enums.WeaponFiringMode.WEAPON_AUTOMATIC;
-        this.m_direction = enums.WeaponDirection.WEAPON_FORWARD;
+        this.m_mode = Enums.WeaponFiringMode.WEAPON_AUTOMATIC;
+        this.m_direction = Enums.WeaponDirection.WEAPON_FORWARD;
         this.m_position = new gsCVector(0, 0);
         this.WEAPON_ONSCREEN_RADIUS = 8;
-        this.m_fire_timer = new gsCTimer();
-        this.m_autofire_timer = new gsCTimer();
+        this.m_fire_timer = new GameTime();
+        this.m_autofire_timer = new GameTime();
         this.m_name = "Weapon";
     }
 
@@ -46,7 +46,7 @@ class CWeapon extends CActor {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer) {
+    public update(controls: Controls, gameTime: GameTime) {
         //if (controls || !getOwner())
         //    return false;
 
@@ -59,13 +59,13 @@ class CWeapon extends CActor {
         this.m_position.x = this.getOwner().getPosition().x + this.m_offset.x;
         this.m_position.y = this.getOwner().getPosition().y + this.m_offset.y;
 
-        if (this.m_mode == enums.WeaponFiringMode.WEAPON_MANUAL) {
+        if (this.m_mode == Enums.WeaponFiringMode.WEAPON_MANUAL) {
             return true;
         }
 
         switch (this.getOwner().getActorInfo().m_type) {
-            case enums.ActorType.ACTOR_TYPE_SHIP:
-            case enums.ActorType.ACTOR_TYPE_UPGRADE:
+            case Enums.ActorType.ACTOR_TYPE_SHIP:
+            case Enums.ActorType.ACTOR_TYPE_UPGRADE:
 
                 //var do_fire: boolean = false;
                 this.do_fire = false;
@@ -106,12 +106,12 @@ class CWeapon extends CActor {
                 //if (do_fire) {
                 //    //var obj = this.getOwner();
                 //    //this.getOwner();
-                //    this.fire();                      
+                //    this.fire();
                 //    controls.fire = false;
                 //}
                 break;
 
-            case enums.ActorType.ACTOR_TYPE_ALIEN:
+            case Enums.ActorType.ACTOR_TYPE_ALIEN:
                 if (!this.m_delay_fire || this.m_fire_timer.getTime() >= this.getActorInfo().m_fire_delay) {
                     this.m_delay_fire = true;
                     this.m_fire_timer.start();
@@ -132,7 +132,7 @@ class CWeapon extends CActor {
 
     //-------------------------------------------------------------
 
-    public setGrade(grade: enums.WeaponGrade) {
+    public setGrade(grade: Enums.WeaponGrade) {
         this.m_grade = grade;
     }
 
@@ -140,11 +140,11 @@ class CWeapon extends CActor {
 
     public upgrade() {
         switch (this.m_grade) {
-            case enums.WeaponGrade.WEAPON_STANDARD:
-                this.setGrade(enums.WeaponGrade.WEAPON_MEDIUM);
+            case Enums.WeaponGrade.WEAPON_STANDARD:
+                this.setGrade(Enums.WeaponGrade.WEAPON_MEDIUM);
                 return true;
-            case enums.WeaponGrade.WEAPON_MEDIUM:
-                this.setGrade(enums.WeaponGrade.WEAPON_BEST);
+            case Enums.WeaponGrade.WEAPON_MEDIUM:
+                this.setGrade(Enums.WeaponGrade.WEAPON_BEST);
                 return true;
         }
         return false;
@@ -158,7 +158,7 @@ class CWeapon extends CActor {
 
     //-------------------------------------------------------------
 
-    public setFiringMode(mode: enums.WeaponFiringMode) {
+    public setFiringMode(mode: Enums.WeaponFiringMode) {
         this.m_mode = mode;
     }
 
@@ -174,10 +174,10 @@ class CWeapon extends CActor {
 
         // NYI
         /*
-            gsCPoint pos = getOwner()->getPosition() + m_offset + m_map->getPosition();
+            Point pos = getOwner()->getPosition() + m_offset + m_map->getPosition();
 
-            gsCRect rect(pos - gsCPoint(WEAPON_ONSCREEN_RADIUS,WEAPON_ONSCREEN_RADIUS),
-                         pos + gsCPoint(WEAPON_ONSCREEN_RADIUS,WEAPON_ONSCREEN_RADIUS));
+            gsCRect rect(pos - Point(WEAPON_ONSCREEN_RADIUS,WEAPON_ONSCREEN_RADIUS),
+                         pos + Point(WEAPON_ONSCREEN_RADIUS,WEAPON_ONSCREEN_RADIUS));
 
             return screen->getRect().contains(rect);
         */
@@ -185,7 +185,7 @@ class CWeapon extends CActor {
 
     //-------------------------------------------------------------
 
-    public setDirection(direction: enums.WeaponDirection) {
+    public setDirection(direction: Enums.WeaponDirection) {
         this.m_direction = direction;
     }
 
@@ -204,4 +204,3 @@ class CWeapon extends CActor {
     //-------------------------------------------------------------
 
 }
-export = CWeapon;

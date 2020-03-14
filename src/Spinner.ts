@@ -1,10 +1,10 @@
-﻿import CBullet = require("Bullet");
-import enums = require("Enums");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import CPlayGameState = require("PlayGameState");
+﻿import { CBullet } from "./Bullet";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
 
-class CSpinner extends CBullet {
+export class CSpinner extends CBullet {
     private SPINNER_FRAMES: number = 8;
 
     constructor(playGameState: CPlayGameState) {
@@ -16,7 +16,7 @@ class CSpinner extends CBullet {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_SPINNER);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SPINNER);
     }
 
     //-------------------------------------------------------------
@@ -29,7 +29,7 @@ class CSpinner extends CBullet {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer) {
+    public update(controls: Controls, gameTime: GameTime) {
         //super.update(controls, gameTime);
         if (this.m_shield == 0) {
             this.kill();
@@ -37,10 +37,8 @@ class CSpinner extends CBullet {
         }
         this.m_position.plusEquals(this.m_velocity);
         //console.log("pos x = " + this.m_position.x + " pos y = " + this.m_position.y);
-        this.animations(enums.AnimationMode.ANIMATE_LOOP, this.m_grade * this.SPINNER_FRAMES, this.SPINNER_FRAMES);
+        this.animations(Enums.AnimationMode.ANIMATE_LOOP, this.m_grade * this.SPINNER_FRAMES, this.SPINNER_FRAMES);
         return true;
     }
 
 }
-
-export = CSpinner;

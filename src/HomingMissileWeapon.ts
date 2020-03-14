@@ -1,14 +1,14 @@
-﻿import CScene = require("Scene");
-import CWeapon = require("Weapon");
-import CHomingMissile = require("HomingMissile");
-import CAlien = require("Alien");
-import gsCVector = require("Vector");
-import enums = require("Enums");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import CPlayGameState = require("PlayGameState");
+﻿import { CWeapon } from "./Weapon";
+import { CScene } from "./Scene";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { CHomingMissile } from "./HomingMissile";
+import { CAlien } from "./Alien";
+import { gsCVector } from "./Vector";
 
-class CHomingMissileWeapon extends CWeapon {
+export class CHomingMissileWeapon extends CWeapon {
 
     constructor(scene: CScene, playGameState: CPlayGameState) {
         super(scene);
@@ -20,12 +20,12 @@ class CHomingMissileWeapon extends CWeapon {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_HOMING_MISSILE_WEAPON);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_HOMING_MISSILE_WEAPON);
     }
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer) {
+    public update(controls: Controls, gameTime: GameTime) {
         super.update(controls, gameTime);
 
         if (this.do_fire) {
@@ -46,8 +46,8 @@ class CHomingMissileWeapon extends CWeapon {
 
         var alien: CAlien = null;
         switch (this.m_direction) {
-            case enums.WeaponDirection.WEAPON_FORWARD:
-                alien = <CAlien>this.m_scene.findNearestActor(enums.ActorType.ACTOR_TYPE_ALIEN, this.getPosition(), -1);
+            case Enums.WeaponDirection.WEAPON_FORWARD:
+                alien = <CAlien>this.m_scene.findNearestActor(Enums.ActorType.ACTOR_TYPE_ALIEN, this.getPosition(), -1);
 
                 if (alien) {
                     h.setTarget(alien.getPosition());
@@ -59,8 +59,8 @@ class CHomingMissileWeapon extends CWeapon {
                 //h.setVelocity(new gsCVector(0.0, -h.getActorInfo().m_speed[this.m_grade]));
                 h.setVelocity(new gsCVector(0.0, -5));
                 break;
-            case enums.WeaponDirection.WEAPON_REVERSE:
-                alien = <CAlien>this.m_scene.findNearestActor(enums.ActorType.ACTOR_TYPE_ALIEN, this.getPosition(), 1);
+            case Enums.WeaponDirection.WEAPON_REVERSE:
+                alien = <CAlien>this.m_scene.findNearestActor(Enums.ActorType.ACTOR_TYPE_ALIEN, this.getPosition(), 1);
 
                 if (alien) {
                     h.setTarget(alien.getPosition());
@@ -78,13 +78,11 @@ class CHomingMissileWeapon extends CWeapon {
         var grade: number = this.m_grade;
         h.setGrade(grade);
 
-        if (this.getOwner() && this.getOwner().getActorInfo().m_type == enums.ActorType.ACTOR_TYPE_SHIP) {
-            this.m_playGameState.playSample(enums.GameSampleType.SAMPLE_FIRE_HOMING_MISSILE);
+        if (this.getOwner() && this.getOwner().getActorInfo().m_type == Enums.ActorType.ACTOR_TYPE_SHIP) {
+            this.m_playGameState.playSample(Enums.GameSampleType.SAMPLE_FIRE_HOMING_MISSILE);
             //        CGameState::playSample(SAMPLE_FIRE_HOMING_MISSILE, getPosition().getX());
         }
 
         return true;
     }
 }
-
-export = CHomingMissileWeapon;

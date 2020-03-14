@@ -1,10 +1,10 @@
-﻿import gsCVector = require("Vector");
-import enums = require("Enums");
+﻿import { Enums } from "./Enums";
+import { gsCVector } from "./Vector";
 
-class ActorInfo {
+export class ActorInfo {
 
     public m_name: string;					// name (used for load/save to config file)
-    public m_type: enums.ActorType;			// type of actor
+    public m_type: Enums.ActorType;			// type of actor
     public m_filename: string;				// file containing sprite frames
     public m_tile_width: number;			// width of 1 frame
     public m_tile_height: number;			// height of 1 frame
@@ -23,7 +23,7 @@ class ActorInfo {
     public m_speed: gsCVector;
     public m_energy = []; // bullet energy
 
-    constructor(name: string, actorType: enums.ActorType, filename: string, tile_width: number, tile_height: number, hotspot_x: number, hotspot_y: number, anirate: number, initial_shield: number, kill_bonus: number, speed: gsCVector) {
+    constructor(name: string, actorType: Enums.ActorType, filename: string, tile_width: number, tile_height: number, hotspot_x: number, hotspot_y: number, anirate: number, initial_shield: number, kill_bonus: number, speed: gsCVector) {
         this.m_name = name;
         this.m_type = actorType;
         this.m_filename = filename;
@@ -47,4 +47,3 @@ class ActorInfo {
         //this.m_speed.push(3);
     }
 }
-export = ActorInfo;

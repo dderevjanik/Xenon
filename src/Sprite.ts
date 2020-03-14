@@ -1,8 +1,8 @@
-﻿import gsCRectangle = require("Rectangle");
-import gsCTiledImage = require("TiledImage");
-import gsCVector = require("Vector");
+﻿import { gsCTiledImage } from "./TiledImage";
+import { gsCVector } from "./Vector";
+import { gsCRectangle } from "./Rectangle";
 
-class gsCSprite {
+export class gsCSprite {
 
     private m_image: gsCTiledImage;
     private m_position: gsCVector;
@@ -101,7 +101,7 @@ class gsCSprite {
 
     //-------------------------------------------------------------
 
-    // From Actor 
+    // From Actor
     public draw(ctx: CanvasRenderingContext2D) {
         if (this.m_image == null || !this.m_active) {
             return false;
@@ -141,5 +141,3 @@ class gsCSprite {
 
     //-------------------------------------------------------------
 }
-
-export = gsCSprite;

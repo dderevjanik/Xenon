@@ -1,17 +1,17 @@
-﻿import CActor = require("Actor");
-import CBullet = require("Bullet");
-import gsCPoint = require("Point");
-import gsCMap = require("Map");
-import gsCMapTile = require("Maptile");
-import gsCVector = require("Vector");
-import enums = require("Enums");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import gsCScreen = require("Screen");
-import gsCRectangle = require("Rectangle");
-import CPlayGameState = require("PlayGameState");
+﻿import { CBullet } from "./Bullet";
+import { gsCMap } from "./Map";
+import { gsCRectangle } from "./Rectangle";
+import { CActor } from "./Actor";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { gsCVector } from "./Vector";
+import { gsCMapTile } from "./MapTile";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { gsCScreen } from "./Screen";
+import { Point } from "./Point";
 
-class CLaser extends CBullet {
+export class CLaser extends CBullet {
 
     private LASER_MAX_LENGTH = 256;
     private m_hit_map: gsCMap;
@@ -19,7 +19,7 @@ class CLaser extends CBullet {
     private m_dying: boolean;
     private m_laserRect: gsCRectangle;
     private m_actor_collider_list: Array<CActor>;
-    private m_map_collider_list: Array<gsCPoint>;
+    private m_map_collider_list: Array<Point>;
 
     constructor(playGameState: CPlayGameState) {
         super(playGameState);
@@ -28,7 +28,7 @@ class CLaser extends CBullet {
         this.m_name = "laser";
         this.m_actor_collider_list = [];
         this.m_map_collider_list = [];
-        
+
         this.m_grade = 2; //TEMP!
     }
 
@@ -36,7 +36,7 @@ class CLaser extends CBullet {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_LASER);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_LASER);
     }
 
     //-------------------------------------------------------------
@@ -69,7 +69,7 @@ class CLaser extends CBullet {
         // save colliders for later
         this.m_hit_map = map;
 
-        this.m_map_collider_list = new Array<gsCPoint>(hits);
+        this.m_map_collider_list = new Array<Point>(hits);
 
         for (var i = 0; i < hits; i++) {
             this.m_map_collider_list[i] = map.getHitPosition(i);
@@ -101,13 +101,13 @@ class CLaser extends CBullet {
         var map_d: number = 99999.0;
 
         if (this.m_hit_map) {
-            var tile_size: gsCPoint = this.m_hit_map.getImage().getTileSize();
-            var tile_centre: gsCPoint = new gsCPoint(tile_size.X / 2, tile_size.Y / 2);
+            var tile_size: Point = this.m_hit_map.getImage().getTileSize();
+            var tile_centre: Point = new Point(tile_size.X / 2, tile_size.Y / 2);
 
             for (var i = 0; i < this.m_map_collider_list.length; i++) {
                 // convert map tile coords to world coords
 
-                //    var p: gsCPoint = this.m_map_collider_list[i] * tile_size + tile_centre;
+                //    var p: Point = this.m_map_collider_list[i] * tile_size + tile_centre;
                 //    var mpos:gsCVector = new gsCVector(p.X, p.Y);
 
                 //    var d: number = (mpos - pos).length();
@@ -124,10 +124,10 @@ class CLaser extends CBullet {
             this.m_length = actor_d;
         }
         else {
-            var poss: gsCPoint = this.m_map_collider_list[map_i];
+            var poss: Point = this.m_map_collider_list[map_i];
 
             var mt: gsCMapTile = this.m_hit_map.getMapTile(poss);
-            if (mt && mt.getUserData(0) == enums.TileId.ID_DESTROYABLE_TILE) {
+            if (mt && mt.getUserData(0) == Enums.TileId.ID_DESTROYABLE_TILE) {
                 mt.setHidden(true);
                 this.m_scene.createMapExplosion(this.m_hit_map, pos);
 
@@ -144,7 +144,7 @@ class CLaser extends CBullet {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gametime: gsCTimer): boolean {
+    public update(controls: Controls, gametime: GameTime): boolean {
         this.m_position.plusEquals(this.m_velocity);
         if (!this.m_dying) { //TEMP - Ian 21/03/2017
             this.m_length += this.m_velocity.Y;
@@ -166,18 +166,18 @@ class CLaser extends CBullet {
         if (!screen)
             return false;
 
-        var colour: string; //gsCColour 
+        var colour: string; //gsCColour
         var flash = Math.random() * 256;
-         
+
         this.m_grade = 2
         switch (this.m_grade) {
-            case enums.BulletGrade.BULLET_STANDARD:
+            case Enums.BulletGrade.BULLET_STANDARD:
                 colour = "red";//gsCColour(0,flash,255);
                 break;
-            case enums.BulletGrade.BULLET_MEDIUM:
+            case Enums.BulletGrade.BULLET_MEDIUM:
                 colour = "green";//gsCColour(flash,255,0);
                 break;
-            case enums.BulletGrade.BULLET_BEST:
+            case Enums.BulletGrade.BULLET_BEST:
                 colour = "blue";//gsCColour(255,0,flash);
                 break;
         }
@@ -199,12 +199,10 @@ class CLaser extends CBullet {
     //-------------------------------------------------------------
 
     public getCollisionRect(): gsCRectangle {
-        var pos: gsCPoint = this.getPosition().plus1(this.m_scene.getMap().getPosition());
+        var pos: Point = this.getPosition().plus1(this.m_scene.getMap().getPosition());
         this.m_laserRect = new gsCRectangle(pos.X, pos.Y - 300, 3, this.m_length);
         return new gsCRectangle(pos.X, pos.Y - 300, pos.X + 3, this.m_length);
     }
 
     //-------------------------------------------------------------
 }
-
-export = CLaser;

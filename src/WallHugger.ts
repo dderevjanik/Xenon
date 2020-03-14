@@ -1,11 +1,11 @@
-﻿import CAlien = require("Alien");
-import enums = require("Enums");
-import gsCVector = require("Vector");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import CSpinnerWeapon = require("SpinnerWeapon");
-import CExplode = require("Exploder");
-import CPlayGameState = require("PlayGameState");
+﻿import { CAlien } from "./Alien";
+import { CSpinnerWeapon } from "./SpinnerWeapon";
+import { CPlayGameState } from "./PlayGameState";
+import { GameTime } from "./Timer";
+import { gsCVector } from "./Vector";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { CExploder } from "./Exploder";
 
 enum WallHuggerGrade {
     WALLHUGGER_STATIC,
@@ -20,7 +20,7 @@ enum WallHuggerState {
     WALLHUGGER_SHOOTING,
 }
 
-class CWallHugger extends CAlien {
+export class CWallHugger extends CAlien {
 
     private WALLHUGGER_WALK_START: number = 0;
     private WALLHUGGER_WALK_FRAMES: number = 6;
@@ -48,7 +48,7 @@ class CWallHugger extends CAlien {
         this.m_grade = WallHuggerGrade.WALLHUGGER_STATIC;
         this.m_weapon = null;
         this.m_fired = false;
-        this.m_timer = new gsCTimer();
+        this.m_timer = new GameTime();
         this.m_name = "WallHugger";
     }
 
@@ -76,7 +76,7 @@ class CWallHugger extends CAlien {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_WALL_HUGGER);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_WALL_HUGGER);
     }
 
     //-------------------------------------------------------------
@@ -89,7 +89,7 @@ class CWallHugger extends CAlien {
             this.m_weapon.setOwner(this);
             this.m_weapon.setPosition(this.getPosition());
             this.m_weapon.setOffset(new gsCVector(0.0, 0.0));
-            this.m_weapon.setFiringMode(enums.WeaponFiringMode.WEAPON_MANUAL);
+            this.m_weapon.setFiringMode(Enums.WeaponFiringMode.WEAPON_MANUAL);
             this.m_state = WallHuggerState.WALLHUGGER_STILL;
             this.m_timer.start();
         }
@@ -109,11 +109,11 @@ class CWallHugger extends CAlien {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+    public update(controls: Controls, gameTime: GameTime): boolean {
 
         this.m_timer.update(false);
         if (this.m_shield == 0) {
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             super.kill();
             return true;
         }
@@ -189,15 +189,13 @@ class CWallHugger extends CAlien {
 
         switch (this.m_grade) {
             case WallHuggerGrade.WALLHUGGER_STATIC:
-                this.m_weapon.setGrade(enums.WeaponGrade.WEAPON_STANDARD);
+                this.m_weapon.setGrade(Enums.WeaponGrade.WEAPON_STANDARD);
                 break;
             case WallHuggerGrade.WALLHUGGER_MOVING:
-                this.m_weapon.setGrade(enums.WeaponGrade.WEAPON_MEDIUM);
+                this.m_weapon.setGrade(Enums.WeaponGrade.WEAPON_MEDIUM);
                 break;
         }
     }
 
     //-------------------------------------------------------------
 }
-
-export = CWallHugger;

@@ -1,6 +1,6 @@
-﻿import gsCVector = require("Vector");
+﻿import { gsCVector } from "./Vector";
 
-class CPlayer {
+export class CPlayer {
 
     INITIAL_LIVES: number = 3;
     MAX_LIVES: number = 10;
@@ -108,4 +108,3 @@ class CPlayer {
     //-------------------------------------------------------------
 
 }
-export = CPlayer;

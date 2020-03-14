@@ -1,12 +1,12 @@
-﻿import CActor = require("Actor");
-import CSpore = require("Spore");
-import gsCVector = require("Vector");
-import enums = require("Enums");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import CPlayGameState = require("PlayGameState");
+﻿import { CActor } from "./Actor";
+import { CPlayGameState } from "./PlayGameState";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { CSpore } from "./Spore";
+import { gsCVector } from "./Vector";
+import { Enums } from "./Enums";
 
-class CSporeGenerator extends CActor {
+export class CSporeGenerator extends CActor {
 
     private m_spores_created: number;
     private m_spores_alive: number;
@@ -29,7 +29,7 @@ class CSporeGenerator extends CActor {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+    public update(controls: Controls, gameTime: GameTime): boolean {
 
         if (this.m_spores_created != 16) {
 
@@ -65,7 +65,7 @@ class CSporeGenerator extends CActor {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_SPORE_GENERATOR);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SPORE_GENERATOR);
     }
 
     //-------------------------------------------------------------
@@ -96,5 +96,3 @@ class CSporeGenerator extends CActor {
     //-------------------------------------------------------------
 
 }
-
-export = CSporeGenerator;

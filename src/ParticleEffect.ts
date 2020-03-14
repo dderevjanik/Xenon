@@ -1,12 +1,11 @@
-﻿import Particle = require("Particle");
-import CActor = require("Actor");
-import gsCVector = require("Vector");
-import gsCTimer = require("Timer");
-import gsCControls = require("Controls");
-import CDustEffect = require("DustEffect");
-import Point = require("Point");
+﻿import { CActor } from "./Actor";
+import { gsCVector } from "./Vector";
+import { Particle } from "./Particle";
+import { GameTime } from "./Timer";
+import { CDustEffect } from "./DustEffect";
+import { Controls } from "./Controls";
 
-class CParticleEffect extends CActor {
+export class CParticleEffect extends CActor {
 
     m_offset: gsCVector;
     //gsCList<Particle *> m_particle_list;
@@ -15,7 +14,7 @@ class CParticleEffect extends CActor {
     m_force_position: gsCVector;
     m_force_direction: gsCVector;		// ignored if point force
     m_force_strength: number;				// ignored if directional force
-    m_life_timer: gsCTimer;
+    m_life_timer: GameTime;
     m_lifetime: number;
     m_parent: CDustEffect;//Object;
 
@@ -29,7 +28,7 @@ class CParticleEffect extends CActor {
         this.m_force_strength = 1.0;
         this.m_lifetime = this.INFINITE_LIFETIME;
         this.m_particle_list = [];
-        this.m_life_timer = new gsCTimer();
+        this.m_life_timer = new GameTime();
         this.m_name = "ParticleEffect";
     }
 
@@ -68,7 +67,7 @@ class CParticleEffect extends CActor {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+    public update(controls: Controls, gameTime: GameTime): boolean {
 
         this.m_life_timer.update(false);
 
@@ -177,5 +176,3 @@ class CParticleEffect extends CActor {
     }
 
 }
-
-export = CParticleEffect;

@@ -1,29 +1,23 @@
-﻿import CScene = require("Scene");
-import CStarfield = require("Starfield");
-import CActorInfoList = require("ActorInfoList");
-import CGameState = require("GameState");
-import CShip = require("Ship");
-import gsCPoint = require("Point");
-import gsCTimer = require("Timer");
-import gsCVector = require("Vector");
-import CLevel = require("Level");
-import enums = require("Enums");
-import CPlayer = require("Player");
-import gsCImage = require("Image");
-import gsCRectangle = require("Rectangle");
-import gsCScreen = require("Screen");
-import gsCScoreTable = require("ScoreTable");
-import CMainMenuState = require("MainMenuState");
-import CBoss = require("Boss");
-import CBossControl = require("BossControl");
-import Options = require("Options");
-import gsCControls = require("Controls");
-
-import CViewScoresState = require("ViewScoresState");
-import CScoreEntryState = require("ScoreEntryState");
-import CApplication = require("Application");
-
-import CDemoRecorder = require("DemoRecorder");
+﻿import { CGameState } from "./GameState";
+import { CShip } from "./Ship";
+import { GameTime } from "./Timer";
+import CLevel from "./Level";
+import { gsCScreen } from "./Screen";
+import { CPlayer } from "./Player";
+import { CBoss } from "./Boss";
+import { CBossControl } from "./BossControl";
+import { CScoreEntryState } from "./ScoreEntryState";
+import { CViewScoresState } from "./ViewScoresState";
+import { CScene } from "./Scene";
+import { CStarfield } from "./Starfield";
+import { CApplication } from "./Application";
+import { gsCVector } from "./Vector";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { gsCImage } from "./Image";
+import { gsCRectangle } from "./Rectangle";
+import { Point } from "./Point";
+import { DemoRecorder } from "./DemoRecorder";
 
 enum m_gameMode {
     CREATEPLAYER,
@@ -33,10 +27,10 @@ enum m_gameMode {
     GAMEWON,
 }
 
-class CPlayGameState extends CGameState {
+export class CPlayGameState extends CGameState {
     private m_ship: CShip;
-    private m_game_start_timer: gsCTimer;
-    private m_game_end_timer: gsCTimer;
+    private m_game_start_timer: GameTime;
+    private m_game_end_timer: GameTime;
 
     //private m_starfield: CStarfield;
     private m_level: CLevel;
@@ -62,7 +56,7 @@ class CPlayGameState extends CGameState {
     //private m_options: Options;
 
     private m_mode: m_gameMode;
-    private m_demo_recorder: CDemoRecorder;
+    private m_demo_recorder: DemoRecorder;
     private m_scoreEntryState: CScoreEntryState;
     private m_viewScoresState: CViewScoresState;
 
@@ -81,8 +75,8 @@ class CPlayGameState extends CGameState {
         // temp!
         this.m_screen = new gsCScreen();
 
-        this.m_game_start_timer = new gsCTimer();
-        this.m_game_end_timer = new gsCTimer();
+        this.m_game_start_timer = new GameTime();
+        this.m_game_end_timer = new GameTime();
 
         this.m_boss = null;
         this.m_bossControl = null;
@@ -99,12 +93,12 @@ class CPlayGameState extends CGameState {
     public create(): boolean {
 
         this.m_scene.setMap(this.m_level.m_front_layer);
-        this.m_scene.setCollisionListSize(this.m_screen.getSize(), new gsCPoint(8, 6));
+        this.m_scene.setCollisionListSize(this.m_screen.getSize(), new Point(8, 6));
 
         this.m_ship = null;
 
         this.m_game_end_timer.reset();
-        var map_size: gsCPoint = this.m_level.m_front_layer.getSizeInPixels();
+        var map_size: Point = this.m_level.m_front_layer.getSizeInPixels();
         var start_position: gsCVector = new gsCVector(map_size.X / 2.0, (map_size.Y - this.PLAYER_START_OFFSET));
 
         for (var i = 0; i < this.m_number_of_players; i++) {
@@ -161,28 +155,28 @@ class CPlayGameState extends CGameState {
         this.m_scene.clearCheckpoint();
         this.setLayerPositions(start_position.Y);
         this.m_level.reset();
-        this.m_ship.setWeapon(enums.WeaponType.MISSILE_WEAPON, enums.WeaponGrade.WEAPON_STANDARD);
+        this.m_ship.setWeapon(Enums.WeaponType.MISSILE_WEAPON, Enums.WeaponGrade.WEAPON_STANDARD);
 
         //#ifdef _PROFILING
         //this.m_ship.attachClone(0);
         //this.m_ship.attachClone(1);
         //this.m_ship.attachWingtip(0);
         //this.m_ship.attachWingtip(1);
-        //this.m_ship.setWeapon(enums.WeaponType.MISSILE_WEAPON, enums.WeaponGrade.WEAPON_BEST);
-        //this.m_ship.addWeapon(enums.WeaponType.HOMING_MISSILE_WEAPON, enums.WeaponGrade.WEAPON_BEST);
-        //this.m_ship.addWeapon(enums.WeaponType.HOMING_MISSILE_WEAPON, enums.WeaponGrade.WEAPON_BEST);
-        //this.m_ship.addWeapon(enums.WeaponType.LASER_WEAPON, enums.WeaponGrade.WEAPON_BEST);
-        //this.m_ship.addWeapon(enums.WeaponType.LASER_WEAPON, enums.WeaponGrade.WEAPON_BEST);
+        //this.m_ship.setWeapon(Enums.WeaponType.MISSILE_WEAPON, Enums.WeaponGrade.WEAPON_BEST);
+        //this.m_ship.addWeapon(Enums.WeaponType.HOMING_MISSILE_WEAPON, Enums.WeaponGrade.WEAPON_BEST);
+        //this.m_ship.addWeapon(Enums.WeaponType.HOMING_MISSILE_WEAPON, Enums.WeaponGrade.WEAPON_BEST);
+        //this.m_ship.addWeapon(Enums.WeaponType.LASER_WEAPON, Enums.WeaponGrade.WEAPON_BEST);
+        //this.m_ship.addWeapon(Enums.WeaponType.LASER_WEAPON, Enums.WeaponGrade.WEAPON_BEST);
         //#endif
 
-        this.playSample(enums.GameSampleType.SAMPLE_PLAYER_CREATED); //m_ship->getPosition().getX());
+        this.playSample(Enums.GameSampleType.SAMPLE_PLAYER_CREATED); //m_ship->getPosition().getX());
         this.getPlayer().loseLife();
         this.m_reached_boss = false;
     }
 
     //-------------------------------------------------------------
 
-    public update(ctx: CanvasRenderingContext2D, controls: gsCControls): boolean {
+    public update(ctx: CanvasRenderingContext2D, controls: Controls): boolean {
 
         if (!super.update(ctx, controls)) {
             return false;
@@ -207,7 +201,7 @@ class CPlayGameState extends CGameState {
         //	}
 
         if (this.m_mode == m_gameMode.CREATEPLAYER) {
-            this.playMusic(enums.GameMusicType.MUSIC_GAME);
+            this.playMusic(Enums.GameMusicType.MUSIC_GAME);
             this.createPlayer();
             this.m_game_start_timer.start();
             this.m_mode = m_gameMode.PLAYERACTIVE;
@@ -236,16 +230,16 @@ class CPlayGameState extends CGameState {
         }
 
         switch (this.m_demo_mode) {
-            case enums.DemoMode.DEMO_RECORD:
+            case Enums.DemoMode.DEMO_RECORD:
                 this.m_demo_recorder.addEvent(controls);
                 break;
-            case enums.DemoMode.DEMO_PLAYBACK:
+            case Enums.DemoMode.DEMO_PLAYBACK:
                 if (!this.m_demo_recorder.getEvent(controls))
                     //return changeState(CMainMenuState::instance());
                     break;
         }
 
-        if (this.m_options.getOption(enums.OptionType.OPTION_BACKDROP)) {
+        if (this.m_options.getOption(Enums.OptionType.OPTION_BACKDROP)) {
             ctx.drawImage(this.backgroundTexture, 0, 0);
         }
 
@@ -267,7 +261,7 @@ class CPlayGameState extends CGameState {
             this.even = !this.even;
 
             if (this.even && !this.m_reached_boss) {
-                this.m_level.m_back_layer.move(new gsCPoint(0, 1));
+                this.m_level.m_back_layer.move(new Point(0, 1));
             }
 
             if (this.m_level.m_back_layer.getPosition().Y > 0) {
@@ -278,7 +272,7 @@ class CPlayGameState extends CGameState {
                 if (this.m_bossControl != null) {
                     if (this.m_bossControl.isStarted()) {
                         this.m_reached_boss = true;
-                        this.playMusic(enums.GameMusicType.MUSIC_BOSS);
+                        this.playMusic(Enums.GameMusicType.MUSIC_BOSS);
                     }
                 }
             }
@@ -292,7 +286,7 @@ class CPlayGameState extends CGameState {
                 }
             }
 
-            this.m_level.m_front_layer.move(new gsCPoint(0, this.m_yscroll));
+            this.m_level.m_front_layer.move(new Point(0, this.m_yscroll));
 
             if (this.m_level.m_front_layer.getPosition().Y > 0) {
                 this.m_level.m_front_layer.setPosition(new gsCVector(0, 0));
@@ -309,7 +303,7 @@ class CPlayGameState extends CGameState {
             this.m_level.m_back_layer.drawMap(ctx);
             this.m_scene.drawAllActors(ctx, this.m_level.m_front_layer);
             this.m_scene.checkActorCollisions();
-            //this.m_scene.checkMapCollisions(this.m_level.m_front_layer);           // Turned off for now 2/3/17 ! 
+            //this.m_scene.checkMapCollisions(this.m_level.m_front_layer);           // Turned off for now 2/3/17 !
             this.m_scene.removeDeadActors();
         }
 
@@ -331,8 +325,8 @@ class CPlayGameState extends CGameState {
             this.displayBossEnergyBar(ctx);
         }
 
-        if (this.m_demo_mode == enums.DemoMode.DEMO_PLAYBACK) {
-            this.m_medium_font.setTextCursor(new gsCPoint(0, 100));
+        if (this.m_demo_mode == Enums.DemoMode.DEMO_PLAYBACK) {
+            this.m_medium_font.setTextCursor(new Point(0, 100));
             this.m_medium_font.justifyString("DEMONSTRATION");
         }
 
@@ -341,9 +335,9 @@ class CPlayGameState extends CGameState {
 
         switch (this.m_mode) {
             case m_gameMode.PLAYERACTIVE:
-                if (this.m_game_start_timer.getState() == enums.gsTimerState.gsTIMER_ACTIVE) {
+                if (this.m_game_start_timer.getState() == Enums.gsTimerState.gsTIMER_ACTIVE) {
                     if (this.m_game_start_timer.getTime() < 1.0) {
-                        this.m_medium_font.setTextCursor(new gsCPoint(0, 232));
+                        this.m_medium_font.setTextCursor(new Point(0, 232));
                         if (this.m_number_of_players == 1)
                             this.m_medium_font.justifyString("Get Ready");
                         else {
@@ -361,7 +355,7 @@ class CPlayGameState extends CGameState {
                 //-------------------------------------------------------------------------- 09/03/17
                 if (this.m_ship.getShield() == 0 && this.getPlayer().getLives() > 0) {
                     //this.m_game_end_timer.start();
-                    this.playSample(enums.GameSampleType.SAMPLE_PLAYER_DESTROYED, this.m_ship.getPosition().X);
+                    this.playSample(Enums.GameSampleType.SAMPLE_PLAYER_DESTROYED, this.m_ship.getPosition().X);
                     this.m_ship.explode();
                     //this.m_ship.kill();
                     this.m_scene.removeDeadActors();
@@ -374,7 +368,7 @@ class CPlayGameState extends CGameState {
 
                 if (this.m_ship.getShield() == 0 && this.getPlayer().getLives() == 0) {
                     this.m_game_end_timer.start();
-                    this.playSample(enums.GameSampleType.SAMPLE_PLAYER_DESTROYED, this.m_ship.getPosition().X);
+                    this.playSample(Enums.GameSampleType.SAMPLE_PLAYER_DESTROYED, this.m_ship.getPosition().X);
                     this.m_ship.explode();
                     this.m_ship.kill();
                     this.m_scene.removeDeadActors();
@@ -384,7 +378,7 @@ class CPlayGameState extends CGameState {
                 }
 
                 if (this.m_reached_boss && this.m_boss.getShield() == 0) {
-                    this.playMusic(enums.GameMusicType.MUSIC_OUTRO);
+                    this.playMusic(Enums.GameMusicType.MUSIC_OUTRO);
                     this.m_game_end_timer.start();
                     this.m_mode = m_gameMode.GAMEWON;
                     break;
@@ -395,7 +389,7 @@ class CPlayGameState extends CGameState {
                         if (this.getPlayer().getCheckpoint() != this.m_scene.getCheckpoint()) {
                             this.getPlayer().setCheckpoint(this.m_scene.getCheckpoint());
                             this.m_scene.createLabel(this.m_scene.getCheckpoint(), "CHECKPOINT REACHED");
-                            this.playSample(enums.GameSampleType.SAMPLE_CHECKPOINT);
+                            this.playSample(Enums.GameSampleType.SAMPLE_CHECKPOINT);
                         }
                         this.m_scene.clearCheckpoint();
                     }
@@ -406,8 +400,8 @@ class CPlayGameState extends CGameState {
                 this.stopMusic();
                 this.m_fast_forward = false;
                 if (this.m_game_end_timer.getTime() >= 0) { // 1.0) { TEMP !!
-                    if (this.m_demo_mode != enums.DemoMode.DEMO_OFF) {
-                        //this.setDemoMode(enums.DemoMode.DEMO_OFF);
+                    if (this.m_demo_mode != Enums.DemoMode.DEMO_OFF) {
+                        //this.setDemoMode(Enums.DemoMode.DEMO_OFF);
                         //this.resetGame();
                         //return this.changeState(this.m_app.instance = this.m_mainMenuState);
                     }
@@ -420,7 +414,7 @@ class CPlayGameState extends CGameState {
                 break;
 
             case m_gameMode.GAMEOVER:
-                this.m_medium_font.setTextCursor(new gsCPoint(0, 232));
+                this.m_medium_font.setTextCursor(new Point(0, 232));
                 this.m_medium_font.justifyString("Game Over");
                 if (this.m_game_end_timer.getTime() >= 3.0) {
                     this.stopSamples();
@@ -441,7 +435,7 @@ class CPlayGameState extends CGameState {
 
             case m_gameMode.GAMEWON:
                 if (this.m_game_end_timer.getTime() >= 3.0) {
-                    this.m_medium_font.setTextCursor(new gsCPoint(0, 232));
+                    this.m_medium_font.setTextCursor(new Point(0, 232));
                     this.m_medium_font.justifyString("Congratulations");
                 }
 
@@ -459,9 +453,9 @@ class CPlayGameState extends CGameState {
 
         if (/*this.m_sound_system.isMusicFinished() &&*/ this.m_mode != m_gameMode.GAMEWON) {
             if (this.m_reached_boss)
-                this.playMusic(enums.GameMusicType.MUSIC_BOSS);
+                this.playMusic(Enums.GameMusicType.MUSIC_BOSS);
             else
-                this.playMusic(enums.GameMusicType.MUSIC_GAME);
+                this.playMusic(Enums.GameMusicType.MUSIC_GAME);
         }
 
         return true;
@@ -498,36 +492,36 @@ class CPlayGameState extends CGameState {
     //-------------------------------------------------------------
 
     public displayScores(ctx: CanvasRenderingContext2D): void {
-        this.m_small_font.setTextCursor(new gsCPoint(320, 10));
+        this.m_small_font.setTextCursor(new Point(320, 10));
         this.m_small_font.justifyString("Hi Score");
 
-        this.m_small_font.setTextCursor(new gsCPoint(320, 20));
+        this.m_small_font.setTextCursor(new Point(320, 20));
         this.m_small_font.justifyString(String("00000" + this.m_score_table.getScore(0)).slice(-10));
 
         if (this.m_number_of_players == 1) {
-            this.m_small_font.setTextCursor(new gsCPoint(10, 10));
+            this.m_small_font.setTextCursor(new Point(10, 10));
             this.m_small_font.printString("Player One");
 
-            this.m_medium_font.setTextCursor(new gsCPoint(10, 20));
+            this.m_medium_font.setTextCursor(new Point(10, 20));
             this.m_medium_font.printString(String("00000" + this.m_player_list[0].getScore()).slice(-10));
         }
         else {
-            this.m_small_font.setTextCursor(new gsCPoint(10, 10));
+            this.m_small_font.setTextCursor(new Point(10, 10));
             this.m_small_font.printString("Player One");
 
-            this.m_small_font.setTextCursor(new gsCPoint(640 - 10 - 10 * 8, 10));
+            this.m_small_font.setTextCursor(new Point(640 - 10 - 10 * 8, 10));
             this.m_small_font.printString("Player Two");
 
             if (this.m_active_player == 0) {
-                this.m_medium_font.setTextCursor(new gsCPoint(10, 20));
+                this.m_medium_font.setTextCursor(new Point(10, 20));
                 this.m_medium_font.printString("%010i" + this.m_player_list[0].getScore());
-                this.m_small_font.setTextCursor(new gsCPoint(640 - 10 - 10 * 8, 20));
+                this.m_small_font.setTextCursor(new Point(640 - 10 - 10 * 8, 20));
                 this.m_small_font.printString("%010i" + this.m_player_list[1].getScore());
             }
             else {
-                this.m_small_font.setTextCursor(new gsCPoint(10, 20));
+                this.m_small_font.setTextCursor(new Point(10, 20));
                 this.m_small_font.printString("%010i" + this.m_player_list[0].getScore());
-                this.m_medium_font.setTextCursor(new gsCPoint(640 - 10 - 10 * 16, 20));
+                this.m_medium_font.setTextCursor(new Point(640 - 10 - 10 * 16, 20));
                 this.m_medium_font.printString("%010i" + this.m_player_list[1].getScore());
             }
         }
@@ -539,13 +533,13 @@ class CPlayGameState extends CGameState {
 
         var life_symbol: gsCImage = this.m_scene.getImage("PULife");
         for (var i = 0; i < this.getPlayer().getLives(); i++) {
-            life_symbol.drawImage(new gsCPoint(10 + i * 32, 480 - 64), ctx, life_symbol.Image);
+            life_symbol.drawImage(new Point(10 + i * 32, 480 - 64), ctx, life_symbol.Image);
         }
 
         // NYI
         //if (this.getPlayer().hasDive()) {
         //    var dive_symbol: gsCImage = this.m_scene.getImage("PUDive");
-        //    dive_symbol.drawImage(new gsCPoint(10, 480 - 104), ctx, dive_symbol.Image);
+        //    dive_symbol.drawImage(new Point(10, 480 - 104), ctx, dive_symbol.Image);
         //}
     }
 
@@ -591,7 +585,7 @@ class CPlayGameState extends CGameState {
 
         for (var i = this.ENERGYBAR_STEP; i < this.ENERGYBAR_WIDTH; i += this.ENERGYBAR_STEP) {
             if (i <= shield) {
-                this.m_screen.drawLine(new gsCPoint(x + i, y), new gsCPoint(x + i, y + this.ENERGYBAR_HEIGHT - 1), "black", ctx);
+                this.m_screen.drawLine(new Point(x + i, y), new Point(x + i, y + this.ENERGYBAR_HEIGHT - 1), "black", ctx);
             }
         }
     }
@@ -602,7 +596,7 @@ class CPlayGameState extends CGameState {
         var x: number = 320 - 50;
         var y: number = 50;
 
-        this.m_small_font.setTextCursor(new gsCPoint(x + 6, y - 10));
+        this.m_small_font.setTextCursor(new Point(x + 6, y - 10));
         this.m_small_font.printString("BOSS SHIELD");
         this.m_screen.drawRect(new gsCRectangle(x - 1, y - 1, 100, 9), "white", ctx);
         var shield: number = this.m_boss.getShield();
@@ -668,9 +662,9 @@ class CPlayGameState extends CGameState {
         //if (!Options.getOption(OPTION_DEBUGINFO))
         //    return;
 
-        //m_small_font.setTextCursor(gsCPoint(640 - 128, 60));
+        //m_small_font.setTextCursor(Point(640 - 128, 60));
         //m_small_font.printString("actors %i", m_scene.getNumberOfActors());
-        //m_small_font.setTextCursor(gsCPoint(640 - 128, 70));
+        //m_small_font.setTextCursor(Point(640 - 128, 70));
         //m_small_font.printString("images %i", m_scene.getNumberOfImages());
 
         //int totals[ACTOR_TYPE_TOTAL] = { 0 };
@@ -680,28 +674,28 @@ class CPlayGameState extends CGameState {
         //    totals[(int) t]++;
         //}
 
-        //m_small_font.setTextCursor(gsCPoint(640 - 128, 90));
+        //m_small_font.setTextCursor(Point(640 - 128, 90));
         //m_small_font.printString("ship  %i", totals[0]);
-        //m_small_font.setTextCursor(gsCPoint(640 - 128, 100));
+        //m_small_font.setTextCursor(Point(640 - 128, 100));
         //m_small_font.printString("bullet  %i", totals[1]);
-        //m_small_font.setTextCursor(gsCPoint(640 - 128, 110));
+        //m_small_font.setTextCursor(Point(640 - 128, 110));
         //m_small_font.printString("upgrade %i", totals[2]);
-        //m_small_font.setTextCursor(gsCPoint(640 - 128, 120));
+        //m_small_font.setTextCursor(Point(640 - 128, 120));
         //m_small_font.printString("engine  %i", totals[3]);
-        //m_small_font.setTextCursor(gsCPoint(640 - 128, 130));
+        //m_small_font.setTextCursor(Point(640 - 128, 130));
         //m_small_font.printString("weapon  %i", totals[4]);
-        //m_small_font.setTextCursor(gsCPoint(640 - 128, 140));
+        //m_small_font.setTextCursor(Point(640 - 128, 140));
         //m_small_font.printString("pickup  %i", totals[5]);
-        //m_small_font.setTextCursor(gsCPoint(640 - 128, 150));
+        //m_small_font.setTextCursor(Point(640 - 128, 150));
         //m_small_font.printString("alien   %i", totals[6]);
-        //m_small_font.setTextCursor(gsCPoint(640 - 128, 160));
+        //m_small_font.setTextCursor(Point(640 - 128, 160));
         //m_small_font.printString("abullet %i", totals[7]);
-        //m_small_font.setTextCursor(gsCPoint(640 - 128, 170));
+        //m_small_font.setTextCursor(Point(640 - 128, 170));
         //m_small_font.printString("label   %i", totals[8]);
-        //m_small_font.setTextCursor(gsCPoint(640 - 128, 180));
+        //m_small_font.setTextCursor(Point(640 - 128, 180));
         //m_small_font.printString("effect  %i", totals[9]);
 
-        //m_small_font.setTextCursor(gsCPoint(640 - 24, 470));
+        //m_small_font.setTextCursor(Point(640 - 24, 470));
         //m_small_font.printString("%i", (int)(getApplication() ->getFrameRate() + 0.5f));
     }
 
@@ -739,5 +733,3 @@ class CPlayGameState extends CGameState {
         this.create();
     }
 }
-
-export = CPlayGameState;

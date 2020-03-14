@@ -1,26 +1,27 @@
-﻿import CBoss = require("Boss")
-import ActorInfo = require("ActorInfo")
-import gsCControls = require("Controls");
-import enums = require("Enums");
-import gsCTimer = require("Timer");
-import CSpinner = require("Spinner");
-import gsCVector = require("Vector");
-import CExplode = require("Exploder");
+﻿import { CBoss } from "./Boss";
+import { GameTime } from "./Timer";
+import { Controls } from "./Controls";
+import { CSpinner } from "./Spinner";
+import { gsCVector } from "./Vector";
+import { Enums } from "./Enums";
+import { ActorInfo } from "./ActorInfo";
+import { CExploder } from "./Exploder";
 
-class CBossMouth extends CBoss {
+
+export class CBossMouth extends CBoss {
 
     private m_mode: number;
     private m_shots_fired: number;
     private m_shots_total: number;
     private m_shot_delay: number;
-    private m_firing_timer: gsCTimer;
+    private m_firing_timer: GameTime;
 
     constructor() {
         super();
         this.m_mouth = this;
         this.m_mode = -1;
-        this.m_timer = new gsCTimer();
-        this.m_firing_timer = new gsCTimer();
+        this.m_timer = new GameTime();
+        this.m_firing_timer = new GameTime();
 		this.m_name = "Boss Mouth";
     }
 
@@ -36,12 +37,12 @@ class CBossMouth extends CBoss {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+    public update(controls: Controls, gameTime: GameTime): boolean {
 
         this.m_firing_timer.update(false);
 
         if (this.m_shield == 0) {
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             this.kill();
             return true;
         }
@@ -61,7 +62,7 @@ class CBossMouth extends CBoss {
                     var x = -2.0 + 4.0 * this.m_shots_fired / (this.m_shots_total - 1);
 
                     s.setVelocity(new gsCVector(x, 1.0));
-                    s.setGrade(enums.BulletGrade.BULLET_STANDARD);
+                    s.setGrade(Enums.BulletGrade.BULLET_STANDARD);
                 }
                 else if (this.m_mode == 1) {
                     s = new CSpinner(this.m_playGameState);
@@ -72,7 +73,7 @@ class CBossMouth extends CBoss {
                     var x = 2.0 - 4.0 * this.m_shots_fired / (this.m_shots_total - 1);
 
                     s.setVelocity(new gsCVector(x, 2.0));
-                    s.setGrade(enums.BulletGrade.BULLET_MEDIUM);
+                    s.setGrade(Enums.BulletGrade.BULLET_MEDIUM);
                 }
                 else if (this.m_mode == 2) {
                     s = new CSpinner(this.m_playGameState);
@@ -83,7 +84,7 @@ class CBossMouth extends CBoss {
                     var x = -2.0 + 4.0 * this.m_shots_fired / (this.m_shots_total - 1);
 
                     s.setVelocity(new gsCVector(x, 1.0));
-                    s.setGrade(enums.BulletGrade.BULLET_BEST);
+                    s.setGrade(Enums.BulletGrade.BULLET_BEST);
                 }
                 else {
                     s = new CSpinner(this.m_playGameState);
@@ -94,7 +95,7 @@ class CBossMouth extends CBoss {
                     var x = 2.0 - 4.0 * this.m_shots_fired / (this.m_shots_total - 1);
 
                     s.setVelocity(new gsCVector(x, 2.0));
-                    s.setGrade(enums.BulletGrade.BULLET_BEST);
+                    s.setGrade(Enums.BulletGrade.BULLET_BEST);
                 }
 
                 this.m_shots_fired++;
@@ -123,8 +124,6 @@ class CBossMouth extends CBoss {
 
     public getActorInfo(): ActorInfo {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_BOSSMOUTH);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_BOSSMOUTH);
     }
 }
-
-export = CBossMouth;

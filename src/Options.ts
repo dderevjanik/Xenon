@@ -16,7 +16,7 @@
     TOTAL_OPTIONS
 }
 
-class COptions {
+export class Options {
 
     FRAME_RATE: number = 60.0;
     private m_changed: boolean;
@@ -153,4 +153,3 @@ class COptions {
 
     //-------------------------------------------------------------
 }
-export = COptions; 

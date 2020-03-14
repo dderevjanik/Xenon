@@ -1,4 +1,4 @@
-﻿class gsCSample {
+﻿export class gsCSample {
     sample: HTMLAudioElement;
 
     constructor() {
@@ -19,4 +19,3 @@
     //-------------------------------------------------------------
 
 }
-export = gsCSample;

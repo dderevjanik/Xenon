@@ -1,10 +1,9 @@
-﻿import MenuItem = require("MenuItem");
+﻿import { MenuItem } from "./MenuItem";
 
-class MenuOptionList extends MenuItem {
+export class MenuOptionList extends MenuItem {
 
     constructor(name: string) {
         super(name);
     }
 
 }
-export = MenuOptionList;

@@ -1,39 +1,38 @@
-﻿import gsCControls = require("Controls");
-import gsCTiledImage = require("TiledImage");
-import gsCVector = require("Vector");
-import gsCMap = require("Map");
-import gsCSprite = require("Sprite");
-import gsCTimer = require("Timer");
-import CScene = require("Scene");
-import CActorInfoList = require("ActorInfoList");
-import ActorInfo = require("ActorInfo");
-import enums = require("Enums");
-import Point = require("Point");
-import CApplication = require("Application");
-import CPlayGameState = require("PlayGameState");
+﻿import { GameTime } from "./Timer";
+import { CScene } from "./Scene";
+import { gsCVector } from "./Vector";
+import { gsCSprite } from "./Sprite";
+import { gsCTiledImage } from "./TiledImage";
+import { CActorInfoList } from "./ActorInfoList";
+import { CApplication } from "./Application";
+import { CPlayGameState } from "./PlayGameState";
+import { gsCMap } from "./Map";
+import { ActorInfo } from "./ActorInfo";
+import { Controls } from "./Controls";
+import { Enums } from "./Enums";
 
-class CActor {
+export class CActor {
 
     private ACTOR_HIT_TIME: number = 0.1;	// time in seconds for hit to register
     private INFINITE_SHIELD: number = -1;
 
-    //-------------------------------------------------------------	
+    //-------------------------------------------------------------
 
     protected m_owner: CActor;			        // owner
     protected m_is_active: boolean;
-    protected m_hit_timer: gsCTimer;		    // for animation of hit
+    protected m_hit_timer: GameTime;		    // for animation of hit
     protected m_scene: CScene;			        // scene containing this actor
     protected m_position: gsCVector;		    // relative to map
     protected m_velocity: gsCVector;
     protected m_shield: number;				    // shield strength
     protected m_sprite: gsCSprite;
     protected m_image: gsCTiledImage;
-    protected m_timer: gsCTimer;			    // for animation
+    protected m_timer: GameTime;			    // for animation
     protected m_is_on_screen: boolean;
     protected m_is_hit: boolean;
     protected m_score_multiplier: number;
     protected m_actorInfo: CActorInfoList;
-    protected gameTime: gsCTimer;
+    protected gameTime: GameTime;
     protected timerTest: number = 0.0;
 
     protected m_name: string = "";
@@ -53,8 +52,8 @@ class CActor {
         this.m_is_on_screen = true;
         this.m_is_hit = false;
         this.m_score_multiplier = 1.0;
-        this.m_timer = new gsCTimer();
-        this.m_hit_timer = new gsCTimer();
+        this.m_timer = new GameTime();
+        this.m_hit_timer = new GameTime();
     }
 
     //-------------------------------------------------------------
@@ -221,7 +220,7 @@ class CActor {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+    public update(controls: Controls, gameTime: GameTime): boolean {
         return true;
     }
 
@@ -270,7 +269,7 @@ class CActor {
 
     //-------------------------------------------------------------
     // animate over range of frames
-    public animations(mode: enums.AnimationMode, first_frame: number, num_frames: number) {
+    public animations(mode: Enums.AnimationMode, first_frame: number, num_frames: number) {
         var finished = false;
 
         if (num_frames <= 1) {
@@ -279,10 +278,10 @@ class CActor {
         else {
             //frame = (m_timer.getTime() * getActorInfo().m_anim_rate);
             switch (mode) {
-                case enums.AnimationMode.ANIMATE_LOOP:
+                case Enums.AnimationMode.ANIMATE_LOOP:
                     this.frame = (this.frame + 1) % num_frames;
                     break;
-                case enums.AnimationMode.ANIMATE_ONESHOT:
+                case Enums.AnimationMode.ANIMATE_ONESHOT:
                     if (this.frame >= num_frames - 1) {
                         this.frame = num_frames - 1;	// stay on last frame
                         finished = true;				// flag that we've finished
@@ -299,7 +298,7 @@ class CActor {
 
     //-------------------------------------------------------------
     // animate over entire range
-    public animate(mode: enums.AnimationMode) {
+    public animate(mode: Enums.AnimationMode) {
         return this.animations(mode, 0, this.m_image.getNumTiles());
     }
 
@@ -333,5 +332,3 @@ class CActor {
         return this.m_name;
     }
 }
-
-export = CActor;

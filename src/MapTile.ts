@@ -1,6 +1,6 @@
-﻿import Point = require("Point");
+﻿import { Point } from "./Point";
 
-class gsCMapTile {
+export class gsCMapTile {
 
     private gsMAPTILE_USERDATA: number = 4;
 
@@ -95,5 +95,3 @@ class gsCMapTile {
 
     //-------------------------------------------------------------
 }
-
-export = gsCMapTile;

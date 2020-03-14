@@ -1,12 +1,37 @@
-﻿class MPHD {						/* Map header structure */
+﻿import { gsCMap } from "./Map";
+import { gsCTiledImage } from "./TiledImage";
+import { CPlayGameState } from "./PlayGameState";
+import { CApplication } from "./Application";
+import { Point } from "./Point";
+import { gsCMapTile } from "./MapTile";
+import { CScene } from "./Scene";
+import { gsCRectangle } from "./Rectangle";
+import { gsCVector } from "./Vector";
+import { Asteroid } from "./Asteroid";
+import { Loner } from "./Loner";
+import { CHomer } from "./Homer";
+import { CPod } from "./Pod";
+import { CRusher } from "./Rusher";
+import { CWallHugger } from "./WallHugger";
+import { Enums } from "./Enums";
+import { CDroneGenerator } from "./DroneGenerator";
+import { CRusherGenerator } from "./RusherGenerator";
+import { COrganicGun } from "./OrganicGun";
+import { CBigExplosion } from "./BigExplosion";
+import { CBossMouth } from "./BossMouth";
+import { CBossEye } from "./BossEye";
+import { CBossControl } from "./BossControl";
+import { Pickups } from "./Pickup";
+
+class MPHD {						/* Map header structure */
     public mapverhigh;  //char 		/* map version number to left of . (ie X.0). */
     public mapverlow;   //char 		/* map version number to right of . (ie 0.X). */
     public lsb;         //char 		/* if 1, data stored LSB first, otherwise MSB first. */
-    public reserved;    //char 
+    public reserved;    //char
     public mapwidth;    //ushort 	/* width in blocks. */
     public mapheight;   //ushort 	/* height in blocks. */
-    public reserved1;   //ushort 
-    public reserved2;   //ushort 
+    public reserved1;   //ushort
+    public reserved2;   //ushort
     public blockwidth;  //ushort 	/* width of a block (tile) in pixels. */
     public blockheight; //ushort 	/* height of a block (tile) in pixels. */
     public blockdepth;  //ushort 	/* depth of a block (tile) in planes (ie. 256 colours is 8) */
@@ -36,31 +61,6 @@ class BLKSTR {						/* Structure for data blocks */
     public unused2;// : 1;
     public unused3;// : 1;
 };
-
-import gsCMap = require("Map");
-import Point = require("Point");
-import gsCMapTile = require("MapTile");
-import gsCTiledImage = require("TiledImage");
-import CScene = require("Scene");
-import gsCRectangle = require("Rectangle");
-import gsCVector = require("Vector");
-import CBigExplosion = require("BigExplosion");
-import Pickup = require("Pickup");
-import Asteroid = require("Asteroid");
-import Loner = require("Loner");
-import CHomer = require("Homer");
-import CPod = require("Pod");
-import CRusher = require("Rusher");
-import CWallHugger = require("WallHugger");
-import CDroneGenerator = require("DroneGenerator");
-import CRusherGenerator = require("RusherGenerator");
-import COrganicGun = require("OrganicGun");
-import CBossMouth = require("BossMouth");
-import CBossEye = require("BossEye");
-import CBossControl = require("BossControl");
-import enums = require("Enums");
-import CApplication = require("Application");
-import CPlayGameState = require("PlayGameState");
 
 enum AlienType {
     WALLHUGGER,				// 0
@@ -617,46 +617,46 @@ class CLevel {
                     switch (id) {
                         case TileId.ID_PICKUP:
                             // pickups
-                            var p: Pickup.CPickup = null;
+                            var p: Pickups.CPickup = null;
                             switch (type) {
                                 case PickupType.PICKUP_SHIELD:
-                                    p = new Pickup.CShieldPickup(this.m_playGameState);
+                                    p = new Pickups.CShieldPickup(this.m_playGameState);
                                     console.log("PICKUP_SHIELD");
                                     break;
                                 case PickupType.PICKUP_SPEEDUP:
-                                    p = new Pickup.CSpeedPickup(this.m_playGameState);
+                                    p = new Pickups.CSpeedPickup(this.m_playGameState);
                                     console.log("PICKUP_SPEEDUP");
                                     break;
                                 case PickupType.PICKUP_WEAPONUP:
-                                    p = new Pickup.CWeaponPickup(this.m_playGameState);
+                                    p = new Pickups.CWeaponPickup(this.m_playGameState);
                                     console.log("PICKUP_WEAPONUP");
                                     break;
                                 case PickupType.PICKUP_CLOAK:
-                                    p = new Pickup.CCloakPickup(this.m_playGameState);
+                                    p = new Pickups.CCloakPickup(this.m_playGameState);
                                     console.log("PICKUP_CLOAK");
                                     break;
                                 case PickupType.PICKUP_DIVE:
-                                    p = new Pickup.CDivePickup(this.m_playGameState);
+                                    p = new Pickups.CDivePickup(this.m_playGameState);
                                     console.log("PICKUP_DIVE");
                                     break;
                                 case PickupType.PICKUP_SCOREBONUS:
-                                    p = new Pickup.CScorePickup(this.m_playGameState);
+                                    p = new Pickups.CScorePickup(this.m_playGameState);
                                     console.log("PICKUP_SCOREBONUS");
                                     break;
                                 case PickupType.PICKUP_CLONE:
-                                    p = new Pickup.CClonePickup(this.m_playGameState);
+                                    p = new Pickups.CClonePickup(this.m_playGameState);
                                     console.log("PICKUP_CLONE");
                                     break;
                                 case PickupType.PICKUP_WINGTIP:
-                                    p = new Pickup.CWingtipPickup(this.m_playGameState);
+                                    p = new Pickups.CWingtipPickup(this.m_playGameState);
                                     console.log("PICKUP_WINGTIP");
                                     break;
                                 case PickupType.PICKUP_HOMINGMISSILE:
-                                    p = new Pickup.CHomingMissilePickup(this.m_playGameState);
+                                    p = new Pickups.CHomingMissilePickup(this.m_playGameState);
                                     console.log("PICKUP_HOMINGMISSILE");
                                     break;
                                 case PickupType.PICKUP_LASER:
-                                    p = new Pickup.CLaserPickup(this.m_playGameState);
+                                    p = new Pickups.CLaserPickup(this.m_playGameState);
                                     console.log("PICKUP_LASER");
                                     break;
                             }
@@ -795,10 +795,10 @@ class CLevel {
 
                                     switch (grade) {
                                         case 0:
-                                            w.setGrade(enums.WallHuggerGrade.WALLHUGGER_STATIC);
+                                            w.setGrade(Enums.WallHuggerGrade.WALLHUGGER_STATIC);
                                             break;
                                         case 1:
-                                            w.setGrade(enums.WallHuggerGrade.WALLHUGGER_MOVING);
+                                            w.setGrade(Enums.WallHuggerGrade.WALLHUGGER_MOVING);
                                             break;
                                     }
                                     break;

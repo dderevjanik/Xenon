@@ -1,34 +1,34 @@
-﻿import gsCPoint = require("Point");
-import gsCFont = require("Font");
-import gsCTimer = require("Timer");
-import gsCScreen = require("Screen");
-import gsCRect = require("Rectangle");
+﻿import { gsCFont } from "./Font";
+import { GameTime } from "./Timer";
+import { gsCScreen } from "./Screen";
+import { Point } from "./Point";
+import { gsCRectangle } from "./Rectangle";
 
-class gsScoreItem {
+export class gsScoreItem {
     m_score: number;
     m_name: Array<string> = new Array<string>();
 }
 
-class gsCScoreTable {
+export class gsCScoreTable {
 
-    m_position: gsCPoint;
-    m_spacing: gsCPoint;
+    m_position: Point;
+    m_spacing: Point;
     m_font: gsCFont;
     m_current_item: number;
     m_current_letter: number;
-    m_flash_timer: gsCTimer;
+    m_flash_timer: GameTime;
     gsSCORE_NAME_SIZE: number = 3;
     m_score_list: Array<gsScoreItem>;
 
     //-------------------------------------------------------------
 
     constructor() {
-        this.m_position = new gsCPoint(0, 0);
-        this.m_spacing = new gsCPoint(0, 0);
+        this.m_position = new Point(0, 0);
+        this.m_spacing = new Point(0, 0);
         this.m_font = null;
         this.m_current_item = 0;
         this.m_current_letter = 0;
-        this.m_flash_timer = new gsCTimer();
+        this.m_flash_timer = new GameTime();
         this.m_flash_timer.start();
     }
 
@@ -44,13 +44,13 @@ class gsCScoreTable {
 
     //-------------------------------------------------------------
 
-    public setPosition(position: gsCPoint): void {
+    public setPosition(position: Point): void {
         this.m_position = position;
     }
 
     //-------------------------------------------------------------
 
-    public setSpacing(spacing: gsCPoint): void {
+    public setSpacing(spacing: Point): void {
         this.m_spacing = spacing;
     }
 
@@ -133,12 +133,12 @@ class gsCScoreTable {
             }
 
             if (i == this.m_current_item) {
-                var size: gsCPoint = this.m_font.getStringSize(buffer);
+                var size: Point = this.m_font.getStringSize(buffer);
                 var y = this.m_position.Y + this.m_spacing.Y * i;
-                screen.drawSolidRect(new gsCRect((screen.screenRectangle.Right - size.X) / 2 - 1, y - 1, size.X + 2, size.Y + 2), "gray", ctx);
+                screen.drawSolidRect(new gsCRectangle((screen.screenRectangle.Right - size.X) / 2 - 1, y - 1, size.X + 2, size.Y + 2), "gray", ctx);
             }
 
-            this.m_font.setTextCursor(new gsCPoint(0, this.m_position.Y + this.m_spacing.Y * i));
+            this.m_font.setTextCursor(new Point(0, this.m_position.Y + this.m_spacing.Y * i));
             this.m_font.justifyString(buffer);
         }
 
@@ -222,5 +222,3 @@ class gsCScoreTable {
 
     //-------------------------------------------------------------
 }
-
-export = gsCScoreTable;

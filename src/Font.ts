@@ -1,9 +1,9 @@
-﻿import gsCTiledImage = require("TiledImage");
-import gsCPoint = require("Point");
+﻿import { gsCTiledImage } from "./TiledImage";
+import { Point } from "./Point";
 
-class gsCFont extends gsCTiledImage {
+export class gsCFont extends gsCTiledImage {
 
-    m_text_cursor: gsCPoint;
+    m_text_cursor: Point;
     m_tint: string;//gsCColour
     m_use_tint: boolean;
     m_ctx: CanvasRenderingContext2D;
@@ -13,13 +13,13 @@ class gsCFont extends gsCTiledImage {
     constructor(font: HTMLImageElement, ctx: CanvasRenderingContext2D) {
         super(font);
         this.m_ctx = ctx;
-        this.m_text_cursor = new gsCPoint(0, 0);
+        this.m_text_cursor = new Point(0, 0);
         this.m_use_tint = false;
     }
 
     //-------------------------------------------------------------
 
-    public setTextCursor(position: gsCPoint): void {
+    public setTextCursor(position: Point): void {
         this.m_text_cursor = position;
     }
 
@@ -38,14 +38,14 @@ class gsCFont extends gsCTiledImage {
 
     //-------------------------------------------------------------
 
-    public getTextCursor(): gsCPoint {
+    public getTextCursor(): Point {
         return this.m_text_cursor;
     }
 
     //-------------------------------------------------------------
 
-    public getStringSize(text: string): gsCPoint {
-        return new gsCPoint((text.length) * this.m_tile_size.X, this.m_tile_size.Y);
+    public getStringSize(text: string): Point {
+        return new Point((text.length) * this.m_tile_size.X, this.m_tile_size.Y);
     }
 
     //-------------------------------------------------------------
@@ -59,7 +59,7 @@ class gsCFont extends gsCTiledImage {
         //    gsCScreen *screen = gsCApplication::getScreen();
         //    if (!screen)
         //        return false;
-        //    gsCRect extents(m_text_cursor,m_text_cursor + m_tile_size * gsCPoint(length,1));
+        //    gsCRect extents(m_text_cursor,m_text_cursor + m_tile_size * Point(length,1));
         //    gsCRect screen_rect = screen->getRect();
         //    if (screen_rect.contains(extents)) {
         //        char *str = message;
@@ -75,7 +75,7 @@ class gsCFont extends gsCTiledImage {
                     }
                     else {
                         this.drawFast(c, this.m_text_cursor, this.m_ctx);
-                        this.m_text_cursor.add(new gsCPoint(this.m_tile_size.X, 0));
+                        this.m_text_cursor.add(new Point(this.m_tile_size.X, 0));
                     }
                 }
             }
@@ -92,7 +92,7 @@ class gsCFont extends gsCTiledImage {
         //                        drawTinted(c,m_text_cursor,m_tint);
         //                    else
         //                        draw(c,m_text_cursor);
-        //                    m_text_cursor += gsCPoint(m_tile_size.getX(),0);
+        //                    m_text_cursor += Point(m_tile_size.getX(),0);
         //                    }
         //                }
         //            }
@@ -110,7 +110,7 @@ class gsCFont extends gsCTiledImage {
         //    if (!screen)
         //        return false;
 
-        var size: gsCPoint = this.getStringSize(message);
+        var size: Point = this.getStringSize(message);
         var old_x: number = this.m_text_cursor.X;
 
         //m_text_cursor.setX((screen->getSize().getX() - size.getX()) / 2);
@@ -122,4 +122,3 @@ class gsCFont extends gsCTiledImage {
 
     //-------------------------------------------------------------
 }
-export = gsCFont;

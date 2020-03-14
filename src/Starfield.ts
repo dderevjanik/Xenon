@@ -1,6 +1,6 @@
-﻿import gsCVector = require("Vector");
+﻿import { gsCVector } from "./Vector";
 
-class CStarfield {
+export class CStarfield {
     private m_star: HTMLImageElement;
     private m_position: number;
     private m_layers: number;
@@ -60,4 +60,3 @@ class CStarfield {
     //-------------------------------------------------------------
 
 }
-export = CStarfield;

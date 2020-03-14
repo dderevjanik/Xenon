@@ -1,7 +1,7 @@
-﻿import gsCMusic = require("Music");
-import gsCSample = require("Sample");
+﻿import { gsCMusic } from "./Music";
+import { gsCSample } from "./Sample";
 
-class gsCSoundSystem {
+export class gsCSoundSystem {
 
     m_active: boolean;
     m_current_music: gsCMusic;
@@ -203,4 +203,3 @@ class gsCSoundSystem {
     //-------------------------------------------------------------
 
 }
-export = gsCSoundSystem;

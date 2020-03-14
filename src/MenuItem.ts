@@ -1,9 +1,9 @@
-﻿import gsCScreen = require("Screen");
-import gsCFont = require("Font");
-import gsCRect = require("Rectangle");
-import gsCPoint = require("Point");
+﻿import { gsCScreen } from "./Screen";
+import { gsCFont } from "./Font";
+import { Point } from "./Point";
+import { gsCRectangle } from "./Rectangle";
 
-class gsCMenuItem {
+export class MenuItem {
 
     m_name: string;
     m_value: number;
@@ -37,10 +37,10 @@ class gsCMenuItem {
 
         if (this.m_name) {
             if (highlight) {
-                var size: gsCPoint = font.getStringSize(this.m_name);
-                screen.drawSolidRect(new gsCRect((screen.screenRectangle.Right - size.X) / 2 - 1, y - 1, size.X + 2, size.Y + 2), "gray", ctx);
+                var size: Point = font.getStringSize(this.m_name);
+                screen.drawSolidRect(new gsCRectangle((screen.screenRectangle.Right - size.X) / 2 - 1, y - 1, size.X + 2, size.Y + 2), "gray", ctx);
             }
-            font.setTextCursor(new gsCPoint(0, y));
+            font.setTextCursor(new Point(0, y));
             font.justifyString(this.m_name);
         }
     }
@@ -59,5 +59,3 @@ class gsCMenuItem {
 
     //-------------------------------------------------------------
 }
-
-export = gsCMenuItem;

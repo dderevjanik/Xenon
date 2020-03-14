@@ -1,4 +1,4 @@
-﻿class gsCMusic {
+﻿export class gsCMusic {
     music: HTMLAudioElement;
 
     constructor() {
@@ -19,4 +19,3 @@
     //-------------------------------------------------------------
 
 }
-export = gsCMusic;

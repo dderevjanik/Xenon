@@ -1,8 +1,6 @@
-﻿import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import CActor = require("Actor");
+﻿import { CActor } from "./Actor";
 
-class CAlien extends CActor {
+export class CAlien extends CActor {
 
     constructor() {
         super();
@@ -17,5 +15,3 @@ class CAlien extends CActor {
 
     //-------------------------------------------------------------
 }
-
-export = CAlien;

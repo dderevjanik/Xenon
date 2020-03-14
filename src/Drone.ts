@@ -1,14 +1,13 @@
-﻿import CApplication = require("Application");
-import CAlien = require("Alien");
-import CDroneGenerator = require("DroneGenerator");
-import enums = require("Enums");
-import Pickup = require("Pickup");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import CPlayGameState = require("PlayGameState");
-import CExplode = require("Exploder");
+﻿import { CAlien } from "./Alien";
+import { CDroneGenerator } from "./DroneGenerator";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { Pickups } from "./Pickup";
+import { CExploder } from "./Exploder";
 
-class CDrone extends CAlien {
+export class CDrone extends CAlien {
 
     private m_generator: CDroneGenerator;
     private m_phase: number;
@@ -25,7 +24,7 @@ class CDrone extends CAlien {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_DRONE);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_DRONE);
     }
 
     //-------------------------------------------------------------
@@ -39,7 +38,7 @@ class CDrone extends CAlien {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+    public update(controls: Controls, gameTime: GameTime): boolean {
 
         this.m_timer.update(false);
 
@@ -47,7 +46,7 @@ class CDrone extends CAlien {
             var score: number = this.m_generator.droneKilled(true);
 
             if (score == 0) {
-                var s: Pickup.CScorePickup = new Pickup.CScorePickup(this.m_playGameState);
+                var s: Pickups.CScorePickup = new Pickups.CScorePickup(this.m_playGameState);
                 this.m_scene.addActor(s);
                 s.setPosition(this.getPosition());
                 s.activate();
@@ -57,7 +56,7 @@ class CDrone extends CAlien {
                 this.m_playGameState.getPlayer().scoreBonus(score);
             }
 
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             super.kill();
             return true;
         }
@@ -65,7 +64,7 @@ class CDrone extends CAlien {
         this.m_position.X = this.m_generator.getPosition().X + 32.0 * Math.sin(((this.m_timer.getTime() / 60) + this.m_phase) * 180.0);
         this.m_position.Y = (this.m_position.Y + this.m_velocity.Y);
 
-        super.animate(enums.AnimationMode.ANIMATE_LOOP);
+        super.animate(Enums.AnimationMode.ANIMATE_LOOP);
 
         return true;
     }
@@ -85,5 +84,3 @@ class CDrone extends CAlien {
 
     //-------------------------------------------------------------
 }
-
-export = CDrone;

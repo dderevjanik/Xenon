@@ -1,11 +1,11 @@
-﻿import CBullet = require("Bullet");
-import gsCVector = require("Vector");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import enums = require("Enums");
-import CPlayGameState = require("PlayGameState");
+﻿import { CBullet } from "./Bullet";
+import { gsCVector } from "./Vector";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
 
-class CHomingMissile extends CBullet {
+export class CHomingMissile extends CBullet {
 
     //-------------------------------------------------------------
 
@@ -29,7 +29,7 @@ class CHomingMissile extends CBullet {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_HOMING_MISSILE);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_HOMING_MISSILE);
     }
 
     //-------------------------------------------------------------
@@ -50,7 +50,7 @@ class CHomingMissile extends CBullet {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+    public update(controls: Controls, gameTime: GameTime): boolean {
 
         var direction: number = 0;
         this.m_position.plusEquals(this.m_velocity);
@@ -120,5 +120,3 @@ class CHomingMissile extends CBullet {
 
     //-------------------------------------------------------------
 }
-
-export = CHomingMissile;

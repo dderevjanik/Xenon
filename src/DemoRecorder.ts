@@ -1,8 +1,8 @@
-﻿import gsCControls = require("Controls");
+﻿import { Controls } from "./Controls";
 
-class DemoRecorder {
+export class DemoRecorder {
 
-    m_event_list: Array<gsCControls>;
+    m_event_list: Array<Controls>;
     m_event_index: number;
     m_has_level: boolean;
     m_level: string;
@@ -29,7 +29,7 @@ class DemoRecorder {
 
     //-------------------------------------------------------------
 
-    public addEvent(controls: gsCControls): boolean {
+    public addEvent(controls: Controls): boolean {
         this.m_event_list.push(controls);
         return true;
     }
@@ -77,4 +77,3 @@ class DemoRecorder {
     //-------------------------------------------------------------
 
 }
-export = DemoRecorder;

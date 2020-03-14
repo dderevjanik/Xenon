@@ -1,11 +1,11 @@
-﻿import gsCControls = require("Controls");
-import CUpgrade = require("Upgrade");
-import enums = require("Enums");
-import CShip = require("Ship");
-import gsCTimer = require("Timer");
-import CExplode = require("Exploder");
+﻿import { CUpgrade } from "./Upgrade";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { CShip } from "./Ship";
+import { CExploder } from "./Exploder";
 
-class CWingtip extends CUpgrade {
+export class CWingtip extends CUpgrade {
 
     //-------------------------------------------------------------
 
@@ -29,7 +29,7 @@ class CWingtip extends CUpgrade {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_WINGTIP);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_WINGTIP);
     }
 
     //-------------------------------------------------------------
@@ -43,7 +43,7 @@ class CWingtip extends CUpgrade {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gametime: gsCTimer) {
+    public update(controls: Controls, gametime: GameTime) {
         var ship: CShip = <CShip>this.getOwner();
 
         if (!ship) {
@@ -54,7 +54,7 @@ class CWingtip extends CUpgrade {
         if (this.getShield() == 0) {
             ship.detachWingtip(this);
             this.setOwner(null);
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             this.kill();
             return true;
         }
@@ -72,7 +72,7 @@ class CWingtip extends CUpgrade {
                 }
             }
             else {
-                this.animations(enums.AnimationMode.ANIMATE_LOOP, 0, this.WINGTIP_FRAMES);
+                this.animations(Enums.AnimationMode.ANIMATE_LOOP, 0, this.WINGTIP_FRAMES);
             }
 
         }
@@ -87,4 +87,3 @@ class CWingtip extends CUpgrade {
     //-------------------------------------------------------------
 
 }
-export = CWingtip;

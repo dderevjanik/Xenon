@@ -1,4 +1,6 @@
-﻿class RECT {
+﻿import { Point } from "./Point";
+
+export class RECT {
 
     private m_left: number;
     private m_top: number;
@@ -53,9 +55,7 @@
     }
 }
 
-import gsCPoint = require("Point");
-
-class gsCRectangle {
+export class gsCRectangle {
 
     private m_rect: RECT;
 
@@ -126,7 +126,7 @@ class gsCRectangle {
     //-------------------------------------------------------------
 
     public getSize() {
-        return new gsCPoint(this.m_rect.right - this.m_rect.left,
+        return new Point(this.m_rect.right - this.m_rect.left,
             this.m_rect.bottom - this.m_rect.top);
     }
 
@@ -158,7 +158,7 @@ class gsCRectangle {
 
     //-------------------------------------------------------------
 
-    public move(offset: gsCPoint): void {
+    public move(offset: Point): void {
         this.m_rect.left += offset.X;
         this.m_rect.top += offset.Y;
         this.m_rect.right += offset.X;
@@ -195,5 +195,3 @@ class gsCRectangle {
     //-------------------------------------------------------------
 
 }
-
-export = gsCRectangle;

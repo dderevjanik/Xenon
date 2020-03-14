@@ -1,13 +1,12 @@
-﻿import CApplication = require("Application");
-import CActor = require("Actor")
-import enums = require("Enums");
-import CDrone = require("Drone");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import gsCVector = require("Vector");
-import CPlayGameState = require("PlayGameState");
+﻿import { CActor } from "./Actor";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { CDrone } from "./Drone";
+import { gsCVector } from "./Vector";
 
-class CDroneGenerator extends CActor {
+export class CDroneGenerator extends CActor {
     //-------------------------------------------------------------
 
     private DRONE_TOTAL: number = 8;		// total segments in chain
@@ -34,7 +33,7 @@ class CDroneGenerator extends CActor {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_DRONE_GENERATOR);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_DRONE_GENERATOR);
     }
 
     //-------------------------------------------------------------
@@ -45,7 +44,7 @@ class CDroneGenerator extends CActor {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+    public update(controls: Controls, gameTime: GameTime): boolean {
         if (this.m_drones_created < this.DRONE_TOTAL) {
             var d: CDrone = new CDrone(this.m_playGameState, this);
             this.m_scene.addActor(d);
@@ -79,5 +78,3 @@ class CDroneGenerator extends CActor {
         return this.getActorInfo().m_kill_bonus * this.m_drones_killed;
     }
 }
-
-export = CDroneGenerator;

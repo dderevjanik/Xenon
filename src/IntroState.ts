@@ -1,17 +1,12 @@
-﻿import gsCPoint = require("Point");
-import CGameState = require("GameState");
-import CViewScoresState = require("ViewScoresState");
-import COptionsMenuState = require("OptionsMenuState");
-import CCreditsState = require("CreditsState");
-import CScene = require("Scene");
-import CStarfield = require("Starfield");
-import gsCControls = require("Controls");
-import enums = require("Enums");
-import CPlayGameState = require("PlayGameState");
-import CMainMenuState = require("MainMenuState");
-import CApplication = require("Application");
+﻿import { CGameState } from "./GameState";
+import { CPlayGameState } from "./PlayGameState";
+import { CScene } from "./Scene";
+import { CStarfield } from "./Starfield";
+import { CApplication } from "./Application";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
 
-class CIntroState extends CGameState {
+export class CIntroState extends CGameState {
 
     m_playGameState: CPlayGameState;
     m_originalState: CIntroState;
@@ -54,12 +49,12 @@ class CIntroState extends CGameState {
     //		m_menu.addSelection(m_files[i]);
 
     //	m_menu.setWrap(true);
-    //	m_menu.setPosition(gsCPoint(0,100));
-    //	m_menu.setSpacing(gsCPoint(0,30));
+    //	m_menu.setPosition(Point(0,100));
+    //	m_menu.setSpacing(Point(0,30));
     //	m_menu.setCurrentItem(IM_FIRSTFILE);
     //	m_menu.setFont(&m_medium_font);
 
-        this.playMusic(enums.GameMusicType.MUSIC_INTRO);
+        this.playMusic(Enums.GameMusicType.MUSIC_INTRO);
         this.m_state = this;
         this.m_originalState = this;
     	return true;
@@ -67,7 +62,7 @@ class CIntroState extends CGameState {
 
     //-------------------------------------------------------------
 
-    public update(ctx: CanvasRenderingContext2D, controls: gsCControls): boolean {
+    public update(ctx: CanvasRenderingContext2D, controls: Controls): boolean {
     	if (!super.update(ctx, controls))
     		return false;
 
@@ -75,7 +70,7 @@ class CIntroState extends CGameState {
             this.m_state.update(ctx, controls);
         }
 
-        if (this.m_options.getOption(enums.OptionType.OPTION_BACKDROP)) {
+        if (this.m_options.getOption(Enums.OptionType.OPTION_BACKDROP)) {
 //            ctx.drawImage(this.backgroundTexture, 0, 0);
         }
     //	else
@@ -140,5 +135,3 @@ class CIntroState extends CGameState {
     //}
 
 }
-
-export = CIntroState;

@@ -1,18 +1,17 @@
-﻿import gsCVector = require("Vector");
-import CActor = require("Actor");
-import CEngine = require("Engine");
-import CActorInfoList = require("ActorInfoList");
-import enums = require("Enums");
+﻿import { CEngine } from "./Engine";
+import { Enums } from "./Enums";
+import { CActor } from "./Actor";
+import { CActorInfoList } from "./ActorInfoList";
 
-class CRetroEngine extends CEngine {
-    private m_direction: enums.RetroDirection;
+export class CRetroEngine extends CEngine {
+    private m_direction: Enums.RetroDirection;
     //private m_actorInfo: CActorInfoList;
 
     act: CActor;
     m_name = "RetroEngine";
 
     public CRetroEngine(listOfActors: CActorInfoList) {
-        this.m_direction = enums.RetroDirection.RETRO_NW;
+        this.m_direction = Enums.RetroDirection.RETRO_NW;
         this.m_actorInfo = listOfActors;
     }
 
@@ -25,17 +24,17 @@ class CRetroEngine extends CEngine {
 
         if (this.m_thrust > 0) {
             switch (this.m_direction) {
-                case enums.RetroDirection.RETRO_NW:
-                    this.animations(enums.AnimationMode.ANIMATE_LOOP, 0, 2);
+                case Enums.RetroDirection.RETRO_NW:
+                    this.animations(Enums.AnimationMode.ANIMATE_LOOP, 0, 2);
                     break;
-                case enums.RetroDirection.RETRO_NE:
-                    this.animations(enums.AnimationMode.ANIMATE_LOOP, 2, 2);
+                case Enums.RetroDirection.RETRO_NE:
+                    this.animations(Enums.AnimationMode.ANIMATE_LOOP, 2, 2);
                     break;
-                case enums.RetroDirection.RETRO_SW:
-                    this.animations(enums.AnimationMode.ANIMATE_LOOP, 4, 2);
+                case Enums.RetroDirection.RETRO_SW:
+                    this.animations(Enums.AnimationMode.ANIMATE_LOOP, 4, 2);
                     break;
-                case enums.RetroDirection.RETRO_SE:
-                    this.animations(enums.AnimationMode.ANIMATE_LOOP, 6, 2);
+                case Enums.RetroDirection.RETRO_SE:
+                    this.animations(Enums.AnimationMode.ANIMATE_LOOP, 6, 2);
                     break;
             }
 
@@ -47,7 +46,7 @@ class CRetroEngine extends CEngine {
 
     //-------------------------------------------------------------
 
-    public setDirection(direction: enums.RetroDirection) {
+    public setDirection(direction: Enums.RetroDirection) {
         this.m_direction = direction;
     }
 
@@ -55,8 +54,7 @@ class CRetroEngine extends CEngine {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_RETRO_ENGINE);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_RETRO_ENGINE);
 
     }
 }
-export = CRetroEngine;

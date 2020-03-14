@@ -1,14 +1,12 @@
-﻿import CWeapon = require("Weapon");
-import Controls = require("Controls");
-import GameTime = require("Timer");
-import enums = require("Enums");
-import gsCVector = require("Vector");
-import CHomerProjectile = require("HomerProjectile");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import CPlayGameState = require("PlayGameState");
+﻿import { CWeapon } from "./Weapon";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { gsCVector } from "./Vector";
+import { CHomerProjectile } from "./HomerProjectile";
 
-class CHomerProjectileWeapon extends CWeapon {
+export class CHomerProjectileWeapon extends CWeapon {
 
     m_trigger: boolean;
 
@@ -23,12 +21,12 @@ class CHomerProjectileWeapon extends CWeapon {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_HOMER_PROJECTILE_WEAPON);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_HOMER_PROJECTILE_WEAPON);
     }
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer) {
+    public update(controls: Controls, gameTime: GameTime) {
         super.update(controls, gameTime);
         if (this.do_fire) {
             this.fire();
@@ -84,5 +82,3 @@ class CHomerProjectileWeapon extends CWeapon {
     //-------------------------------------------------------------
 
 }
-
-export = CHomerProjectileWeapon;

@@ -1,14 +1,14 @@
-﻿import CAlien = require("Alien");
-import CShip = require("Ship");
-import CSpinnerWeapon = require("SpinnerWeapon");
-import gsCVector = require("Vector");
-import enums = require("Enums");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import CExplode = require("Exploder");
-import CPlayGameState = require("PlayGameState");
+﻿import { CAlien } from "./Alien";
+import { CSpinnerWeapon } from "./SpinnerWeapon";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { gsCVector } from "./Vector";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { CShip } from "./Ship";
+import { CExploder } from "./Exploder";
 
-class CRusher extends CAlien {
+export class CRusher extends CAlien {
     private m_weapon: CSpinnerWeapon;
 
     constructor(playGameState: CPlayGameState) {
@@ -22,7 +22,7 @@ class CRusher extends CAlien {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_RUSHER);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_RUSHER);
     }
 
     //-------------------------------------------------------------
@@ -43,10 +43,10 @@ class CRusher extends CAlien {
     }
 
     //-------------------------------------------------------------
-    public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+    public update(controls: Controls, gameTime: GameTime): boolean {
 
         if (this.m_shield == 0) {
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             super.kill();
             return true;
         }
@@ -63,11 +63,10 @@ class CRusher extends CAlien {
         }
 
         this.m_position.plusEquals(this.m_velocity);
-        super.animate(enums.AnimationMode.ANIMATE_LOOP);
+        super.animate(Enums.AnimationMode.ANIMATE_LOOP);
         return true;
     }
 
     //-------------------------------------------------------------
 
 }
-export = CRusher;

@@ -1,8 +1,8 @@
-﻿import CExplosion = require("Explosion");
-import enums = require("Enums");
-import CPlayGameState = require("PlayGameState");
+﻿import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { CExplosion } from "./Explosion";
 
-class CSmallExplosion extends CExplosion {
+export class CSmallExplosion extends CExplosion {
 
     constructor(playGameState?: CPlayGameState) {
         super();
@@ -14,17 +14,15 @@ class CSmallExplosion extends CExplosion {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_SMALL_EXPLOSION);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SMALL_EXPLOSION);
     }
 
     //-------------------------------------------------------------
 
     public activate() {
         if (this.m_playGameState) {
-            this.m_playGameState.playSample(enums.GameSampleType.SAMPLE_SMALL_EXPLOSION);//getPosition().getX());
+            this.m_playGameState.playSample(Enums.GameSampleType.SAMPLE_SMALL_EXPLOSION);//getPosition().getX());
         }
         return super.activate();
     }
 }
-
-export = CSmallExplosion;

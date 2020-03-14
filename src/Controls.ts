@@ -1,4 +1,4 @@
-﻿class gsCControls {
+﻿export class Controls {
 
     private m_left: boolean;			// true if left control held
     private m_right: boolean;			// true if right control held
@@ -129,5 +129,3 @@
     }
 
 }
-
-export = gsCControls;

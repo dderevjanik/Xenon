@@ -1,17 +1,17 @@
-﻿import CScene = require("Scene");
-import gsCFont = require("Font");
-import gsCPoint = require("Point");
-import gsCScoreTable = require("ScoreTable");
-import gsCControls = require("Controls");
-import enums = require("Enums");
-import COptions = require("Options");
-import CApplication = require("Application");
-import CStarfield = require("Starfield");
-import CMainMenuState = require("MainMenuState");
-import gsCMenu = require("Menu");
-import gsCSoundSystem = require("SoundSystem");
+﻿import { gsCFont } from "./Font";
+import { CStarfield } from "./Starfield";
+import { CMainMenuState } from "./MainMenuState";
+import { gsCScoreTable } from "./ScoreTable";
+import { CScene } from "./Scene";
+import { Enums } from "./Enums";
+import { Options } from "./Options";
+import { CApplication } from "./Application";
+import { gsCSoundSystem } from "./SoundSystem";
+import { Controls } from "./Controls";
+import { Point } from "./Point";
+import { gsCMenu } from "./Menu";
 
-class CGameState {
+export class CGameState {
     protected m_small_font: gsCFont;
     protected m_medium_font: gsCFont;
     protected m_font8x8: HTMLImageElement;
@@ -24,8 +24,8 @@ class CGameState {
     protected m_scene: CScene;
     protected m_number_of_players: number = 1;
     protected m_state: CGameState;
-    protected m_demo_mode: enums.DemoMode;
-    protected m_options: COptions;
+    protected m_demo_mode: Enums.DemoMode;
+    protected m_options: Options;
     protected introTexture: HTMLImageElement;
     protected bbTexture: HTMLImageElement;
     protected backgroundTexture: HTMLImageElement;
@@ -62,7 +62,7 @@ class CGameState {
         this.m_ctx = ctx;
 
         this.m_sound_system = new gsCSoundSystem();
-        this.m_options = new COptions();
+        this.m_options = new Options();
         this.initialize(null);
     }
 
@@ -100,12 +100,12 @@ class CGameState {
         //    else {
         //        int colour_depth = Options.getOption(OPTION_COLOURDEPTH);
 
-        //        gsCPoint res;
+        //        Point res;
 
         //        //		if (Options.getOption(OPTION_HIRES))
-        //        res = gsCPoint(640, 480);
+        //        res = Point(640, 480);
         //        //		else
-        //        //			res = gsCPoint(320,240);
+        //        //			res = Point(320,240);
 
         //        if (!m_screen.createFullScreen(m_xenon ->getWindow(), res, colour_depth))
         //            return false;
@@ -158,7 +158,7 @@ class CGameState {
 
     //-------------------------------------------------------------
 
-    public update(ctx: CanvasRenderingContext2D, controls: gsCControls): boolean {
+    public update(ctx: CanvasRenderingContext2D, controls: Controls): boolean {
         return true;
     }
 
@@ -173,11 +173,11 @@ class CGameState {
     public loadGraphics(): boolean {
 
         this.m_small_font = new gsCFont(this.m_font8x8, this.m_ctx);
-        this.m_small_font.setTileSize(new gsCPoint(8, 8));
+        this.m_small_font.setTileSize(new Point(8, 8));
         //this.m_small_font.enableColourKey(gsCColour(gsMAGENTA));
 
         this.m_medium_font = new gsCFont(this.m_font16x16, this.m_ctx);
-        this.m_medium_font.setTileSize(new gsCPoint(16, 16));
+        this.m_medium_font.setTileSize(new Point(16, 16));
         //this.m_medium_font.enableColourKey(gsCColour(gsMAGENTA));
 
         return true;
@@ -261,7 +261,7 @@ class CGameState {
 
     // play sample with stereo position based on screen x coordinate
     public playSample(sample /*GameSampleType*/, x?: number): void {
-        if (this.m_options.getOption(enums.OptionType.OPTION_SOUNDFX)) {
+        if (this.m_options.getOption(Enums.OptionType.OPTION_SOUNDFX)) {
             //        int w2 = gsCApplication::getScreen() ->getSize().getX() / 2;
             //        m_sound_system.playSample((int) sample, 100 * ((int) x - w2) / w2);
             this.m_sound_system.playSample(<number>sample, 0);
@@ -271,7 +271,7 @@ class CGameState {
     //-------------------------------------------------------------
 
     public playMusic(music/*: GameMusicType*/): void {
-        if (this.m_options.getOption(enums.OptionType.OPTION_MUSIC)) {
+        if (this.m_options.getOption(Enums.OptionType.OPTION_MUSIC)) {
             this.m_sound_system.playMusic(music);
         }
     }
@@ -386,10 +386,10 @@ class CGameState {
         this.m_demo_mode = mode;
 
         switch (mode) {
-            case enums.DemoMode.DEMO_RECORD:
+            case Enums.DemoMode.DEMO_RECORD:
                 //this.m_demo_recorder.record();
                 break;
-            case enums.DemoMode.DEMO_PLAYBACK:
+            case Enums.DemoMode.DEMO_PLAYBACK:
                 //this.m_demo_recorder.playback();
                 break;
         }
@@ -399,8 +399,8 @@ class CGameState {
 
     public loadScoreTable(): void {
         this.m_score_table.setSize(this.NUMBER_OF_SCORE_ENTRIES);
-        this.m_score_table.setPosition(new gsCPoint(0, 150));
-        this.m_score_table.setSpacing(new gsCPoint(0, 20));
+        this.m_score_table.setPosition(new Point(0, 150));
+        this.m_score_table.setSpacing(new Point(0, 20));
         this.m_score_table.setFont(this.m_medium_font);
 
         this.m_score_table.insertScore(5000000, "JMP");
@@ -424,4 +424,3 @@ class CGameState {
     //-------------------------------------------------------------
 
 }
-export = CGameState;

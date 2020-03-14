@@ -1,10 +1,10 @@
-﻿import gsCMapTile = require("MapTile");
-import gsCTiledImage = require("TiledImage");
-import Point = require("Point");
-import gsCVector = require("Vector");
-import Rectangle = require("Rectangle");
+﻿import { Point } from "./Point";
+import { gsCTiledImage } from "./TiledImage";
+import { gsCMapTile } from "./MapTile";
+import { gsCVector } from "./Vector";
+import { gsCRectangle } from "./Rectangle";
 
-class gsCMap {
+export class gsCMap {
 
     protected m_size: Point;
     m_image: gsCTiledImage;
@@ -17,7 +17,7 @@ class gsCMap {
     private m_total_size: Point;
     private m_imageTiles: HTMLImageElement;
     private m_title: string = "";
-    private m_screen_rect: Rectangle = new Rectangle(0, 0, 640, 480);
+    private m_screen_rect: gsCRectangle = new gsCRectangle(0, 0, 640, 480);
 
     constructor(image?: HTMLImageElement, title?: string) {
         this.m_imageTiles = image;
@@ -196,11 +196,11 @@ class gsCMap {
         //    return;
 
         // clip map against screen
-        var screen_rect: Rectangle = this.m_screen_rect;
+        var screen_rect: gsCRectangle = this.m_screen_rect;
 
         // get map source and dest rects in pixel coords
-        var source_rect: Rectangle = new Rectangle(0, 0, (this.m_size.X * this.m_tile_size.X), (this.m_size.Y * this.m_tile_size.Y));
-        var dest_rect: Rectangle = new Rectangle(0, 0, (this.m_size.X * this.m_tile_size.X), (this.m_size.Y * this.m_tile_size.Y));
+        var source_rect: gsCRectangle = new gsCRectangle(0, 0, (this.m_size.X * this.m_tile_size.X), (this.m_size.Y * this.m_tile_size.Y));
+        var dest_rect: gsCRectangle = new gsCRectangle(0, 0, (this.m_size.X * this.m_tile_size.X), (this.m_size.Y * this.m_tile_size.Y));
         dest_rect.move(this.m_position);
         screen_rect.clip(source_rect, dest_rect);
 
@@ -283,9 +283,9 @@ class gsCMap {
 
     //-------------------------------------------------------------
     // Find tiles which overlap rect
-    public hitBy(rect: Rectangle, collision_mask: number): number {
-        var dest: Rectangle = rect;
-        var source = new Rectangle(0, 0, this.m_total_size.X, this.m_total_size.Y);
+    public hitBy(rect: gsCRectangle, collision_mask: number): number {
+        var dest: gsCRectangle = rect;
+        var source = new gsCRectangle(0, 0, this.m_total_size.X, this.m_total_size.Y);
 
         //    source.clip(dest);
         //    if (dest.isEmpty())
@@ -301,7 +301,7 @@ class gsCMap {
 
         //    for (int x = x1; x <= x2; x++) {
         //        for (int y = y1; y <= y2; y++) {
-        //            gsCPoint pos(x,y);
+        //            Point pos(x,y);
         //            gsCMapTile *mt = getMapTile(pos);
         //            if (!mt->isEmpty() &&
         //                !mt->isHidden() &&
@@ -321,5 +321,3 @@ class gsCMap {
 
     //-------------------------------------------------------------
 }
-
-export = gsCMap;

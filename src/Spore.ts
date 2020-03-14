@@ -1,24 +1,24 @@
-﻿import CBullet = require("Bullet");
-import CShip = require("Ship");
-import gsCVector = require("Vector");
-import enums = require("Enums");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import Pickup = require("Pickup");
-import CSporeGenerator = require("SporeGenerator");
-import CPlayGameState = require("PlayGameState");
-import CExplode = require("Exploder");
+﻿import { CBullet } from "./Bullet";
+import { GameTime } from "./Timer";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { CShip } from "./Ship";
+import { gsCVector } from "./Vector";
+import { CSporeGenerator } from "./SporeGenerator";
+import { CExploder } from "./Exploder";
+import { Pickups } from "./Pickup";
 
-class CSpore extends CBullet {
+export class CSpore extends CBullet {
 
     private SPORE_HOMING_DELAY: number = 0.5;
-    private m_delay_timer: gsCTimer;
+    private m_delay_timer: GameTime;
     private m_killed_by_player: boolean;
 
     constructor(playGameState: CPlayGameState) {
         super(playGameState);
         this.m_name = "SPORE";
-        this.m_delay_timer = new gsCTimer();
+        this.m_delay_timer = new GameTime();
     }
 
     //-------------------------------------------------------------
@@ -35,15 +35,15 @@ class CSpore extends CBullet {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_SPORE);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SPORE);
     }
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+    public update(controls: Controls, gameTime: GameTime): boolean {
         this.gameTime = gameTime;
         if (this.m_shield == 0) {
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             super.kill();
             return true;
         }
@@ -62,7 +62,7 @@ class CSpore extends CBullet {
         }
 
         this.m_position.plusEquals(this.m_velocity);
-        super.animate(enums.AnimationMode.ANIMATE_LOOP);
+        super.animate(Enums.AnimationMode.ANIMATE_LOOP);
         return true;
     }
 
@@ -77,7 +77,7 @@ class CSpore extends CBullet {
 
     public kill(): void {
         if (this.getOwner() != null && (<CSporeGenerator>this.getOwner()).sporeKilled(this.m_killed_by_player)) {
-            var s: Pickup.CScorePickup = new Pickup.CScorePickup(this.m_playGameState);
+            var s: Pickups.CScorePickup = new Pickups.CScorePickup(this.m_playGameState);
             this.m_scene.addActor(s);
             s.setPosition(this.getPosition());
             s.activate();
@@ -93,4 +93,3 @@ class CSpore extends CBullet {
     //-------------------------------------------------------------
 
 }
-export = CSpore;

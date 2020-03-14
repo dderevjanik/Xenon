@@ -1,7 +1,7 @@
-﻿import gsCPoint = require("Point");
-import gsCRectangle = require("Rectangle");
+﻿import { gsCRectangle } from "./Rectangle";
+import { Point } from "./Point";
 
-class gsCScreen {
+export class gsCScreen {
 
     m_screenRect: gsCRectangle = new gsCRectangle(0, 0, 640, 480);
     m_clipRect: gsCRectangle = new gsCRectangle(-64, -40, 704, 580);
@@ -44,7 +44,7 @@ class gsCScreen {
 
     //-------------------------------------------------------------
 
-    public drawLine(from: gsCPoint, to: gsCPoint, colour: string, ctx: CanvasRenderingContext2D): void {
+    public drawLine(from: Point, to: Point, colour: string, ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
         ctx.lineWidth = 1;
         ctx.strokeStyle = colour;
@@ -88,5 +88,3 @@ class gsCScreen {
 
     //-------------------------------------------------------------
 }
-
-export = gsCScreen;

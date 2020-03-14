@@ -1,8 +1,8 @@
-﻿import gsCVector = require("Vector");
-import Particle = require("Particle");
-import CParticleEffect = require("ParticleEffect");
+﻿import { CParticleEffect } from "./ParticleEffect";
+import { Particle } from "./Particle";
+import { gsCVector } from "./Vector";
 
-class CDustEffect extends CParticleEffect {
+export class CDustEffect extends CParticleEffect {
 
     constructor() {
         super();
@@ -38,5 +38,3 @@ class CDustEffect extends CParticleEffect {
 
     //-------------------------------------------------------------
 }
-
-export = CDustEffect;

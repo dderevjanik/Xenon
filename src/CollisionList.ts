@@ -1,6 +1,7 @@
-﻿import gsCRectangle = require("Rectangle");
+﻿import { gsCRectangle } from "./Rectangle";
+import { Point } from "./Point";
 
-class gsCCollider {
+export class gsCCollider {
     public blobject: Array<Object> = new Array<Object>(10);//[];
     public m_object: Object;		// object pointer
     public m_rect: gsCRectangle;	// screen rectangle
@@ -27,22 +28,20 @@ class gsCCollider {
 
 }
 
-import gsCPoint = require("Point");
+export class gsCCollisionList {
 
-class gsCCollisionList {
-
-    private m_pixel_size: gsCPoint;
-    private m_zones: gsCPoint;
-    private m_zone_size: gsCPoint;
+    private m_pixel_size: Point;
+    private m_zones: Point;
+    private m_zone_size: Point;
 
     m_collider_list: Array<gsCCollider> = new Array<gsCCollider>();
     gsColliderList: gsCCollider;
     m_zone = [];
 
     constructor() {
-        this.m_pixel_size = new gsCPoint(0, 0);
-        this.m_zone_size = new gsCPoint(0, 0);
-        this.m_zones = new gsCPoint(0, 0);
+        this.m_pixel_size = new Point(0, 0);
+        this.m_zone_size = new Point(0, 0);
+        this.m_zones = new Point(0, 0);
         this.m_zone = null;
     }
 
@@ -60,7 +59,7 @@ class gsCCollisionList {
 
     //-------------------------------------------------------------
 
-    public setSize(pixel_size: gsCPoint, zones: gsCPoint): void {
+    public setSize(pixel_size: Point, zones: Point): void {
         //destroy();
         this.clear();
 
@@ -186,4 +185,3 @@ class gsCCollisionList {
 
     //-------------------------------------------------------------
 }
-export = gsCCollisionList;

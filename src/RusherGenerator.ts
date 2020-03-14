@@ -1,11 +1,11 @@
-﻿import CActor = require("Actor");
-import CRusher = require("Rusher");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import enums = require("Enums");
-import CPlayGameState = require("PlayGameState");
+﻿import { CActor } from "./Actor";
+import { GameTime } from "./Timer";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { CRusher } from "./Rusher";
 
-class CRusherGenerator extends CActor {
+export class CRusherGenerator extends CActor {
 
     private RUSHER_TOTAL: number = 6;	// total segments in chain
     private RUSHER_DELAY: number = 0.5;	// time delay between generation
@@ -13,14 +13,14 @@ class CRusherGenerator extends CActor {
     //-------------------------------------------------------------
 
     private m_rushers_created: number;
-    private m_delay_timer: gsCTimer;
+    private m_delay_timer: GameTime;
 
     constructor(playGameState: CPlayGameState) {
         super();
         this.m_playGameState = playGameState;
         this.m_rushers_created = 0;
         //this.m_timer = new gsCTimer();
-        this.m_delay_timer = new gsCTimer();
+        this.m_delay_timer = new GameTime();
         this.m_name = "RusherGenerator";
     }
 
@@ -28,7 +28,7 @@ class CRusherGenerator extends CActor {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_RUSHER_GENERATOR);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_RUSHER_GENERATOR);
     }
 
     //-------------------------------------------------------------
@@ -43,7 +43,7 @@ class CRusherGenerator extends CActor {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer) {
+    public update(controls: Controls, gameTime: GameTime) {
         //this.gameTime = gameTime;
         this.m_delay_timer.update(false);
         if (this.m_delay_timer.getTime() < this.RUSHER_DELAY) {
@@ -67,5 +67,3 @@ class CRusherGenerator extends CActor {
     //-------------------------------------------------------------
 
 }
-
-export = CRusherGenerator;

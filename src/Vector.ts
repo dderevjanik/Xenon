@@ -1,6 +1,6 @@
-﻿import Point = require("Point");
+﻿import { Point } from "./Point";
 
-class gsCVector extends Point {
+export class gsCVector extends Point {
 
     gsPI: number = 3.141592654;
 
@@ -155,5 +155,3 @@ class gsCVector extends Point {
     //-------------------------------------------------------------
 
 }
-
-export = gsCVector;

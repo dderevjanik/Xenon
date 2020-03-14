@@ -1,9 +1,9 @@
-﻿import gsCVector = require("Vector");
-import Particle = require("Particle");
-import CParticleEffect = require("ParticleEffect");
-import enums = require("Enums");
+﻿import { CParticleEffect } from "./ParticleEffect";
+import { Enums } from "./Enums";
+import { Particle } from "./Particle";
+import { gsCVector } from "./Vector";
 
-class CSmokeEffect extends CParticleEffect {
+export class CSmokeEffect extends CParticleEffect {
 
     m_name = "SmokeEffect";
 
@@ -16,7 +16,7 @@ class CSmokeEffect extends CParticleEffect {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_SMOKE_EFFECT);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SMOKE_EFFECT);
     }
 
     //-------------------------------------------------------------
@@ -40,5 +40,3 @@ class CSmokeEffect extends CParticleEffect {
 
     //-------------------------------------------------------------
 }
-
-export = CParticleEffect;

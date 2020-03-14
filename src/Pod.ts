@@ -1,14 +1,14 @@
-﻿import CAlien = require("Alien");
-import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import enums = require("Enums");
-import CSporeGenerator = require("SporeGenerator");
-import CShip = require("Ship");
-import gsCVector = require("Vector");
-import CPlayGameState = require("PlayGameState");
-import CExplode = require("Exploder");
+﻿import { CAlien } from "./Alien";
+import { CPlayGameState } from "./PlayGameState";
+import { Enums } from "./Enums";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { CSporeGenerator } from "./SporeGenerator";
+import { CShip } from "./Ship";
+import { gsCVector } from "./Vector";
+import { CExploder } from "./Exploder";
 
-class CPod extends CAlien {
+export class CPod extends CAlien {
 
     //-------------------------------------------------------------
 
@@ -27,7 +27,7 @@ class CPod extends CAlien {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_POD);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_POD);
     }
 
     //-------------------------------------------------------------
@@ -41,7 +41,7 @@ class CPod extends CAlien {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+    public update(controls: Controls, gameTime: GameTime): boolean {
         this.gameTime = gameTime;
         if (this.m_shield == 0) {
 
@@ -50,7 +50,7 @@ class CPod extends CAlien {
             gen.activate();
             gen.setPosition(this.getPosition());
 
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             super.kill();
             return true;
         }
@@ -74,11 +74,10 @@ class CPod extends CAlien {
 
         //this.m_position += new gsCVector(dx, this.m_velocity.Y);
         this.m_position.plusEquals(new gsCVector(dx, this.m_velocity.Y));
-        super.animate(enums.AnimationMode.ANIMATE_LOOP);
+        super.animate(Enums.AnimationMode.ANIMATE_LOOP);
 
         return true;
     }
 
     //-------------------------------------------------------------
 }
-export = CPod;

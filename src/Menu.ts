@@ -1,17 +1,17 @@
-﻿import gsCPoint = require("Point");
-import gsCFont = require("Font");
-import gsCMenuItem = require("MenuItem");
-import gsCMenuOptionList = require("MenuOptionList");
-import gsCScreen = require("Screen");
-import gsCRectangle = require("Rectangle");
+﻿import { MenuItem } from "./MenuItem";
+import { gsCScreen } from "./Screen";
+import { gsCFont } from "./Font";
+import { gsCRectangle } from "./Rectangle";
+import { Point } from "./Point";
+import { MenuOptionList } from "./MenuOptionList";
 
-enum gsMenuItemType {
+export enum gsMenuItemType {
     gsMENU_OPTION_LIST,
     gsMENU_SLIDER,
     gsMENU_SEPERATOR
 };
 
-class gsCMenuSlider extends gsCMenuItem {
+class gsCMenuSlider extends MenuItem {
 
     m_size: number;
     m_min: number;
@@ -66,7 +66,7 @@ class gsCMenuSlider extends gsCMenuItem {
         //strcat(buffer, val);
 
         if (highlight) {
-            var size: gsCPoint = font.getStringSize(buffer);
+            var size: Point = font.getStringSize(buffer);
             screen.drawSolidRect(new gsCRectangle((screen.getSize().X - size.X) / 2 - 1,
                 y - 1,
                 (screen.getSize().X + size.X) / 2 + 1,
@@ -74,17 +74,17 @@ class gsCMenuSlider extends gsCMenuItem {
 									   /*gsCColour(128, 128, 128)*/"gray", ctx);
         }
 
-        font.setTextCursor(new gsCPoint(0, y));
+        font.setTextCursor(new Point(0, y));
         font.justifyString(buffer);
     }
     //-------------------------------------------------------------
 }
 
-class gsCMenu {
+export class gsCMenu {
 
-    private m_item_list: Array<gsCMenuItem>;// gsCList<gsCMenuItem *> m_item_list;
-    private m_position: gsCPoint;
-    private m_spacing: gsCPoint;
+    private m_item_list: Array<MenuItem>;// gsCList<gsCMenuItem *> m_item_list;
+    private m_position: Point;
+    private m_spacing: Point;
     private m_font: gsCFont;
     private m_current_item: number;		// -1 = no item selected
     private m_wrap: boolean;
@@ -92,8 +92,8 @@ class gsCMenu {
     //-------------------------------------------------------------
 
     constructor() {
-        this.m_position = new gsCPoint(0, 0);
-        this.m_spacing = new gsCPoint(0, 0);
+        this.m_position = new Point(0, 0);
+        this.m_spacing = new Point(0, 0);
         this.m_font = null;
         this.m_current_item = 0;
         this.m_item_list = [];
@@ -123,13 +123,13 @@ class gsCMenu {
 
     //-------------------------------------------------------------
 
-    public setPosition(position: gsCPoint): void {
+    public setPosition(position: Point): void {
         this.m_position = position;
     }
 
     //-------------------------------------------------------------
 
-    public setSpacing(spacing: gsCPoint): void {
+    public setSpacing(spacing: Point): void {
         this.m_spacing = spacing;
     }
 
@@ -149,7 +149,7 @@ class gsCMenu {
 
     public addOptionList(name: string, option: number): void {
 
-        var item: gsCMenuOptionList = new gsCMenuOptionList(name);
+        var item: MenuOptionList = new MenuOptionList(name);
 
         //va_list arglist;
         //const char *op = option;
@@ -240,7 +240,7 @@ class gsCMenu {
     //-------------------------------------------------------------
 
     public getValue(item: number): number {
-        //if (item < 0 || 
+        //if (item < 0 ||
         //    gsASSERT(item >= 0);
         //    gsASSERT(item < m_item_list.getSize());
 
@@ -287,5 +287,3 @@ class gsCMenu {
     //-------------------------------------------------------------
 
 }
-
-export = gsCMenu;

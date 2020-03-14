@@ -1,17 +1,16 @@
-﻿import CBoss = require("Boss")
-import gsCControls = require("Controls");
-import gsCVector = require("Vector");
-import gsCPoint = require("Point");
-import gsCTimer = require("Timer");
-import enums = require("Enums");
-import gsCMapTile = require("MapTile");
-import CBigExplosion = require("BigExplosion");
-import CBossEye = require("BossEye");
-import CBossMouth = require("BossMouth");
-import CApplication = require("Application");
-import CPlayGameState = require("PlayGameState");
+﻿import { CBoss } from "./Boss";
+import { GameTime } from "./Timer";
+import { CBossEye } from "./BossEye";
+import { CPlayGameState } from "./PlayGameState";
+import { CBossMouth } from "./BossMouth";
+import { gsCVector } from "./Vector";
+import { Controls } from "./Controls";
+import { Enums } from "./Enums";
+import { gsCMapTile } from "./MapTile";
+import { CBigExplosion } from "./BigExplosion";
+import { Point } from "./Point";
 
-enum BossState {
+export enum BossState {
     BOSS_MOVE_DOWN,
     BOSS_STATIC,
     BOSS_MOVE_UP,
@@ -26,7 +25,7 @@ enum BossState {
     BOSS_SHUT_EYES,
 }
 
-class CBossControl extends CBoss {
+export class CBossControl extends CBoss {
 
     private m_is_started: boolean;
     private m_yscroll: number = 0; boolean;
@@ -36,16 +35,16 @@ class CBossControl extends CBoss {
     private m_script_pointer: BossScriptItem;
     private m_loop_point: number;
     private m_script_pointer_count = 0;
-    private m_tile_pos: gsCPoint;
+    private m_tile_pos: Point;
     private m_size: number;
-    private m_destruction_timer: gsCTimer;
+    private m_destruction_timer: GameTime;
     private m_eye: CBossEye;
 
     constructor(playGameState: CPlayGameState) {
         super();
         this.m_playGameState = playGameState;
         this.m_is_started = false;
-        this.m_timer = new gsCTimer();
+        this.m_timer = new GameTime();
 
         this.m_script = [];
         this.m_script.push(new BossScriptItem(BossState.BOSS_MOVE_DOWN, 500));
@@ -128,7 +127,7 @@ class CBossControl extends CBoss {
 
     //-------------------------------------------------------------
 
-    public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+    public update(controls: Controls, gameTime: GameTime): boolean {
         if (this.m_state == BossState.BOSS_DEAD) {
             return true;
         }
@@ -192,22 +191,22 @@ class CBossControl extends CBoss {
         }
 
         if (this.m_script_pointer.m_state == BossState.BOSS_ROAR) {
-            this.m_playGameState.playSample(enums.GameSampleType.SAMPLE_ROAR);
+            this.m_playGameState.playSample(Enums.GameSampleType.SAMPLE_ROAR);
             this.m_script_pointer = this.m_script[++this.m_script_pointer_count];
         }
 
         if (this.m_script_pointer.m_state == BossState.BOSS_SNORT) {
-            this.m_playGameState.playSample(enums.GameSampleType.SAMPLE_SNORT);
+            this.m_playGameState.playSample(Enums.GameSampleType.SAMPLE_SNORT);
             this.m_script_pointer = this.m_script[++this.m_script_pointer_count];
         }
 
         if (this.m_script_pointer.m_state == BossState.BOSS_OPEN_EYES) {
-            this.m_eye.setState(enums.BossEyeState.BOSSEYE_OPEN);
+            this.m_eye.setState(Enums.BossEyeState.BOSSEYE_OPEN);
             this.m_script_pointer = this.m_script[++this.m_script_pointer_count];
         }
 
         if (this.m_script_pointer.m_state == BossState.BOSS_SHUT_EYES) {
-            this.m_eye.setState(enums.BossEyeState.BOSSEYE_SHUT);
+            this.m_eye.setState(Enums.BossEyeState.BOSSEYE_SHUT);
             this.m_script_pointer = this.m_script[++this.m_script_pointer_count];
         }
 
@@ -235,8 +234,8 @@ class CBossControl extends CBoss {
         this.m_scene.findShip().setCloak(1000.0);
         this.m_yscroll = 1;
         var epicentre: gsCVector = this.m_mouth.getPosition();
-        var tile_size: gsCPoint = this.m_scene.getMap().getImage().getTileSize();
-        this.m_tile_pos = <gsCPoint>(epicentre).divide(tile_size);
+        var tile_size: Point = this.m_scene.getMap().getImage().getTileSize();
+        this.m_tile_pos = <Point>(epicentre).divide(tile_size);
         this.m_size = 1;
         this.m_destruction_timer.start();
     }
@@ -248,13 +247,13 @@ class CBossControl extends CBoss {
             this.m_destruction_timer.start();
 
             for (var x = 0; x < this.m_size; x++) {
-                this.explodeTile(this.m_tile_pos.add(new gsCPoint(x, 0)));
-                this.explodeTile(this.m_tile_pos.add(new gsCPoint(x, this.m_size - 1)));
-                this.explodeTile(this.m_tile_pos.add(new gsCPoint(0, x)));
-                this.explodeTile(this.m_tile_pos.add(new gsCPoint(this.m_size - 1, x)));
+                this.explodeTile(this.m_tile_pos.add(new Point(x, 0)));
+                this.explodeTile(this.m_tile_pos.add(new Point(x, this.m_size - 1)));
+                this.explodeTile(this.m_tile_pos.add(new Point(0, x)));
+                this.explodeTile(this.m_tile_pos.add(new Point(this.m_size - 1, x)));
             }
 
-            this.m_tile_pos = this.m_tile_pos.subtract(new gsCPoint(1, 1));
+            this.m_tile_pos = this.m_tile_pos.subtract(new Point(1, 1));
             this.m_size += 2;
 
             if (this.m_size > 21) {
@@ -265,7 +264,7 @@ class CBossControl extends CBoss {
 
     //-------------------------------------------------------------
 
-    public explodeTile(pos: gsCPoint): void {
+    public explodeTile(pos: Point): void {
         var map = this.m_scene.getMap();
 
         var tile: gsCMapTile = map.getMapTile(pos);
@@ -275,11 +274,11 @@ class CBossControl extends CBoss {
                 tile.setHidden(true); //?
                 var exp: CBigExplosion = new CBigExplosion(this.m_playGameState);
                 this.m_scene.addActor(exp);
-                var tile_size: gsCPoint = map.getImage().getTileSize();
-                //var tile_centre: gsCPoint = tile_size / new gsCPoint(2, 2);
-                var tile_centre: gsCPoint = tile_size.divide(new gsCPoint(2, 2));
-                //var p: gsCPoint = pos * tile_size + tile_centre;
-                var p: gsCPoint = pos.multiply(tile_size.add(tile_centre));
+                var tile_size: Point = map.getImage().getTileSize();
+                //var tile_centre: Point = tile_size / new Point(2, 2);
+                var tile_centre: Point = tile_size.divide(new Point(2, 2));
+                //var p: Point = pos * tile_size + tile_centre;
+                var p: Point = pos.multiply(tile_size.add(tile_centre));
                 exp.setPosition(new gsCVector(p.X, p.Y));
                 exp.activate();
             }
@@ -290,14 +289,11 @@ class CBossControl extends CBoss {
 
     public getActorInfo() {
         this.m_actorInfo = this.m_scene.GetlistOfActors();
-        return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_BOSSCONTROL);
+        return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_BOSSCONTROL);
     }
 }
 
-export = CBossControl;
-
-
-class BossScriptItem {
+export class BossScriptItem {
     public m_state: BossState;
     public m_param: number;
 

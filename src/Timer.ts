@@ -1,8 +1,8 @@
-﻿import enums = require("Enums");
+﻿import { Enums } from "./Enums";
 
-class gsCTimer {
+export class GameTime {
     private m_base_time: number = 0;
-    private m_state: enums.gsTimerState;
+    private m_state: Enums.gsTimerState;
 
     private m_freq: number = 3323581;
     private m_time0: number = 0;
@@ -15,7 +15,7 @@ class gsCTimer {
 
     constructor() {
         this.m_base_time = 0;
-        this.m_state = enums.gsTimerState.gsTIMER_RESET;
+        this.m_state = Enums.gsTimerState.gsTIMER_RESET;
         this.initialize();
     }
 
@@ -42,21 +42,21 @@ class gsCTimer {
     //-------------------------------------------------------------
     // Reset timer
     public reset() {
-        this.m_state = enums.gsTimerState.gsTIMER_RESET;
+        this.m_state = Enums.gsTimerState.gsTIMER_RESET;
     }
 
     //-------------------------------------------------------------
     // Start timer
     public start() {
         this.m_base_time = this.m_system_time;
-        this.m_state = enums.gsTimerState.gsTIMER_ACTIVE;
+        this.m_state = Enums.gsTimerState.gsTIMER_ACTIVE;
     }
 
     //-------------------------------------------------------------
     // Pause timer
     public pause() {
         this.m_base_time = this.m_system_time;
-        this.m_state = enums.gsTimerState.gsTIMER_PAUSED;
+        this.m_state = Enums.gsTimerState.gsTIMER_PAUSED;
     }
 
     //-------------------------------------------------------------
@@ -66,7 +66,7 @@ class gsCTimer {
     //			the timer was paused
     public unpause() {
         this.m_base_time = this.m_system_time - this.m_base_time;
-        this.m_state = enums.gsTimerState.gsTIMER_ACTIVE;
+        this.m_state = Enums.gsTimerState.gsTIMER_ACTIVE;
     }
 
     //-------------------------------------------------------------
@@ -81,16 +81,16 @@ class gsCTimer {
     }
 
     //-------------------------------------------------------------
-    // Get current time 
+    // Get current time
     //
     // Returns:	Current time in seconds since timer was started
     public getTime(): number {
         switch (this.m_state) {
-            case enums.gsTimerState.gsTIMER_ACTIVE:
+            case Enums.gsTimerState.gsTIMER_ACTIVE:
                 var time = this.m_system_time - this.m_base_time;
                 time = this.m_ian_timer += this.m_ian_inc;
                 return time;
-            case enums.gsTimerState.gsTIMER_PAUSED:
+            case Enums.gsTimerState.gsTIMER_PAUSED:
                 return this.m_base_time;
             default:
                 return 0;
@@ -112,5 +112,3 @@ class gsCTimer {
         return t / this.m_freq;
     }
 }
-
-export = gsCTimer;

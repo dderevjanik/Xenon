@@ -1,16 +1,15 @@
-﻿import gsCControls = require("Controls");
-import gsCTimer = require("Timer");
-import CAlien = require("Alien");
-import enums = require("Enums");
-import gsCVector = require("Vector");
-import CDustEffect = require("DustEffect");
-import CStandardDustEffect = require("StandardDustEffect");
-import CHighDensityDustEffect = require("HighDensityDustEffect");
-import CPlayGameState = require("PlayGameState");
-import CExplode = require("Exploder");
+﻿import { CAlien } from "./Alien";
+import { CPlayGameState } from "./PlayGameState";
+import { Controls } from "./Controls";
+import { GameTime } from "./Timer";
+import { Enums } from "./Enums";
+import { CHighDensityDustEffect } from "./HighDensityDustEffect";
+import { CDustEffect } from "./DustEffect";
+import { gsCVector } from "./Vector";
+import { CStandardDustEffect } from "./StandardDustEffect";
+import { CExploder } from "./Exploder";
 
-export = Asteroid;
-module Asteroid {
+export module Asteroid {
 
     export class CAsteroid extends CAlien {
 
@@ -31,7 +30,7 @@ module Asteroid {
 
         //-------------------------------------------------------------
 
-        public update(controls: gsCControls, gameTime: gsCTimer): boolean {
+        public update(controls: Controls, gameTime: GameTime): boolean {
             this.gameTime = gameTime;
             if (this.m_shield == 0) {
                 this.fragment();
@@ -39,7 +38,7 @@ module Asteroid {
             }
 
             this.m_position.plusEquals(this.m_velocity);
-            this.animate(enums.AnimationMode.ANIMATE_LOOP);
+            this.animate(Enums.AnimationMode.ANIMATE_LOOP);
             return true;
         }
 
@@ -57,15 +56,15 @@ module Asteroid {
 
         public getActorInfo() {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
-            return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_SMALL_STANDARD_ASTEROID);
+            return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SMALL_STANDARD_ASTEROID);
         }
 
         //-------------------------------------------------------------
 
         public fragment(): void {
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             this.kill();
-            this.m_playGameState.playSample(enums.GameSampleType.SAMPLE_ASTEROID_BREAKUP);//getPosition().getX());
+            this.m_playGameState.playSample(Enums.GameSampleType.SAMPLE_ASTEROID_BREAKUP);//getPosition().getX());
         }
     }
 
@@ -77,15 +76,15 @@ module Asteroid {
 
         public getActorInfo() {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
-            return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_SMALL_HIGHDENSITY_ASTEROID);
+            return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SMALL_HIGHDENSITY_ASTEROID);
         }
 
         //-------------------------------------------------------------
 
         public fragment(): void {
-            var explode = new CExplode(this);
+            var explode = new CExploder(this);
             this.kill();
-            this.m_playGameState.playSample(enums.GameSampleType.SAMPLE_ASTEROID_BREAKUP);//getPosition().getX());
+            this.m_playGameState.playSample(Enums.GameSampleType.SAMPLE_ASTEROID_BREAKUP);//getPosition().getX());
         }
     }
 
@@ -97,7 +96,7 @@ module Asteroid {
 
         public getActorInfo() {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
-            return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_SMALL_INDESTRUCTIBLE_ASTEROID);
+            return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_SMALL_INDESTRUCTIBLE_ASTEROID);
         }
         //-------------------------------------------------------------
         public fragment(): void {
@@ -112,7 +111,7 @@ module Asteroid {
 
         public getActorInfo() {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
-            return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_MEDIUM_STANDARD_ASTEROID);
+            return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_MEDIUM_STANDARD_ASTEROID);
         }
 
         //-------------------------------------------------------------
@@ -155,7 +154,7 @@ module Asteroid {
 
         public getActorInfo() {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
-            return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_MEDIUM_HIGHDENSITY_ASTEROID);
+            return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_MEDIUM_HIGHDENSITY_ASTEROID);
         }
 
         //-------------------------------------------------------------
@@ -186,7 +185,7 @@ module Asteroid {
             //}
 
             this.kill();
-            this.m_playGameState.playSample(enums.GameSampleType.SAMPLE_ASTEROID_BREAKUP);//getPosition().getX());
+            this.m_playGameState.playSample(Enums.GameSampleType.SAMPLE_ASTEROID_BREAKUP);//getPosition().getX());
         }
     }
 
@@ -198,7 +197,7 @@ module Asteroid {
 
         public getActorInfo() {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
-            return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_MEDIUM_INDESTRUCTIBLE_ASTEROID);
+            return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_MEDIUM_INDESTRUCTIBLE_ASTEROID);
         }
 
         //-------------------------------------------------------------
@@ -213,7 +212,7 @@ module Asteroid {
 
         public getActorInfo() {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
-            return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_BIG_STANDARD_ASTEROID);
+            return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_BIG_STANDARD_ASTEROID);
         }
 
         //-------------------------------------------------------------
@@ -251,7 +250,7 @@ module Asteroid {
             //}
 
             this.kill();
-            this.m_playGameState.playSample(enums.GameSampleType.SAMPLE_ASTEROID_BREAKUP);//getPosition().getX());
+            this.m_playGameState.playSample(Enums.GameSampleType.SAMPLE_ASTEROID_BREAKUP);//getPosition().getX());
         }
     }
 
@@ -263,7 +262,7 @@ module Asteroid {
 
         public getActorInfo() {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
-            return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_BIG_HIGHDENSITY_ASTEROID);
+            return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_BIG_HIGHDENSITY_ASTEROID);
         }
 
         //-------------------------------------------------------------
@@ -301,7 +300,7 @@ module Asteroid {
             //}
 
             this.kill();
-            this.m_playGameState.playSample(enums.GameSampleType.SAMPLE_ASTEROID_BREAKUP);//getPosition().getX());
+            this.m_playGameState.playSample(Enums.GameSampleType.SAMPLE_ASTEROID_BREAKUP);//getPosition().getX());
         }
     }
 
@@ -313,7 +312,7 @@ module Asteroid {
 
         public getActorInfo() {
             this.m_actorInfo = this.m_scene.GetlistOfActors();
-            return this.m_actorInfo.GetActorInfoListItem(enums.ActorInfoType.INFO_BIG_INDESTRUCTIBLE_ASTEROID);
+            return this.m_actorInfo.GetActorInfoListItem(Enums.ActorInfoType.INFO_BIG_INDESTRUCTIBLE_ASTEROID);
         }
 
         //-------------------------------------------------------------

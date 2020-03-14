@@ -1,7 +1,6 @@
-﻿import gsCVector = require("Vector");
+﻿import { gsCVector } from "./Vector";
 
-class Particle {
-
+export class Particle {
     m_position: gsCVector;
     m_velocity:gsCVector;
     m_mass:number;
@@ -9,5 +8,3 @@ class Particle {
     m_lifetime: number;
     m_name = "Particle";
 }
-
-export = Particle;
