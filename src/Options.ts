@@ -108,9 +108,10 @@ export class Options {
                     this.m_reload = true;
                     break;
                 case OptionType.OPTION_SOUNDFX:
-                    if (value == 0)
+                    if (value == 0) {
                         //CGameState::stopSamples();
-                        break;
+                    }
+                    break;
                 case OptionType.OPTION_MUSIC:
                     if (value == 0)
                         //CGameState::stopMusic();
